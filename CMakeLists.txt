@@ -1,0 +1,44 @@
+# CMakeのバージョン
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+# リリースビルド用オプション
+SET(CMAKE_C_FLAGS_RELEASE "-Wall -O2")
+
+# デバッグビルド用オプション
+SET(CMAKE_C_FLAGS_DEBUG "-g")
+
+# ビルドのタイプはリリース
+SET(CMAKE_BUILD_TYPE Release)
+
+# 環境変数の登録
+
+
+# プロジェクト名
+PROJECT(objectPoseEstimation)
+
+# 実行に必要なライブラリのパッケージを見つける
+FIND_PACKAGE(opencv)
+
+# バージョン番号
+SET(serial "1.0.0")
+
+# ビルドするためにインクルードするヘッダーファイルの場所
+INCLUDE_DIRECTORIES("${PROJECT_SOURCE_DIR}")
+INCLUDE_DIRECTORIES("/usr/local/include")
+INCLUDE_DIRECTORIES(${OPENCV_INCLUDE_DIRS})
+
+# ライブラリの場所
+LINK_DIRECTORIES("/usr/local/lib")
+
+# 実行ファイルを生成
+ADD_EXECUTABLE(objectPoseEstimation objectPoseEstimation.cpp)
+ADD_EXECUTABLE(learning learning.cpp)
+
+# バージョン番号の適用
+SET_TARGET_PROPERTIES(objectPoseEstimation PROPERTIES VERSION ${serial})
+SET_TARGET_PROPERTIES(learning PROPERTIES VERSION ${serial})
+
+# ライブラリとリンクする
+TARGET_LINK_LIBRARIES(objectPoseEstimation ${OPENCV_LIBRARIES})
+TARGET_LINK_LIBRARIES(learning ${OPENCV_LIBRARIES})
+

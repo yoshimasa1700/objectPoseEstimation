@@ -1,0 +1,1 @@
+/usr/bin/c++   -O3 -DNDEBUG -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/learning.dir/learning.cpp.o  -o learning-1.0.0  -L/usr/local/lib 

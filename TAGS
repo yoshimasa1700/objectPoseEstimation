@@ -1,0 +1,108 @@
+
+CMakeCache.txt,35
+CMAKE_AR:FILEPATH=FILEPATH18,710
+
+CMakeLists.txt,85
+CMAKE_MINIMUM_REQUIRED(2,26
+LINK_DIRECTORIES(31,748
+SET_TARGET_PROPERTIES(39,1021
+
+CPatch.cpp,34
+void CPatch::extractPatches(3,20
+
+CPatch.h,48
+class CPatch 3,31
+ CPatch(CPatch::CPatch6,56
+
+Makefile,17
+SUFFIXES 15,456
+
+cmake_install.cmake,26
+IF(4,104
+  FILE(38,1360
+
+learning.cpp,579
+#define PATH_SEP 1,0
+string treepath;18,230
+int ntrees;20,266
+int p_width;22,293
+int p_height;24,322
+string impath;26,354
+string imfiles;28,398
+bool xtrFeature;30,434
+vector<float> scales;32,461
+vector<float> ratios;34,492
+string outpath;36,529
+int out_scale;38,593
+string trainpospath;40,637
+string trainposfiles;42,688
+int subsamples_pos;44,754
+unsigned int samples_pos;46,811
+string trainnegpath;48,867
+string trainnegfiles;50,918
+int subsamples_neg;52,979
+unsigned int samples_neg;54,1029
+int off_tree;57,1089
+void loadConfig(60,1136
+int main(171,4330
+
+learning.cpp~,607
+#define PATH_SEP 1,0
+using namespace std;15,183
+string treepath;18,222
+int ntrees;20,258
+int p_width;22,285
+int p_height;24,314
+string impath;26,346
+string imfiles;28,390
+bool xtrFeature;30,426
+vector<float> scales;32,453
+vector<float> ratios;34,484
+string outpath;36,521
+int out_scale;38,585
+string trainpospath;40,629
+string trainposfiles;42,680
+int subsamples_pos;44,746
+unsigned int samples_pos;46,803
+string trainnegpath;48,859
+string trainnegfiles;50,910
+int subsamples_neg;52,971
+unsigned int samples_neg;54,1021
+int off_tree;57,1081
+void loadConfig(60,1128
+int main(171,4322
+
+objectPoseEstimation.cpp,14
+int main(1,0
+
+objectPoseEstimation.cpp~,0
+
+objectPoseEstimation-1.0.0,0
+
+objectPoseEstimation,0
+
+learning-1.0.0,0
+
+learning,0
+
+config.txt,0
+
+TAGS,0
+
+CRTree.h,0
+
+CRTree.cpp,0
+
+CRForest.h,0
+
+CRForest.cpp,0
+
+CRFEstimator.h,0
+
+CRFEstimator.cpp,0
+
+CPatch.h~,0
+
+CPatch.cpp~,0
+
+CMakeLists.txt~,0
