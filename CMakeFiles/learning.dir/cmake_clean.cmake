@@ -1,5 +1,6 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/learning.dir/learning.cpp.o"
+  "CMakeFiles/learning.dir/loadConfig.cpp.o"
   "learning.pdb"
   "learning"
   "learning-1.0.0"

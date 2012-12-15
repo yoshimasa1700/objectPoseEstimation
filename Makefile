@@ -151,6 +151,30 @@ learning.cpp.s:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/learning.cpp.s
 .PHONY : learning.cpp.s
 
+loadConfig.o: loadConfig.cpp.o
+.PHONY : loadConfig.o
+
+# target to build an object file
+loadConfig.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.o
+.PHONY : loadConfig.cpp.o
+
+loadConfig.i: loadConfig.cpp.i
+.PHONY : loadConfig.i
+
+# target to preprocess a source file
+loadConfig.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.i
+.PHONY : loadConfig.cpp.i
+
+loadConfig.s: loadConfig.cpp.s
+.PHONY : loadConfig.s
+
+# target to generate assembly for a file
+loadConfig.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.s
+.PHONY : loadConfig.cpp.s
+
 objectPoseEstimation.o: objectPoseEstimation.cpp.o
 .PHONY : objectPoseEstimation.o
 
@@ -188,6 +212,9 @@ help:
 	@echo "... learning.o"
 	@echo "... learning.i"
 	@echo "... learning.s"
+	@echo "... loadConfig.o"
+	@echo "... loadConfig.i"
+	@echo "... loadConfig.s"
 	@echo "... objectPoseEstimation.o"
 	@echo "... objectPoseEstimation.i"
 	@echo "... objectPoseEstimation.s"

@@ -16,6 +16,7 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/Applications/CMake 2.8-9.app/Contents/share/cmake-2.8/Modules/Compiler/GNU-C.cmake"
   "/Applications/CMake 2.8-9.app/Contents/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake"
   "/Applications/CMake 2.8-9.app/Contents/share/cmake-2.8/Modules/Compiler/GNU.cmake"
+  "/Applications/CMake 2.8-9.app/Contents/share/cmake-2.8/Modules/FindBoost.cmake"
   "/Applications/CMake 2.8-9.app/Contents/share/cmake-2.8/Modules/Platform/Darwin-GNU-C.cmake"
   "/Applications/CMake 2.8-9.app/Contents/share/cmake-2.8/Modules/Platform/Darwin-GNU.cmake"
   "/Applications/CMake 2.8-9.app/Contents/share/cmake-2.8/Modules/Platform/Darwin.cmake"
@@ -24,8 +25,8 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeSystem.cmake"
   "CMakeLists.txt"
-  "/usr/local/share/OpenCV/opencvConfig-version.cmake"
-  "/usr/local/share/OpenCV/opencvConfig.cmake"
+  "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
+  "/usr/local/share/OpenCV/OpenCVConfig.cmake"
   )
 
 # The corresponding makefile is:

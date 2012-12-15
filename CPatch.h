@@ -8,7 +8,7 @@ class CPatch
  public:
  CPatch(CvRNG* pRNG, int w, int h, int num_l)
    : cvRNG(pRNG), width(w), height(h){}
-
+  
   //extract patch and hold patch
   void extractPatches(cv::Mat *img,
 		      unsigned int n,

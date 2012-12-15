@@ -84,6 +84,23 @@ objectPoseEstimation_EXTERNAL_OBJECTS =
 
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/build.make
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_calib3d.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_contrib.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_core.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_features2d.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_flann.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_gpu.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_highgui.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_imgproc.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_legacy.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_ml.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_nonfree.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_objdetect.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_photo.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_stitching.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_ts.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_video.dylib
+objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_videostab.dylib
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable objectPoseEstimation"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/objectPoseEstimation.dir/link.txt --verbose=$(VERBOSE)

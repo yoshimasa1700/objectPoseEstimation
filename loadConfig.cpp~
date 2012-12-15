@@ -1,0 +1,6 @@
+#include <loadConfig.h>
+
+int CConfig::loadConfig(const char* filename)
+{
+  
+}

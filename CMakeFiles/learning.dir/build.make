@@ -75,15 +75,57 @@ CMakeFiles/learning.dir/learning.cpp.o.provides: CMakeFiles/learning.dir/learnin
 
 CMakeFiles/learning.dir/learning.cpp.o.provides.build: CMakeFiles/learning.dir/learning.cpp.o
 
+CMakeFiles/learning.dir/loadConfig.cpp.o: CMakeFiles/learning.dir/flags.make
+CMakeFiles/learning.dir/loadConfig.cpp.o: loadConfig.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/loadConfig.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/loadConfig.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/loadConfig.cpp
+
+CMakeFiles/learning.dir/loadConfig.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/loadConfig.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/masahiko/Programs/objectPoseEstimation/loadConfig.cpp > CMakeFiles/learning.dir/loadConfig.cpp.i
+
+CMakeFiles/learning.dir/loadConfig.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/loadConfig.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/loadConfig.cpp -o CMakeFiles/learning.dir/loadConfig.cpp.s
+
+CMakeFiles/learning.dir/loadConfig.cpp.o.requires:
+.PHONY : CMakeFiles/learning.dir/loadConfig.cpp.o.requires
+
+CMakeFiles/learning.dir/loadConfig.cpp.o.provides: CMakeFiles/learning.dir/loadConfig.cpp.o.requires
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.o.provides.build
+.PHONY : CMakeFiles/learning.dir/loadConfig.cpp.o.provides
+
+CMakeFiles/learning.dir/loadConfig.cpp.o.provides.build: CMakeFiles/learning.dir/loadConfig.cpp.o
+
 # Object files for target learning
 learning_OBJECTS = \
-"CMakeFiles/learning.dir/learning.cpp.o"
+"CMakeFiles/learning.dir/learning.cpp.o" \
+"CMakeFiles/learning.dir/loadConfig.cpp.o"
 
 # External object files for target learning
 learning_EXTERNAL_OBJECTS =
 
 learning-1.0.0: CMakeFiles/learning.dir/learning.cpp.o
+learning-1.0.0: CMakeFiles/learning.dir/loadConfig.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/build.make
+learning-1.0.0: /usr/local/lib/libopencv_calib3d.dylib
+learning-1.0.0: /usr/local/lib/libopencv_contrib.dylib
+learning-1.0.0: /usr/local/lib/libopencv_core.dylib
+learning-1.0.0: /usr/local/lib/libopencv_features2d.dylib
+learning-1.0.0: /usr/local/lib/libopencv_flann.dylib
+learning-1.0.0: /usr/local/lib/libopencv_gpu.dylib
+learning-1.0.0: /usr/local/lib/libopencv_highgui.dylib
+learning-1.0.0: /usr/local/lib/libopencv_imgproc.dylib
+learning-1.0.0: /usr/local/lib/libopencv_legacy.dylib
+learning-1.0.0: /usr/local/lib/libopencv_ml.dylib
+learning-1.0.0: /usr/local/lib/libopencv_nonfree.dylib
+learning-1.0.0: /usr/local/lib/libopencv_objdetect.dylib
+learning-1.0.0: /usr/local/lib/libopencv_photo.dylib
+learning-1.0.0: /usr/local/lib/libopencv_stitching.dylib
+learning-1.0.0: /usr/local/lib/libopencv_ts.dylib
+learning-1.0.0: /usr/local/lib/libopencv_video.dylib
+learning-1.0.0: /usr/local/lib/libopencv_videostab.dylib
 learning-1.0.0: CMakeFiles/learning.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable learning"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/learning.dir/link.txt --verbose=$(VERBOSE)
@@ -96,6 +138,7 @@ CMakeFiles/learning.dir/build: learning
 .PHONY : CMakeFiles/learning.dir/build
 
 CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/learning.cpp.o.requires
+CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/loadConfig.cpp.o.requires
 .PHONY : CMakeFiles/learning.dir/requires
 
 CMakeFiles/learning.dir/clean:

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- Path to trees -->
+  <treepath>example/trees/treetable</treepath>
+  <!-- Number of trees -->
+  <ntree>10</ntree>
+  <!-- Patch width -->
+  <pwidth>16</pwidth>
+  <!-- Patch height -->
+  <pheight>16</pheight>
+  <!-- Path to images-->
+  <imgpath>example/testimage</imgpath>
+  <!-- Image name list -->
+  <imgnamelist>example/test.txt</imgnamelist>
+  <!-- Extract features -->
+  <efeatures>1</efeatures>
+  <!-- Scales -->
+  <scales>
+    <s1>3</s1>
+    <s2>0.5</s2>
+    <s3>1</s3>
+    <s4>2</s4>
+  </scales>
+  <!-- Ratios -->
+  <ratio>
+    <r1>1</r1>
+    <r2>1</r2>
+  </ratio>
+  <!-- Output path-->
+  <outpath>example/detect</outpath>
+  <!-- Scale factor for output image-->
+  <sfactor>50</sfactor>
+  <!-- Path to training images -->
+  <trainimgpath>trainData</trainimgpath>
+  <!-- Train data file name -->
+  <traindataname>trainData.txt</traindataname>
+</root>
