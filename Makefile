@@ -127,6 +127,30 @@ objectPoseEstimation/fast:
 	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/build
 .PHONY : objectPoseEstimation/fast
 
+CDataset.o: CDataset.cpp.o
+.PHONY : CDataset.o
+
+# target to build an object file
+CDataset.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.o
+.PHONY : CDataset.cpp.o
+
+CDataset.i: CDataset.cpp.i
+.PHONY : CDataset.i
+
+# target to preprocess a source file
+CDataset.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.i
+.PHONY : CDataset.cpp.i
+
+CDataset.s: CDataset.cpp.s
+.PHONY : CDataset.s
+
+# target to generate assembly for a file
+CDataset.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.s
+.PHONY : CDataset.cpp.s
+
 learning.o: learning.cpp.o
 .PHONY : learning.o
 
@@ -209,6 +233,9 @@ help:
 	@echo "... learning"
 	@echo "... objectPoseEstimation"
 	@echo "... rebuild_cache"
+	@echo "... CDataset.o"
+	@echo "... CDataset.i"
+	@echo "... CDataset.s"
 	@echo "... learning.o"
 	@echo "... learning.i"
 	@echo "... learning.s"

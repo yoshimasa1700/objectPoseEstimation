@@ -1,0 +1,12 @@
+#ifndef __CFILELIST__
+#define __CFILELIST__
+
+#include <vector>
+#include <iostream>
+#include <string>
+
+class CDataset {
+ public:
+  
+
+}

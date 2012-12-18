@@ -1,0 +1,109 @@
+#ifndef __LOADTRAINFILE__
+#define __LOADTRAINFILE__
+
+#define PATH_SEP "/"
+#define IMAGES_PER_TREE 50.0
+
+#include <stdexcept>
+
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <time.h>
+
+#include <boost/random.hpp>
+
+#include <opencv/highgui.h>
+#include <opencv2/opencv.hpp>
+#include <opencv/cxcore.hpp>
+
+#include "CPatch.h"
+#include "CRTree.h"
+#include "CDataset.h"
+
+#include "loadConfig.h"
+#include "loadTrainFile.h"
+
+using namespace std;
+
+void loadTrainFile(CConfig conf, std::vector<CDataset> dataSet, boost::minstd_rand gen)
+{
+
+  string traindatafilepath = conf.trainpath + PATH_SEP +  conf.traindatafile;
+  int n_folders;
+  int n_files;
+  std::vector<string> trainimagefolder;
+  CDataset temp;
+  std::vector<CDataset> tempDataSet;
+  string trainDataListPath;
+  int dataSetNum;
+
+  boost::uniform_real<> dst( 0, 1 );
+  boost::variate_generator<boost::minstd_rand&, 
+			   boost::uniform_real<> > rand( gen, dst );
+  
+  //read train data folder list
+  cout << "train data folder list path: " << traindatafilepath << endl;
+  ifstream in(traindatafilepath.c_str());
+  if(!in.is_open()){
+    cout << "train data floder list is not found!" << endl;
+    exit(1);
+  }
+  in >> n_folders;
+  cout << "number of training data folder: "<< n_folders << endl;
+  trainimagefolder.resize(n_folders);
+  for(int i = 0;i < n_folders; ++i)
+    in >> trainimagefolder.at(i);
+  in.close();
+  cout << "training folder list: " << endl;
+  for(int i = 0;i < n_folders;  ++i)
+    cout << "\t"  <<trainimagefolder.at(i) << endl;
+
+  //read train file name and grand truth from file
+  tempDataSet.resize(0);
+  for(int i =0;i < n_folders; ++i){
+    trainDataListPath 
+      = conf.trainpath + PATH_SEP + trainimagefolder.at(i) 
+      + PATH_SEP + "dataList.txt";
+    cout << trainDataListPath << endl;
+    ifstream trainDataList(trainDataListPath.c_str());
+    trainDataList >> n_files;
+    cout << "number of file: " << n_files << endl;
+    
+    for(int j = 0;j < n_files; ++j){
+      //read file names
+      trainDataList >> temp.rgbImageName;
+      trainDataList >> temp.depthImageName;
+      trainDataList >> temp.maskImageName;
+
+      //read bounding box
+      trainDataList >> temp.bBox.x;
+      trainDataList >> temp.bBox.y;
+      trainDataList >> temp.bBox.width;
+      trainDataList >> temp.bBox.height;
+      
+      //read center point
+      trainDataList >> temp.centerPoint.x;
+      trainDataList >> temp.centerPoint.y;
+      
+      //read class name
+      trainDataList >> temp.className;
+
+      //read angle grand truth
+      trainDataList >> temp.angle;
+
+      //show read data *for debug
+      //temp.showDataset();
+     
+      tempDataSet.push_back(temp);
+    }
+    trainDataList.close();
+  }
+
+  dataSetNum = tempDataSet.size();
+  for(int i = 0;i < dataSetNum; ++i)
+    if(rand() * dataSetNum < conf.imagePerTree)
+      dataSet.push_back(tempDataSet.at(i));
+  cout << "train data number: " << dataSet.size() << endl;
+}

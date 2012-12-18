@@ -34,7 +34,7 @@ LINK_DIRECTORIES("/usr/local/lib")
 
 # 実行ファイルを生成
 ADD_EXECUTABLE(objectPoseEstimation objectPoseEstimation.cpp)
-ADD_EXECUTABLE(learning learning.cpp loadConfig.cpp)
+ADD_EXECUTABLE(learning learning.cpp loadConfig.cpp CDataset.cpp)
 
 # ライブラリとリンクする
 TARGET_LINK_LIBRARIES(objectPoseEstimation ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})

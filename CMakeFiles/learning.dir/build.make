@@ -98,16 +98,41 @@ CMakeFiles/learning.dir/loadConfig.cpp.o.provides: CMakeFiles/learning.dir/loadC
 
 CMakeFiles/learning.dir/loadConfig.cpp.o.provides.build: CMakeFiles/learning.dir/loadConfig.cpp.o
 
+CMakeFiles/learning.dir/CDataset.cpp.o: CMakeFiles/learning.dir/flags.make
+CMakeFiles/learning.dir/CDataset.cpp.o: CDataset.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CDataset.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CDataset.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/CDataset.cpp
+
+CMakeFiles/learning.dir/CDataset.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/CDataset.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/masahiko/Programs/objectPoseEstimation/CDataset.cpp > CMakeFiles/learning.dir/CDataset.cpp.i
+
+CMakeFiles/learning.dir/CDataset.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CDataset.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/CDataset.cpp -o CMakeFiles/learning.dir/CDataset.cpp.s
+
+CMakeFiles/learning.dir/CDataset.cpp.o.requires:
+.PHONY : CMakeFiles/learning.dir/CDataset.cpp.o.requires
+
+CMakeFiles/learning.dir/CDataset.cpp.o.provides: CMakeFiles/learning.dir/CDataset.cpp.o.requires
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.o.provides.build
+.PHONY : CMakeFiles/learning.dir/CDataset.cpp.o.provides
+
+CMakeFiles/learning.dir/CDataset.cpp.o.provides.build: CMakeFiles/learning.dir/CDataset.cpp.o
+
 # Object files for target learning
 learning_OBJECTS = \
 "CMakeFiles/learning.dir/learning.cpp.o" \
-"CMakeFiles/learning.dir/loadConfig.cpp.o"
+"CMakeFiles/learning.dir/loadConfig.cpp.o" \
+"CMakeFiles/learning.dir/CDataset.cpp.o"
 
 # External object files for target learning
 learning_EXTERNAL_OBJECTS =
 
 learning-1.0.0: CMakeFiles/learning.dir/learning.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/loadConfig.cpp.o
+learning-1.0.0: CMakeFiles/learning.dir/CDataset.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/build.make
 learning-1.0.0: /usr/local/lib/libopencv_calib3d.dylib
 learning-1.0.0: /usr/local/lib/libopencv_contrib.dylib
@@ -139,6 +164,7 @@ CMakeFiles/learning.dir/build: learning
 
 CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/learning.cpp.o.requires
 CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/loadConfig.cpp.o.requires
+CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/CDataset.cpp.o.requires
 .PHONY : CMakeFiles/learning.dir/requires
 
 CMakeFiles/learning.dir/clean:

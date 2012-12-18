@@ -121,6 +121,39 @@ int CConfig::loadConfig(const char* filename)
   else {
     std::cout << "root.str is nothing" << std::endl;
   }
+
+
+  // load training image name list
+  if (boost::optional<std::string> str
+      = pt.get_optional<std::string>("root.traindataname")) {
+    std::cout << str.get() << std::endl;
+    traindatafile = *str;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+  
+  // load training image folder
+  if (boost::optional<std::string> str
+      = pt.get_optional<std::string>("root.trainimgpath")) {
+    std::cout << str.get() << std::endl;
+    trainpath = *str;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+
+  // load scale factor for output imae
+  if (boost::optional<int> integer
+      = pt.get_optional<int>("root.trainimagepertree")) {
+    std::cout << integer << std::endl;
+    imagePerTree = *integer;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+  
+
   
   return 0;
   

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- Path to trees -->
-  <treepath>example/trees/treetable</treepath>
+  <treepath>trees/treetable</treepath>
   <!-- Number of trees -->
   <ntree>10</ntree>
   <!-- Patch width -->
@@ -34,4 +34,6 @@
   <trainimgpath>trainData</trainimgpath>
   <!-- Train data file name -->
   <traindataname>trainData.txt</traindataname>
+  <!-- Train image per tree-->
+  <trainimagepertree>30</trainimagepertree>
 </root>
