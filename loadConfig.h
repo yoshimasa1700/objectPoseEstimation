@@ -18,8 +18,8 @@ class CConfig
 
   int loadConfig(const char* filename);
   
-  // Path to trees
-  string		treepath;
+				// Path to trees
+  string	treepath;
   // Number of trees
   int		ntrees;
   // Patch width
@@ -27,9 +27,9 @@ class CConfig
   // Patch height
   int		p_height;
   // Path to images
-  string		impath;
+  string	impath;
   // File with names of images
-  string		imfiles;
+  string	imfiles;
   // Extract features
   bool		xtrFeature;
   // Scales
@@ -37,25 +37,25 @@ class CConfig
   // Ratio
   vector<float>	ratios;
   // Output path
-  string		outpath;
+  string	outpath;
   // scale factor for output image (default: 128)
   int		out_scale;
   // Path to training image folder 12/12/14 MasahikoToyoshi
-  string trainpath;
+  string	trainpath;
   // training data file name
-  string traindatafile;
+  string	traindatafile;
   // Path to positive examples
-  string		trainpospath;
+  string	trainpospath;
   // File with postive examples
-  string		trainposfiles;
+  string	trainposfiles;
   // Subset of positive images -1: all images
   int		subsamples_pos;
   // Sample patches from pos. examples
   unsigned int	samples_pos;
   // Path to positive examples
-  string		trainnegpath;
+  string	trainnegpath;
   // File with postive examples
-  string		trainnegfiles;
+  string	trainnegfiles;
   // Subset of neg images -1: all images
   int		subsamples_neg;
   // Samples from pos. examples
@@ -65,7 +65,19 @@ class CConfig
   int	off_tree;
 
   // train image per tree
-  int imagePerTree;
+  int	imagePerTree;
+  
+  // min sample number per leaf
+  int	min_sample;
+  
+  // max depth of tree
+  int	max_depth;
+
+  // feature channel number
+  int	featureChannel;
+
+  // extract patch ratio
+  double	patchRatio;
 
  private:
   boost::property_tree::ptree pt;

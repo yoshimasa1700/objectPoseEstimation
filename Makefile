@@ -151,6 +151,30 @@ CDataset.cpp.s:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.s
 .PHONY : CDataset.cpp.s
 
+CPatch.o: CPatch.cpp.o
+.PHONY : CPatch.o
+
+# target to build an object file
+CPatch.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.o
+.PHONY : CPatch.cpp.o
+
+CPatch.i: CPatch.cpp.i
+.PHONY : CPatch.i
+
+# target to preprocess a source file
+CPatch.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.i
+.PHONY : CPatch.cpp.i
+
+CPatch.s: CPatch.cpp.s
+.PHONY : CPatch.s
+
+# target to generate assembly for a file
+CPatch.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.s
+.PHONY : CPatch.cpp.s
+
 learning.o: learning.cpp.o
 .PHONY : learning.o
 
@@ -236,6 +260,9 @@ help:
 	@echo "... CDataset.o"
 	@echo "... CDataset.i"
 	@echo "... CDataset.s"
+	@echo "... CPatch.o"
+	@echo "... CPatch.i"
+	@echo "... CPatch.s"
 	@echo "... learning.o"
 	@echo "... learning.i"
 	@echo "... learning.s"

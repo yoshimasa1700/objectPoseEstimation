@@ -25,7 +25,7 @@
 
 using namespace std;
 
-void loadTrainFile(CConfig conf, std::vector<CDataset> dataSet, boost::minstd_rand gen)
+void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 gen)
 {
 
   string traindatafilepath = conf.trainpath + PATH_SEP +  conf.traindatafile;
@@ -37,37 +37,42 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> dataSet, boost::minstd_ra
   string trainDataListPath;
   int dataSetNum;
 
+  cv::Point tempPoint;
+
   boost::uniform_real<> dst( 0, 1 );
-  boost::variate_generator<boost::minstd_rand&, 
+  boost::variate_generator<boost::mt19937&, 
 			   boost::uniform_real<> > rand( gen, dst );
   
   //read train data folder list
-  cout << "train data folder list path: " << traindatafilepath << endl;
+  //cout << "train data folder list path: " << traindatafilepath << endl;
   ifstream in(traindatafilepath.c_str());
   if(!in.is_open()){
     cout << "train data floder list is not found!" << endl;
     exit(1);
   }
   in >> n_folders;
-  cout << "number of training data folder: "<< n_folders << endl;
+  //cout << "number of training data folder: "<< n_folders << endl;
   trainimagefolder.resize(n_folders);
   for(int i = 0;i < n_folders; ++i)
     in >> trainimagefolder.at(i);
   in.close();
-  cout << "training folder list: " << endl;
-  for(int i = 0;i < n_folders;  ++i)
-    cout << "\t"  <<trainimagefolder.at(i) << endl;
+  //cout << "training folder list: " << endl;
+  //for(int i = 0;i < n_folders;  ++i)
+  //  cout << "\t"  <<trainimagefolder.at(i) << endl;
 
   //read train file name and grand truth from file
   tempDataSet.resize(0);
-  for(int i =0;i < n_folders; ++i){
+  for(int i = 0;i < n_folders; ++i){
     trainDataListPath 
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) 
       + PATH_SEP + "dataList.txt";
+    temp.imageFilePath 
+      = conf.trainpath + PATH_SEP + trainimagefolder.at(i) + PATH_SEP;
       //cout << trainDataListPath << endl;
     ifstream trainDataList(trainDataListPath.c_str());
     trainDataList >> n_files;
       //cout << "number of file: " << n_files << endl;
+    
     
     for(int j = 0;j < n_files; ++j){
       //read file names
@@ -81,9 +86,13 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> dataSet, boost::minstd_ra
       trainDataList >> temp.bBox.width;
       trainDataList >> temp.bBox.height;
       
+      temp.centerPoint.resize(0);
+
       //read center point
-      trainDataList >> temp.centerPoint.x;
-      trainDataList >> temp.centerPoint.y;
+      trainDataList >> tempPoint.x;//temp.centerPoint.x;
+      trainDataList >> tempPoint.y;
+
+      temp.centerPoint.push_back(tempPoint);
       
       //read class name
       trainDataList >> temp.className;
@@ -98,12 +107,11 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> dataSet, boost::minstd_ra
     }
     trainDataList.close();
   }
-
   dataSetNum = tempDataSet.size();
-  for(int i = 0;i < dataSetNum; ++i)
-    if(rand() * dataSetNum < conf.imagePerTree)
-      dataSet.push_back(tempDataSet.at(i));
-  cout << "train data number: " << dataSet.size() << endl;
+   for(int j = 0;j < dataSetNum; ++j)
+      if(rand() * dataSetNum < conf.imagePerTree)
+	dataSet.push_back(tempDataSet.at(j));
+    cout << "train data number: " << dataSet.size() << endl;
 }
 
 #endif

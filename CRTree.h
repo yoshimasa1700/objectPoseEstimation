@@ -4,13 +4,14 @@
 #include <CPatch.h>
 #include <iostream>
 #include <fstream>
+#include "CDataset.h"
 
 #include <opencv2/opencv.hpp>
 
 class LeafNode
 {
  public:
-  LeafNode();
+  LeafNode(){};
 
   void show(int delay, int width, int height);
   void print() 
@@ -31,9 +32,9 @@ class CRTree
   //constructor
   CRTree(int	min_s,		//min sample
 	 int	max_d,		//max depth of tree
-	 int	cp,		//number of center point
-	 cv::RNG* pRNG)		//random seed
-    : min_samples(min_s), max_depth(max_d), num_leaf(0), num_cp(cp), cvRNG(pRNG)
+	 int	cp		//number of center point
+	 )	 
+    : min_samples(min_s), max_depth(max_d), num_leaf(0), num_cp(cp)
     {
       num_nodes = (int)pow(2.0, int(max_depth + 1)) - 1;
       
@@ -42,10 +43,11 @@ class CRTree
       // init treetable
       for(int i = 0; i< num_nodes * 7; ++i)
 	treetable[i] = 0;
-
+    
       leaf= new LeafNode[(int)pow(2.0, int(max_depth))];
       
     }
+
   //destructor
   ~CRTree()
     {
@@ -69,6 +71,9 @@ class CRTree
     for(unsigned int l=0; l<num_leaf; ++l)
       leaf[l].show(5000, width, height);
   }
+
+  // extract patch
+  void extractPatch(CDataset dataSet, double patchRatio);
   
  private:
   // Data structure
@@ -79,24 +84,24 @@ class CRTree
   int* treetable;
   
   // stop growing when number of patches is less than min_samples
-  unsigned int min_samples;
+  unsigned int	min_samples;
 
   // depth of the tree: 0-max_depth
-  unsigned int max_depth;
+  unsigned int	max_depth;
 
   // number of nodes: 2^(max_depth+1)-1
-  unsigned int num_nodes;
+  unsigned int	num_nodes;
 
   // number of leafs
-  unsigned int num_leaf;
+  unsigned int	num_leaf;
 
   // number of center points per patch
-  unsigned int num_cp;
+  unsigned int	num_cp;
 
   //leafs as vector
-  LeafNode* leaf;
+  LeafNode*	leaf;
 
-  cv::RNG *cvRNG;
+  cv::RNG	*cvRNG;
   
 };
 

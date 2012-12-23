@@ -153,8 +153,46 @@ int CConfig::loadConfig(const char* filename)
     std::cout << "root.str is nothing" << std::endl;
   }
   
+  // load scale factor for output imae
+  if (boost::optional<int> integer
+      = pt.get_optional<int>("root.minsample")) {
+    std::cout << integer << std::endl;
+    min_sample = *integer;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
 
+  // load scale factor for output imae
+  if (boost::optional<int> integer
+      = pt.get_optional<int>("root.maxdepth")) {
+    std::cout << integer << std::endl;
+    max_depth = *integer;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
   
+  // load scale factor for output imae
+  if (boost::optional<int> integer
+      = pt.get_optional<int>("root.featurechannel")) {
+    std::cout << integer << std::endl;
+    featureChannel = *integer;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+
+  // load scale factor for output imae
+  if (boost::optional<double> variableDouble
+      = pt.get_optional<double>("root.patchratio")) {
+    std::cout << variableDouble << std::endl;
+    patchRatio = *variableDouble;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+
   return 0;
   
 }

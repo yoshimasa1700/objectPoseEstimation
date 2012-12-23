@@ -4,18 +4,11 @@
 #include <string>
 #include <time.h>
 
-#include <boost/random.hpp>
-
-#include <opencv/highgui.h>
-#include <opencv2/opencv.hpp>
-#include <opencv/cxcore.hpp>
-
-#include "CPatch.h"
+#include "CRForest.h"
 #include "CRTree.h"
 #include "CDataset.h"
 
 #include "loadConfig.h"
-#include "loadTrainFile.h"
 
 using namespace std;
 
@@ -44,23 +37,11 @@ int main(int argc, char* argv[]){
   execstr += tpath;
   system( execstr.c_str() );
 
+  // create random forest class
+  CRForest forest(conf);
+
   // learning
-  // most important!!!
-  // if you fix this programm multi thread
-  // you should fix this forloop!
-  for(int i=0;i < conf.ntrees; ++i){
-    cout << "tree number " << i << endl;
-    // initialize random seed
-    boost::minstd_rand    gen( i * (unsigned int)time(NULL) );
-    
-    //load train image list and grand truth
-    loadTrainFile(conf, dataSet, gen);
-    
-    //train a tree
-    
-    //save tree
-    
-  }
+  forest.learning();
   
   return 0; 
 }

@@ -6,6 +6,11 @@ SET(CMAKE_C_FLAGS_RELEASE "-Wall -O2")
 
 # デバッグビルド用オプション
 SET(CMAKE_C_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS "")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -pg")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -pg -O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG -O3")
+set(CMAKE_CXX_FLAGS_MINSIZEREL "")
 
 # ビルドのタイプはリリース
 SET(CMAKE_BUILD_TYPE Release)
@@ -34,7 +39,7 @@ LINK_DIRECTORIES("/usr/local/lib")
 
 # 実行ファイルを生成
 ADD_EXECUTABLE(objectPoseEstimation objectPoseEstimation.cpp)
-ADD_EXECUTABLE(learning learning.cpp loadConfig.cpp CDataset.cpp)
+ADD_EXECUTABLE(learning learning.cpp loadConfig.cpp CDataset.cpp CPatch.cpp)
 
 # ライブラリとリンクする
 TARGET_LINK_LIBRARIES(objectPoseEstimation ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})

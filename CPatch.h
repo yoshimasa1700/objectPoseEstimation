@@ -2,25 +2,25 @@
 #define __CPATCH__
 
 #include <opencv2/opencv.hpp>
+#include "CDataset.h"
+#include <vector>
 
 class CPatch 
 {
  public:
- CPatch(CvRNG* pRNG, int w, int h, int num_l)
-   : cvRNG(pRNG), width(w), height(h){}
+ CPatch(int w, int h, int num_l)
+   : width(w), height(h){}
   
-  //extract patch and hold patch
-  void extractPatches(cv::Mat *img,
-		      unsigned int n,
-		      int label,
-		      cv::Rect* box = 0,
-		      std::vector<cv::Point>* vCenter = 0);
+  //extract patch
+  void extractPatches(std::vector<CDataset> dataSet);
   
  private:
-  CvRNG *cvRNG;
   int width;
   int height;
-  std::vector<cv::Mat> patches;
+  //std::vector<cv::Mat> patches;
+  std::vector<cv::Rect> vPatches;
+  std::vector<cv::Point> vCenter;
+  std::vector<std::vector<cv::Mat> > images;
 };
 
 #endif

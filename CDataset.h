@@ -10,9 +10,9 @@
 class CDataset {
  public:
   CDataset();
-  std::string rgbImageName, depthImageName, maskImageName, className;
+  std::string rgbImageName, depthImageName, maskImageName, className, imageFilePath;
   cv::Rect bBox;
-  cv::Point centerPoint;
+  std::vector<cv::Point> centerPoint;
 
   double angle;
 
