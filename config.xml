@@ -44,4 +44,6 @@
   <featurechannel>2</featurechannel>
   <!-- extract patch ratio-->
   <patchratio>0.6</patchratio>
+  <!-- Stride -->
+  <stride>1</stride>
 </root>

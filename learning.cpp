@@ -1,14 +1,7 @@
-#include <vector>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <time.h>
-
 #include "CRForest.h"
 #include "CRTree.h"
-#include "CDataset.h"
 
-#include "loadConfig.h"
+#include "util.h"
 
 using namespace std;
 
@@ -42,6 +35,6 @@ int main(int argc, char* argv[]){
 
   // learning
   forest.learning();
-  
+
   return 0; 
 }

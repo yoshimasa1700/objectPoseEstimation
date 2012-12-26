@@ -127,53 +127,29 @@ objectPoseEstimation/fast:
 	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/build
 .PHONY : objectPoseEstimation/fast
 
-CDataset.o: CDataset.cpp.o
-.PHONY : CDataset.o
+CRForest.o: CRForest.cpp.o
+.PHONY : CRForest.o
 
 # target to build an object file
-CDataset.cpp.o:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.o
-.PHONY : CDataset.cpp.o
+CRForest.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRForest.cpp.o
+.PHONY : CRForest.cpp.o
 
-CDataset.i: CDataset.cpp.i
-.PHONY : CDataset.i
-
-# target to preprocess a source file
-CDataset.cpp.i:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.i
-.PHONY : CDataset.cpp.i
-
-CDataset.s: CDataset.cpp.s
-.PHONY : CDataset.s
-
-# target to generate assembly for a file
-CDataset.cpp.s:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.s
-.PHONY : CDataset.cpp.s
-
-CPatch.o: CPatch.cpp.o
-.PHONY : CPatch.o
-
-# target to build an object file
-CPatch.cpp.o:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.o
-.PHONY : CPatch.cpp.o
-
-CPatch.i: CPatch.cpp.i
-.PHONY : CPatch.i
+CRForest.i: CRForest.cpp.i
+.PHONY : CRForest.i
 
 # target to preprocess a source file
-CPatch.cpp.i:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.i
-.PHONY : CPatch.cpp.i
+CRForest.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRForest.cpp.i
+.PHONY : CRForest.cpp.i
 
-CPatch.s: CPatch.cpp.s
-.PHONY : CPatch.s
+CRForest.s: CRForest.cpp.s
+.PHONY : CRForest.s
 
 # target to generate assembly for a file
-CPatch.cpp.s:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.s
-.PHONY : CPatch.cpp.s
+CRForest.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRForest.cpp.s
+.PHONY : CRForest.cpp.s
 
 learning.o: learning.cpp.o
 .PHONY : learning.o
@@ -199,30 +175,6 @@ learning.cpp.s:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/learning.cpp.s
 .PHONY : learning.cpp.s
 
-loadConfig.o: loadConfig.cpp.o
-.PHONY : loadConfig.o
-
-# target to build an object file
-loadConfig.cpp.o:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.o
-.PHONY : loadConfig.cpp.o
-
-loadConfig.i: loadConfig.cpp.i
-.PHONY : loadConfig.i
-
-# target to preprocess a source file
-loadConfig.cpp.i:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.i
-.PHONY : loadConfig.cpp.i
-
-loadConfig.s: loadConfig.cpp.s
-.PHONY : loadConfig.s
-
-# target to generate assembly for a file
-loadConfig.cpp.s:
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.s
-.PHONY : loadConfig.cpp.s
-
 objectPoseEstimation.o: objectPoseEstimation.cpp.o
 .PHONY : objectPoseEstimation.o
 
@@ -247,6 +199,30 @@ objectPoseEstimation.cpp.s:
 	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.s
 .PHONY : objectPoseEstimation.cpp.s
 
+util.o: util.cpp.o
+.PHONY : util.o
+
+# target to build an object file
+util.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/util.cpp.o
+.PHONY : util.cpp.o
+
+util.i: util.cpp.i
+.PHONY : util.i
+
+# target to preprocess a source file
+util.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/util.cpp.i
+.PHONY : util.cpp.i
+
+util.s: util.cpp.s
+.PHONY : util.s
+
+# target to generate assembly for a file
+util.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/util.cpp.s
+.PHONY : util.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -257,21 +233,18 @@ help:
 	@echo "... learning"
 	@echo "... objectPoseEstimation"
 	@echo "... rebuild_cache"
-	@echo "... CDataset.o"
-	@echo "... CDataset.i"
-	@echo "... CDataset.s"
-	@echo "... CPatch.o"
-	@echo "... CPatch.i"
-	@echo "... CPatch.s"
+	@echo "... CRForest.o"
+	@echo "... CRForest.i"
+	@echo "... CRForest.s"
 	@echo "... learning.o"
 	@echo "... learning.i"
 	@echo "... learning.s"
-	@echo "... loadConfig.o"
-	@echo "... loadConfig.i"
-	@echo "... loadConfig.s"
 	@echo "... objectPoseEstimation.o"
 	@echo "... objectPoseEstimation.i"
 	@echo "... objectPoseEstimation.s"
+	@echo "... util.o"
+	@echo "... util.i"
+	@echo "... util.s"
 .PHONY : help
 
 

@@ -1,8 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/learning.dir/learning.cpp.o"
-  "CMakeFiles/learning.dir/loadConfig.cpp.o"
-  "CMakeFiles/learning.dir/CDataset.cpp.o"
-  "CMakeFiles/learning.dir/CPatch.cpp.o"
+  "CMakeFiles/learning.dir/CRForest.cpp.o"
+  "CMakeFiles/learning.dir/util.cpp.o"
   "learning.pdb"
   "learning"
   "learning-1.0.0"

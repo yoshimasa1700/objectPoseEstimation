@@ -1,12 +1,8 @@
 #ifndef __CRTREE__
 #define __CRTREE__
 
-#include <CPatch.h>
-#include <iostream>
-#include <fstream>
-#include "CDataset.h"
-
-#include <opencv2/opencv.hpp>
+#include "CPatch.h"
+#include "util.h"
 
 class LeafNode
 {
@@ -25,15 +21,15 @@ class LeafNode
     
 };
 
-
 class CRTree 
 {
  public:
   //constructor
-  CRTree(int	min_s,		//min sample
-	 int	max_d,		//max depth of tree
-	 int	cp		//number of center point
-	 )	 
+ CRTree(int	min_s,		//min sample
+	int	max_d,		//max depth of tree
+	int	cp,		//number of center point
+	CPatch patch            //patch data
+	)	 
     : min_samples(min_s), max_depth(max_d), num_leaf(0), num_cp(cp)
     {
       num_nodes = (int)pow(2.0, int(max_depth + 1)) - 1;
@@ -71,9 +67,6 @@ class CRTree
     for(unsigned int l=0; l<num_leaf; ++l)
       leaf[l].show(5000, width, height);
   }
-
-  // extract patch
-  void extractPatch(CDataset dataSet, double patchRatio);
   
  private:
   // Data structure
@@ -85,24 +78,16 @@ class CRTree
   
   // stop growing when number of patches is less than min_samples
   unsigned int	min_samples;
-
   // depth of the tree: 0-max_depth
   unsigned int	max_depth;
-
   // number of nodes: 2^(max_depth+1)-1
   unsigned int	num_nodes;
-
   // number of leafs
   unsigned int	num_leaf;
-
   // number of center points per patch
   unsigned int	num_cp;
-
   //leafs as vector
   LeafNode*	leaf;
-
-  cv::RNG	*cvRNG;
-  
 };
 
 #endif

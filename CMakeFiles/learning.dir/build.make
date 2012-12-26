@@ -75,89 +75,64 @@ CMakeFiles/learning.dir/learning.cpp.o.provides: CMakeFiles/learning.dir/learnin
 
 CMakeFiles/learning.dir/learning.cpp.o.provides.build: CMakeFiles/learning.dir/learning.cpp.o
 
-CMakeFiles/learning.dir/loadConfig.cpp.o: CMakeFiles/learning.dir/flags.make
-CMakeFiles/learning.dir/loadConfig.cpp.o: loadConfig.cpp
+CMakeFiles/learning.dir/CRForest.cpp.o: CMakeFiles/learning.dir/flags.make
+CMakeFiles/learning.dir/CRForest.cpp.o: CRForest.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/loadConfig.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/loadConfig.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/loadConfig.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CRForest.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CRForest.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp
 
-CMakeFiles/learning.dir/loadConfig.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/loadConfig.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/masahiko/Programs/objectPoseEstimation/loadConfig.cpp > CMakeFiles/learning.dir/loadConfig.cpp.i
+CMakeFiles/learning.dir/CRForest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/CRForest.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp > CMakeFiles/learning.dir/CRForest.cpp.i
 
-CMakeFiles/learning.dir/loadConfig.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/loadConfig.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/loadConfig.cpp -o CMakeFiles/learning.dir/loadConfig.cpp.s
+CMakeFiles/learning.dir/CRForest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CRForest.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp -o CMakeFiles/learning.dir/CRForest.cpp.s
 
-CMakeFiles/learning.dir/loadConfig.cpp.o.requires:
-.PHONY : CMakeFiles/learning.dir/loadConfig.cpp.o.requires
+CMakeFiles/learning.dir/CRForest.cpp.o.requires:
+.PHONY : CMakeFiles/learning.dir/CRForest.cpp.o.requires
 
-CMakeFiles/learning.dir/loadConfig.cpp.o.provides: CMakeFiles/learning.dir/loadConfig.cpp.o.requires
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/loadConfig.cpp.o.provides.build
-.PHONY : CMakeFiles/learning.dir/loadConfig.cpp.o.provides
+CMakeFiles/learning.dir/CRForest.cpp.o.provides: CMakeFiles/learning.dir/CRForest.cpp.o.requires
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRForest.cpp.o.provides.build
+.PHONY : CMakeFiles/learning.dir/CRForest.cpp.o.provides
 
-CMakeFiles/learning.dir/loadConfig.cpp.o.provides.build: CMakeFiles/learning.dir/loadConfig.cpp.o
+CMakeFiles/learning.dir/CRForest.cpp.o.provides.build: CMakeFiles/learning.dir/CRForest.cpp.o
 
-CMakeFiles/learning.dir/CDataset.cpp.o: CMakeFiles/learning.dir/flags.make
-CMakeFiles/learning.dir/CDataset.cpp.o: CDataset.cpp
+CMakeFiles/learning.dir/util.cpp.o: CMakeFiles/learning.dir/flags.make
+CMakeFiles/learning.dir/util.cpp.o: util.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_3)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CDataset.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CDataset.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/CDataset.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/util.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/util.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/util.cpp
 
-CMakeFiles/learning.dir/CDataset.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/CDataset.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/masahiko/Programs/objectPoseEstimation/CDataset.cpp > CMakeFiles/learning.dir/CDataset.cpp.i
+CMakeFiles/learning.dir/util.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/util.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/masahiko/Programs/objectPoseEstimation/util.cpp > CMakeFiles/learning.dir/util.cpp.i
 
-CMakeFiles/learning.dir/CDataset.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CDataset.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/CDataset.cpp -o CMakeFiles/learning.dir/CDataset.cpp.s
+CMakeFiles/learning.dir/util.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/util.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/util.cpp -o CMakeFiles/learning.dir/util.cpp.s
 
-CMakeFiles/learning.dir/CDataset.cpp.o.requires:
-.PHONY : CMakeFiles/learning.dir/CDataset.cpp.o.requires
+CMakeFiles/learning.dir/util.cpp.o.requires:
+.PHONY : CMakeFiles/learning.dir/util.cpp.o.requires
 
-CMakeFiles/learning.dir/CDataset.cpp.o.provides: CMakeFiles/learning.dir/CDataset.cpp.o.requires
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CDataset.cpp.o.provides.build
-.PHONY : CMakeFiles/learning.dir/CDataset.cpp.o.provides
+CMakeFiles/learning.dir/util.cpp.o.provides: CMakeFiles/learning.dir/util.cpp.o.requires
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/util.cpp.o.provides.build
+.PHONY : CMakeFiles/learning.dir/util.cpp.o.provides
 
-CMakeFiles/learning.dir/CDataset.cpp.o.provides.build: CMakeFiles/learning.dir/CDataset.cpp.o
-
-CMakeFiles/learning.dir/CPatch.cpp.o: CMakeFiles/learning.dir/flags.make
-CMakeFiles/learning.dir/CPatch.cpp.o: CPatch.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_4)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CPatch.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CPatch.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/CPatch.cpp
-
-CMakeFiles/learning.dir/CPatch.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/CPatch.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /Users/masahiko/Programs/objectPoseEstimation/CPatch.cpp > CMakeFiles/learning.dir/CPatch.cpp.i
-
-CMakeFiles/learning.dir/CPatch.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CPatch.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/CPatch.cpp -o CMakeFiles/learning.dir/CPatch.cpp.s
-
-CMakeFiles/learning.dir/CPatch.cpp.o.requires:
-.PHONY : CMakeFiles/learning.dir/CPatch.cpp.o.requires
-
-CMakeFiles/learning.dir/CPatch.cpp.o.provides: CMakeFiles/learning.dir/CPatch.cpp.o.requires
-	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.o.provides.build
-.PHONY : CMakeFiles/learning.dir/CPatch.cpp.o.provides
-
-CMakeFiles/learning.dir/CPatch.cpp.o.provides.build: CMakeFiles/learning.dir/CPatch.cpp.o
+CMakeFiles/learning.dir/util.cpp.o.provides.build: CMakeFiles/learning.dir/util.cpp.o
 
 # Object files for target learning
 learning_OBJECTS = \
 "CMakeFiles/learning.dir/learning.cpp.o" \
-"CMakeFiles/learning.dir/loadConfig.cpp.o" \
-"CMakeFiles/learning.dir/CDataset.cpp.o" \
-"CMakeFiles/learning.dir/CPatch.cpp.o"
+"CMakeFiles/learning.dir/CRForest.cpp.o" \
+"CMakeFiles/learning.dir/util.cpp.o"
 
 # External object files for target learning
 learning_EXTERNAL_OBJECTS =
 
 learning-1.0.0: CMakeFiles/learning.dir/learning.cpp.o
-learning-1.0.0: CMakeFiles/learning.dir/loadConfig.cpp.o
-learning-1.0.0: CMakeFiles/learning.dir/CDataset.cpp.o
-learning-1.0.0: CMakeFiles/learning.dir/CPatch.cpp.o
+learning-1.0.0: CMakeFiles/learning.dir/CRForest.cpp.o
+learning-1.0.0: CMakeFiles/learning.dir/util.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/build.make
 learning-1.0.0: /usr/local/lib/libopencv_calib3d.dylib
 learning-1.0.0: /usr/local/lib/libopencv_contrib.dylib
@@ -188,9 +163,8 @@ CMakeFiles/learning.dir/build: learning
 .PHONY : CMakeFiles/learning.dir/build
 
 CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/learning.cpp.o.requires
-CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/loadConfig.cpp.o.requires
-CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/CDataset.cpp.o.requires
-CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/CPatch.cpp.o.requires
+CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/CRForest.cpp.o.requires
+CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/util.cpp.o.requires
 .PHONY : CMakeFiles/learning.dir/requires
 
 CMakeFiles/learning.dir/clean:

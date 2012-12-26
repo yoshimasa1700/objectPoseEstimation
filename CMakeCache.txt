@@ -28,7 +28,7 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 
 //Choose the type of build, options are: None(CMAKE_CXX_FLAGS or
 // CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel.
-CMAKE_BUILD_TYPE:STRING=Debug
+CMAKE_BUILD_TYPE:STRING=
 
 //Enable/Disable color output during build.
 CMAKE_COLOR_MAKEFILE:BOOL=ON
@@ -198,17 +198,11 @@ OpenCV_LIB_DIR_DBG:PATH=/usr/local/lib
 //Path where release OpenCV libraries are located
 OpenCV_LIB_DIR_OPT:PATH=/usr/local/lib
 
-//The directory containing a CMake configuration file for OpenCVa.
-OpenCVa_DIR:PATH=OpenCVa_DIR-NOTFOUND
-
 //Value Computed by CMake
 objectPoseEstimation_BINARY_DIR:STATIC=/Users/masahiko/Programs/objectPoseEstimation
 
 //Value Computed by CMake
 objectPoseEstimation_SOURCE_DIR:STATIC=/Users/masahiko/Programs/objectPoseEstimation
-
-//The directory containing a CMake configuration file for opencv.
-opencv_DIR:PATH=/usr/local/share/OpenCV
 
 
 ########################
