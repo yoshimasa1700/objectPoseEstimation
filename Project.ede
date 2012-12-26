@@ -1,7 +1,0 @@
-;; Object objectPoseEstimation
-;; EDE Project Files are auto generated: Do Not Edit
-(ede-proj-project "objectPoseEstimation"
-  :file "Project.ede"
-  :name "objectPoseEstimation"
-  :targets 'nil
-  )
