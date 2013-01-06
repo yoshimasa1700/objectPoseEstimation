@@ -6,26 +6,32 @@
 class CPatch 
 {
  public:
- CPatch(int w, int h, int s, double ratio, int num_l)
-   : width(w), height(h), stride(s), patchRatio(ratio){}
+ CPatch(cv::Rect roi, cv::Mat* image)
+   : patchRoi(roi)
+    {
+      //patch = image(cv::Rect(roi));
+    }
   
-  //extract patch
-  //void extractPatches(std::vector<CDataset> dataSet, boost::mt19937 gen);
-  //void loadImages(std::vector<CDataset> dataSet);
+  CPatch(){}
+
+  void setPatch(int x, int y, int w, int h, cv::Mat image){
+    //patch = image(cv::Rect(x, y, w, h));
+  };
+
+  void setPatch(cv::Rect roi, std::vector<cv::Mat> &image, std::vector<cv::Point> center){
+    //patch = image(cv::Rect(roi));
+    patchRoi = roi;
+    //image(roi);
+    //vCenter = center;
+    for(int i = 0; i < image.size(); ++i)
+      p_image.push_back(&(image.at(i)));
+    vCenter = center;
+  }
   
-  void setWitdh(int w){width = w;};
-  void setHeight(int h){height = h;};
-  void setStride(int s){stride = s;};
-  
- private:
-  int width;
-  int height;
-  int stride;
-  double patchRatio;
-  //std::vector<cv::Mat> patches;
-  std::vector<std::vector<cv::Rect> > vPatches;
+  cv::Rect patchRoi;
   std::vector<cv::Point> vCenter;
-  std::vector<std::vector<cv::Mat> > images;
+  //std::vector<cv::Mat *> patch;
+  std::vector<cv::Mat *> p_image;
 };
 
 #endif

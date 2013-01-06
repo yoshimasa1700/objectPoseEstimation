@@ -109,7 +109,7 @@ class CConfig
 
 class CImages{
  public:
-  CImages(){img.resize(0);};
+  CImages(){img.resize(0);}
   std::vector<std::vector<cv::Mat> > img;
   
   void loadImages(std::vector<CDataset> dataSet);

@@ -22,7 +22,7 @@ void CImages::loadImages(std::vector<CDataset> dataSet){
   cv::Mat rgb,depth, mask;
   std::vector<cv::Mat> planes;
   std::vector<cv::Mat> allImages;
-  //std::cout << dataSet.at(0).depthImageName << std::endl;
+  std::cout << dataSet.at(0).depthImageName << std::endl;
   
   for(int i = 0;i < dataSet.size(); ++i){
     // load Mask image
