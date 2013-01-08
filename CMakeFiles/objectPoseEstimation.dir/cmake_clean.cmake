@@ -1,5 +1,8 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o"
+  "CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o"
+  "CMakeFiles/objectPoseEstimation.dir/util.cpp.o"
+  "CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o"
   "objectPoseEstimation.pdb"
   "objectPoseEstimation"
   "objectPoseEstimation-1.0.0"

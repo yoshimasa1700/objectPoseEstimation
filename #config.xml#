@@ -49,6 +49,6 @@
   <!-- Offset of tree-->
   <offTree>0</offTree>
   <!-- test data path -->
-  <testpath>testData</testpath>
+  <testpath>testPath</testpath>
   
 </root>

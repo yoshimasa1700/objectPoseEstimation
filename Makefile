@@ -133,6 +133,7 @@ CRForest.o: CRForest.cpp.o
 # target to build an object file
 CRForest.cpp.o:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRForest.cpp.o
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o
 .PHONY : CRForest.cpp.o
 
 CRForest.i: CRForest.cpp.i
@@ -141,6 +142,7 @@ CRForest.i: CRForest.cpp.i
 # target to preprocess a source file
 CRForest.cpp.i:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRForest.cpp.i
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.i
 .PHONY : CRForest.cpp.i
 
 CRForest.s: CRForest.cpp.s
@@ -149,7 +151,35 @@ CRForest.s: CRForest.cpp.s
 # target to generate assembly for a file
 CRForest.cpp.s:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRForest.cpp.s
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.s
 .PHONY : CRForest.cpp.s
+
+CRTree.o: CRTree.cpp.o
+.PHONY : CRTree.o
+
+# target to build an object file
+CRTree.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRTree.cpp.o
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o
+.PHONY : CRTree.cpp.o
+
+CRTree.i: CRTree.cpp.i
+.PHONY : CRTree.i
+
+# target to preprocess a source file
+CRTree.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRTree.cpp.i
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.i
+.PHONY : CRTree.cpp.i
+
+CRTree.s: CRTree.cpp.s
+.PHONY : CRTree.s
+
+# target to generate assembly for a file
+CRTree.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CRTree.cpp.s
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.s
+.PHONY : CRTree.cpp.s
 
 learning.o: learning.cpp.o
 .PHONY : learning.o
@@ -205,6 +235,7 @@ util.o: util.cpp.o
 # target to build an object file
 util.cpp.o:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/util.cpp.o
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/util.cpp.o
 .PHONY : util.cpp.o
 
 util.i: util.cpp.i
@@ -213,6 +244,7 @@ util.i: util.cpp.i
 # target to preprocess a source file
 util.cpp.i:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/util.cpp.i
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/util.cpp.i
 .PHONY : util.cpp.i
 
 util.s: util.cpp.s
@@ -221,6 +253,7 @@ util.s: util.cpp.s
 # target to generate assembly for a file
 util.cpp.s:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/util.cpp.s
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/util.cpp.s
 .PHONY : util.cpp.s
 
 # Help Target
@@ -236,6 +269,9 @@ help:
 	@echo "... CRForest.o"
 	@echo "... CRForest.i"
 	@echo "... CRForest.s"
+	@echo "... CRTree.o"
+	@echo "... CRTree.i"
+	@echo "... CRTree.s"
 	@echo "... learning.o"
 	@echo "... learning.i"
 	@echo "... learning.s"

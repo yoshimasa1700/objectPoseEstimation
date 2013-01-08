@@ -6,7 +6,33 @@
 
 #IncludeRegexTransform: 
 
-/Users/masahiko/Programs/objectPoseEstimation/util.cpp
+/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
+util.h
+/Users/masahiko/Programs/objectPoseEstimation/util.h
+
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
+CRTree.h
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+CPatch.h
+/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
+util.h
+/Users/masahiko/Programs/objectPoseEstimation/util.h
+
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
+CRTree.h
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+CPatch.h
+/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
+util.h
+/Users/masahiko/Programs/objectPoseEstimation/util.h
+Ctime
+-
+
+/Users/masahiko/Programs/objectPoseEstimation/learning.cpp
+CRForest.h
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
 util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 

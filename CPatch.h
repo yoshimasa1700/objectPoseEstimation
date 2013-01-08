@@ -19,19 +19,22 @@ class CPatch
   };
 
   void setPatch(cv::Rect roi, std::vector<cv::Mat> &image, std::vector<cv::Point> center){
-    //patch = image(cv::Rect(roi));
+    patch.clear();
+    //xstd::cout << image->size() << std::endl;
+    
     patchRoi = roi;
     //image(roi);
     //vCenter = center;
     for(int i = 0; i < image.size(); ++i)
-      p_image.push_back(&(image.at(i)));
+      patch.push_back((image.at(i))(cv::Rect(roi)));
+    //p_image.push_back(&(image->at(i)));
     vCenter = center;
   }
   
   cv::Rect patchRoi;
   std::vector<cv::Point> vCenter;
-  //std::vector<cv::Mat *> patch;
-  std::vector<cv::Mat *> p_image;
+  std::vector<cv::Mat> patch;
+  //std::vector<cv::Mat *> p_image;
 };
 
 #endif

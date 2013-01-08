@@ -37,9 +37,11 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 # ライブラリの場所
 LINK_DIRECTORIES("/usr/local/lib")
 
+SET(RANDOM_FOREST CRForest.cpp util.cpp CRTree.cpp)
+
 # 実行ファイルを生成
-ADD_EXECUTABLE(objectPoseEstimation objectPoseEstimation.cpp)
-ADD_EXECUTABLE(learning learning.cpp CRForest.cpp util.cpp)
+ADD_EXECUTABLE(objectPoseEstimation objectPoseEstimation.cpp ${RANDOM_FOREST})
+ADD_EXECUTABLE(learning learning.cpp ${RANDOM_FOREST})
 
 # ライブラリとリンクする
 TARGET_LINK_LIBRARIES(objectPoseEstimation ${OpenCV_LIBRARIES} ${Boost_LIBRARIES})

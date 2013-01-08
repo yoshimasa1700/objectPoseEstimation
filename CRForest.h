@@ -12,12 +12,14 @@ class CRForest {
     vTrees.resize(conf.ntrees);
   }
   ~CRForest() {
+    //std::cout << "kokomade kita" << std::endl;
     for(int i = 0;i < conf.ntrees;i++)
       delete vTrees.at(i);
   }
   
   void learning();
-  void extractPatches(std::vector<CPatch> &patches, CImages image, boost::mt19937 gen, CConfig conf, int treeNum);
+  void extractPatches(std::vector<std::vector<CPatch> > &patches, CImages &image, boost::mt19937 gen, CConfig conf, int treeNum);
+  void loadForest();
   
  private:
   CConfig		conf;

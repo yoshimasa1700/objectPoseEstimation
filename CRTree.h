@@ -3,6 +3,7 @@
 
 #include "CPatch.h"
 #include "util.h"
+#include <Ctime>
 
 // Auxilary structure
 struct IntIndex {
@@ -21,8 +22,6 @@ class LeafNode
   {
     std::cout << "Leaf " << vCenter.size() << " " << pfg << std::endl;
   }
-
- private:
   float pfg;
   std::vector<std::vector<cv::Point> > vCenter;
     
@@ -35,21 +34,22 @@ class CRTree
  CRTree(int		min_s,	//min sample
 	int		max_d,	//max depth of tree
 	int		cp,	//number of center point
-	CPatch		patch,  //patch data
 	boost::mt19937	randomGen	// random number seed
 	)	 
    : min_samples(min_s), max_depth(max_d), num_leaf(0), num_cp(cp), gen(randomGen)
-  {}
-    /* { */
-    /*   num_nodes = (int)pow(2.0, int(max_depth + 1)) - 1; */
+  {
+    num_nodes = (int)pow(2.0, int(max_depth + 1)) - 1;
       
-    /*   // number of nodes x 7 matrix as vector */
-    /*   treetable = new int[num_nodes * 7]; */
-    /*   // init treetable */
-    /*   for(int i = 0; i< num_nodes * 7; ++i) */
-    /* 	treetable[i] = 0; */
+    // number of nodes x 7 matrix as vector
+    treetable = new int[num_nodes * 7];
+    // init treetable
+    for(int i = 0; i< num_nodes * 7; ++i)
+      treetable[i] = 0;
     
-    /*   leaf= new LeafNode[(int)pow(2.0, int(max_depth))]; */
+    leaf= new LeafNode[(int)pow(2.0, int(max_depth))];
+  }
+
+  CRTree(const char* filename);
 
   //destructor
   ~CRTree()
@@ -66,16 +66,28 @@ class CRTree
   const LeafNode* regression(uchar** ptFCh, int stepImg) const;
 
   // Training
-  void growTree(std::vector<std::vector<CPatch> > TrData, CConfig conf);
+  void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen);
 
-  bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > SetA,
-			    std::vector<std::vector<CPatch> > SetB, 
-			    std::vector<std::vector<CPatch> > TrainSet, 
+  bool optimizeTest(std::vector<std::vector<CPatch> > &SetA,
+			    std::vector<std::vector<CPatch> > &SetB, 
+			    std::vector<std::vector<CPatch> > &TrainSet, 
 			    int* test, 
 			    unsigned int iter, 
 			    unsigned int measure_mode);
-
   void generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c);
+
+  void makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node);
+
+  void evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int* test, std::vector<std::vector<CPatch> > &TrainSet);
+  void split(std::vector<std::vector<CPatch> >& SetA, std::vector<std::vector<CPatch> >& SetB, const std::vector<std::vector<CPatch> >& TrainSet, const std::vector<std::vector<IntIndex> >& valSet, int t);
+  double distMean(const std::vector<CPatch>& SetA, const std::vector<CPatch>& SetB);
+  double InfGain(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB);
+
+  double measureSet(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB, unsigned int mode) {
+    if (mode==0) return InfGain(SetA, SetB); else return -distMean(SetA[1],SetB[1]);
+  };
+
+  
   
   // IO functions
   bool saveTree(const char* filename) const;
@@ -112,15 +124,19 @@ class CRTree
 };
 
 inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c) {
-  boost::uniform_real<> dst( 0, 1 );
-  boost::variate_generator<boost::mt19937&, 
-			   boost::uniform_real<> > rand( gen, dst );
+  boost::mt19937    gen2(static_cast<unsigned long>(time(NULL)) );
   
-  test[0] = cvRandInt( cvRNG ) % max_w;
-  test[1] = cvRandInt( cvRNG ) % max_h;
-  test[2] = cvRandInt( cvRNG ) % max_w;
-  test[3] = cvRandInt( cvRNG ) % max_h;
-  test[4] = cvRandInt( cvRNG ) % max_c;
+  boost::uniform_int<> dst( 0, INT_MAX );
+  boost::variate_generator<boost::mt19937&,
+			   boost::uniform_int<> > rand( gen2, dst );
+
+  
+  
+  test[0] = rand() % max_w;
+  test[1] = rand() % max_h;
+  test[2] = rand() % max_w;
+  test[3] = rand() % max_h;
+  test[4] = rand() % max_c;
 }
 
 

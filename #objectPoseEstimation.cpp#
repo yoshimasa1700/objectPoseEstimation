@@ -6,9 +6,13 @@
 using namespace std;
 
 void detect(CConfig conf){
+  vector<CDataset> dataSet;
+  
   boost::mt19937    gen(static_cast<unsigned long>(time(NULL)) );
   
-  
+  conf.imagePerTree = 10;
+
+  load(conf, dataSet, gen);
 
 }
 

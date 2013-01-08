@@ -102,10 +102,15 @@ class CConfig
   // stride of getting patch
   int stride;
 
+  // test data path
+  std::string testPath;
+
  private:
   boost::property_tree::ptree pt;
 
 };
+
+void pBar(int p,int maxNum, int width);
 
 class CImages{
  public:
@@ -116,5 +121,7 @@ class CImages{
 };
 
 void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 gen);
+
+
 
 #endif
