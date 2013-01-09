@@ -129,14 +129,13 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
   boost::uniform_int<> dst( 0, INT_MAX );
   boost::variate_generator<boost::mt19937&,
 			   boost::uniform_int<> > rand( gen2, dst );
-
-  
   
   test[0] = rand() % max_w;
   test[1] = rand() % max_h;
   test[2] = rand() % max_w;
   test[3] = rand() % max_h;
   test[4] = rand() % max_c;
+
 }
 
 

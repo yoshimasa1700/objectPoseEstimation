@@ -128,7 +128,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     if( float(TrainSet[0].size()) / float(TrainSet[0].size()+TrainSet[1].size()) >= 0.05 && depth < max_depth-2 )
       measure_mode = rand();
     
-    cout << "MeasureMode " << depth << " " << measure_mode << " " << TrainSet[0].size() << " " << endl;
+    cout << "MeasureMode " << "depth " <<depth << " " << "measure_mode " << measure_mode << " " << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() <<endl;
     
     // Find optimal test
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
@@ -214,6 +214,8 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
   std::vector<std::vector<CPatch> > tmpA(TrainSet.size());
   std::vector<std::vector<CPatch> > tmpB(TrainSet.size());
 
+  std::cout << "Trainset size" << TrainSet.size() << std::endl;
+
   // temporary data for finding best test
   std::vector<std::vector<IntIndex> > valSet(TrainSet.size());
   double tmpDist;
@@ -226,7 +228,7 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
 			   boost::uniform_int<> > rand( gen, dst );
 
  
-  std::cout << "finding best test" << std::endl;
+  std::cout << "finding best test!" << std::endl;
   
   // Find best test of ITER iterations
   for(unsigned int i =0; i<iter; ++i) {
@@ -238,14 +240,16 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
     }
 
       
-
+    
     // generate binary test without threshold
       
       //std::cout << TrainSet.at(0).at(0).patch.size() << std::endl;
       
       generateTest(&tmpTest[0], TrainSet.at(0).at(0).patchRoi.width, TrainSet.at(0).at(0).patchRoi.height, TrainSet.at(0).at(0).patch.size());
     
-
+      for(int q = 0; q < 5; ++q)
+	cout << tmpTest[q] << " ";
+      cout << endl;
 
 
     // compute value for each patch
@@ -325,6 +329,8 @@ void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int
     valSet[l].resize(TrainSet[l].size());
     for(unsigned int i=0;i<TrainSet[l].size();++i) {
 
+      //std::cout << l << " " << i << std::endl;
+
       // pointer to channel
       cv::Mat ptC = TrainSet[l][i].patch[test[4]];
       ///xcv::Mat toyoshi = *(TrainSet[l][i].p_image[test[4]]);
@@ -332,11 +338,11 @@ void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int
 
 
       // get pixel values 
-      
-
       int p1 = (int)ptC.at<uchar>(test[1], test[0]);
       int p2 = (int)ptC.at<uchar>(test[3], test[2]);
-		
+
+      //std::cout << "nannyanen" << std::endl;
+
       valSet[l][i].val = p1 - p2;
       valSet[l][i].index = i;			
     }

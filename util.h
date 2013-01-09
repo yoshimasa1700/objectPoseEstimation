@@ -80,28 +80,20 @@ class CConfig
   int		subsamples_neg;
   // Samples from pos. examples
   unsigned int	samples_neg;
-
   // offset for saving tree number
   int	off_tree;
-
   // train image per tree
   int	imagePerTree;
-  
   // min sample number per leaf
   int	min_sample;
-  
   // max depth of tree
   int	max_depth;
-
   // feature channel number
   int	featureChannel;
-
   // extract patch ratio
   double	patchRatio;
-
   // stride of getting patch
   int stride;
-
   // test data path
   std::string testPath;
 

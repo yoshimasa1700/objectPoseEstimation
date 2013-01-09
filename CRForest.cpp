@@ -27,6 +27,9 @@ void CRForest::learning(){
     //load train image list and grand truth
     loadTrainFile(conf, dataSet.at(i), gen);
 
+    for(int p = 0;p < dataSet.at(i).size(); ++p)
+      dataSet.at(i).at(p).showDataset();
+
     //create tree
     vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSet.at(i).at(0).centerPoint.size(),gen);
     
