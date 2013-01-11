@@ -112,7 +112,9 @@ class CImages{
   void loadImages(std::vector<CDataset> dataSet);
 };
 
-void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 gen);
+CImages convertScale(CImages inputImg, double scale);
+
+void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen);
 
 
 

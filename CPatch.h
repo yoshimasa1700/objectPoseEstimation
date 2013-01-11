@@ -27,7 +27,7 @@ class CPatch
     //vCenter = center;
     for(int i = 0; i < image.size(); ++i)
       patch.push_back((image.at(i))(cv::Rect(roi)));
-    std::cout << patch.size() << std::endl;
+    //std::cout << patch.size() << std::endl;
     //p_image.push_back(&(image->at(i)));
     vCenter = center;
   }

@@ -54,6 +54,7 @@ class CRTree
   //destructor
   ~CRTree()
     {
+      //std::cout << "yobareta!" << std::endl;
       delete [] treetable;
       delete [] leaf;
     }

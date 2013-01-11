@@ -128,10 +128,40 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches, CImage
   std::cout << std::endl;
 }
 
+void CRForest::extractAllPatches(CDataset dataSet, std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const{
+
+  cv::Rect temp;
+  CPatch tPatch;
+
+  patches.clear();
+  //std::cout << "extraction patches!" << std::endl;
+  for(int j = 0; j < image.at(0).cols - conf.p_width; j += conf.stride){
+    for(int k = 0; k < image.at(0).rows - conf.p_height; k += conf.stride){
+	temp.x = j;
+	temp.y = k;
+	
+	tPatch.setPatch(temp, image, dataSet.centerPoint);
+	patches.push_back(tPatch);
+    }
+  }
+}
+
 void CRForest::loadForest(){
   char buffer[256];
   for(int i = 0; i < vTrees.size(); ++i){
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(),i);
     vTrees[i] = new CRTree(buffer);
+  }
+}
+
+void CRForest::detection(std::vector<CDataset> dataSet, CImages inputImages, std::vector<cv::Mat> &vDetectImg, float scale ,float ratio) const{
+
+  for(int i = 0; i < inputImages.img.size(); ++i){ 
+    std::vector<CPatch> patches;
+    boost::mt19937 gen(static_cast<unsigned long>(time(NULL)) );
+    
+    // extract all patches from an image
+    patches.clear();
+    extractAllPatches(dataSet.at(i), inputImages.img.at(i), patches);
   }
 }

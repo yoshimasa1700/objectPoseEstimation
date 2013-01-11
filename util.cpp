@@ -56,6 +56,25 @@ rgb.at<cv::Vec3b>(l, k)[j] = 0;
   }
 }
 
+CImages convertScale(CImages inputImg, double scale){
+  cv::Mat destImage;
+  std::vector<cv::Mat> tempImageSet;
+  CImages outputImg;
+
+  outputImg.img.clear();
+
+  for(int i = 0; i < inputImg.img.size(); ++i){//for all image
+    tempImageSet.clear();
+    for(int j = 0; j < inputImg.img.at(i).size(); ++j){
+      cv::resize(inputImg.img.at(i).at(j), destImage, cv::Size(), scale, scale, cv::INTER_LINEAR);
+      tempImageSet.push_back(destImage);
+    }
+    outputImg.img.push_back(tempImageSet);
+  }
+
+  return outputImg;
+}
+
 CConfig::CConfig()
 {
 }
@@ -283,7 +302,7 @@ if (boost::optional<std::string> str
   return 0; 
 }
 
-void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 gen)
+void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen)
 {
 
   std::string traindatafilepath = conf.trainpath + PATH_SEP +  conf.traindatafile;

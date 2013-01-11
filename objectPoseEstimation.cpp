@@ -5,11 +5,35 @@
 
 using namespace std;
 
-void detect(CConfig conf){
-  boost::mt19937    gen(static_cast<unsigned long>(time(NULL)) );
+void detect(const CRForest &forest, CConfig conf){
   
+  vector<CDataset> dataSet;
+  boost::mt19937    gen( conf.ntrees * static_cast<unsigned long>(time(0)) );
+  CImages images;
+  vector<CImages> scaledImages;
   
+  vector<vector<vector<cv::Mat> > > vDetectedImg(conf.scales.size());
+  
+  conf.imagePerTree = 10;//読み込む画像ファイルの大まかな数
 
+  loadTrainFile(conf, dataSet, gen);
+  for(int i = 0; i < dataSet.size(); ++i)
+    dataSet.at(i).showDataset();
+
+  images.loadImages(dataSet);
+  
+  scaledImages.clear();
+  for(int i = 0; i < conf.scales.size(); ++i){
+    scaledImages.push_back(convertScale(images, conf.scales.at(i)));
+  }
+  //cout << "kokomade kitayo" << endl;
+  for(int i = 0; i < conf.scales.size(); ++i){
+    vDetectedImg.at(i).resize(conf.ratios.size());
+    //cout << "resize shitayo" << endl;
+    for(int j = 0; j < conf.ratios.size(); ++j){
+      forest.detection(dataSet, scaledImages.at(i), vDetectedImg.at(i).at(j),conf.scales.at(i), conf.ratios.at(j));
+    }
+  }
 }
 
 int main(int argc, char* argv[]){
@@ -43,7 +67,8 @@ int main(int argc, char* argv[]){
   system( execstr.c_str() );
 
   // learning
-  forest.learning();
-
+  //forest.learning();
+  detect(forest, conf);
+  
   return 0; 
 }

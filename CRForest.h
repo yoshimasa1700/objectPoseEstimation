@@ -13,13 +13,20 @@ class CRForest {
   }
   ~CRForest() {
     //std::cout << "kokomade kita" << std::endl;
-    for(int i = 0;i < conf.ntrees;i++)
+
+    int numberOfTrees = vTrees.size();
+
+    for(int i = 0;i < numberOfTrees;++i){
+      //std::cout << "releasing tree " << i << std::endl;
       delete vTrees.at(i);
+    }
   }
   
   void learning();
+  void detection(std::vector<CDataset> dataSet, CImages inputImages, std::vector<cv::Mat> &vDetectImg, float scale, float ratio) const;
   void extractPatches(std::vector<std::vector<CPatch> > &patches, CImages &image, boost::mt19937 gen, CConfig conf, int treeNum);
   void loadForest();
+  void extractAllPatches(CDataset dataSet, std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const;
   
  private:
   CConfig		conf;
