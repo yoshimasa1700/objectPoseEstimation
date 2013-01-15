@@ -27,6 +27,8 @@ class CRForest {
   void extractPatches(std::vector<std::vector<CPatch> > &patches, CImages &image, boost::mt19937 gen, CConfig conf, int treeNum);
   void loadForest();
   void extractAllPatches(CDataset dataSet, std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const;
+  // Regression 
+  void regression(std::vector<const LeafNode*>& result, uchar** ptFCh, int stepImg) const;
   
  private:
   CConfig		conf;

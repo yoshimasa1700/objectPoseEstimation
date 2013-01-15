@@ -155,13 +155,38 @@ void CRForest::loadForest(){
 }
 
 void CRForest::detection(std::vector<CDataset> dataSet, CImages inputImages, std::vector<cv::Mat> &vDetectImg, float scale ,float ratio) const{
+  std::vector<CPatch> patches;
 
-  for(int i = 0; i < inputImages.img.size(); ++i){ 
-    std::vector<CPatch> patches;
+  // get pointers to feature channels
+  //int stepImg;
+  //uchar** ptFCh     = new uchar*;
+  //uchar** ptFCh_row = new uchar*;
+  // for(unsigned int c=0; c<vImg.size(); ++c) {
+  //   cv::GetRawData( vImg[c], (uchar**)&(ptFCh[c]), &stepImg);
+  // }
+  // stepImg /= sizeof(ptFCh[0][0]);
+
+  for(int i = 0; i < inputImages.img.size(); ++i){ //for all images
     boost::mt19937 gen(static_cast<unsigned long>(time(NULL)) );
     
     // extract all patches from an image
     patches.clear();
     extractAllPatches(dataSet.at(i), inputImages.img.at(i), patches);
+
+    for(int j = 0; j < patches.size(); ++j){
+      this.regression
+    }
+  }
+
+  //delete ptFCh;
+  //delete ptFCh_row;
+
+}
+
+// Regression 
+void CRForest::regression(std::vector<const LeafNode*>& result, uchar** ptFCh, int stepImg) const{
+  result.resize( vTrees.size() );
+  for(int i=0; i<(int)vTrees.size(); ++i) {
+    //result[i] = vTrees[i]->regression(ptFCh, stepImg);
   }
 }
