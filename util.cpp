@@ -22,6 +22,9 @@ void CImages::loadImages(std::vector<CDataset> dataSet){
   cv::Mat rgb,depth, mask;
   std::vector<cv::Mat> planes;
   std::vector<cv::Mat> allImages;
+  //std::vector<cv::Mat> rgbSplited;
+
+
   std::cout << dataSet.at(0).depthImageName << std::endl;
   
   for(int i = 0;i < dataSet.size(); ++i){
@@ -42,12 +45,16 @@ CV_LOAD_IMAGE_ANYDEPTH);
 
     for(int k = 0;k < rgb.cols; ++k)
       for(int l = 0;l < rgb.rows; ++l){
-if(!(bool)mask.at<char>(l, k))
-depth.at<short>(l, k) = 0;
-for(int j = 0;j < 3; ++j)
-if(!(bool)mask.at<char>(l, k))
-rgb.at<cv::Vec3b>(l, k)[j] = 0;
+	if(!(bool)mask.at<char>(l, k))
+	  depth.at<short>(l, k) = 0;
+	for(int j = 0;j < 3; ++j)
+	  if(!(bool)mask.at<char>(l, k))
+	    rgb.at<cv::Vec3b>(l, k)[j] = 0;
       }
+
+    //rgbSplited.resize(rgb.channels());
+    
+    //cv::split(rgb, rgbSplited);
     
     allImages.clear();
     allImages.push_back(rgb);
@@ -56,23 +63,17 @@ rgb.at<cv::Vec3b>(l, k)[j] = 0;
   }
 }
 
-CImages convertScale(CImages inputImg, double scale){
+std::vector<cv::Mat> convertScale(const std::vector<cv::Mat> &inputImg, double scale){
   cv::Mat destImage;
-  std::vector<cv::Mat> tempImageSet;
-  CImages outputImg;
+  std::vector<cv::Mat> outImageSet;
 
-  outputImg.img.clear();
-
-  for(int i = 0; i < inputImg.img.size(); ++i){//for all image
-    tempImageSet.clear();
-    for(int j = 0; j < inputImg.img.at(i).size(); ++j){
-      cv::resize(inputImg.img.at(i).at(j), destImage, cv::Size(), scale, scale, cv::INTER_LINEAR);
-      tempImageSet.push_back(destImage);
-    }
-    outputImg.img.push_back(tempImageSet);
+  outImageSet.clear();
+  for(int j = 0; j < inputImg.size(); ++j){
+    cv::resize(inputImg.at(j), destImage, cv::Size(), scale, scale, cv::INTER_LINEAR);
+    outImageSet.push_back(destImage);
   }
-
-  return outputImg;
+  
+  return outImageSet;
 }
 
 CConfig::CConfig()
@@ -293,6 +294,16 @@ if (boost::optional<std::string> str
       = pt.get_optional<std::string>("root.testpath")) {
     std::cout << str.get() << std::endl;
     testPath = *str;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+
+  // load test data file name
+  if (boost::optional<std::string> str
+      = pt.get_optional<std::string>("root.testdataname")) {
+    std::cout << str.get() << std::endl;
+    testData = *str;
   }
   else {
     std::cout << "root.str is nothing" << std::endl;

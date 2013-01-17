@@ -23,12 +23,19 @@ class CRForest {
   }
   
   void learning();
-  void detection(std::vector<CDataset> dataSet, CImages inputImages, std::vector<cv::Mat> &vDetectImg, float scale, float ratio) const;
+  //void detection(std::vector<CDataset> dataSet, CImages inputImages, std::vector<cv::Mat> &vDetectImg, float scale, float ratio) const;
+
+  //void detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<cv::Mat> &vDetectImg, CConfig conf) const;
+  
+  void detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<cv::Mat> &vDetectImg) const;
+
   void extractPatches(std::vector<std::vector<CPatch> > &patches, CImages &image, boost::mt19937 gen, CConfig conf, int treeNum);
   void loadForest();
-  void extractAllPatches(CDataset dataSet, std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const;
+  //void extractAllPatches(CDataset dataSet, std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const;
+  void extractAllPatches(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const;
+
   // Regression 
-  void regression(std::vector<const LeafNode*>& result, uchar** ptFCh, int stepImg) const;
+  void regression(std::vector<const LeafNode*>& result, CPatch &patch) const;
   
  private:
   CConfig		conf;

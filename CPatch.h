@@ -18,7 +18,7 @@ class CPatch
     //patch = image(cv::Rect(x, y, w, h));
   };
 
-  void setPatch(cv::Rect roi, std::vector<cv::Mat> &image, std::vector<cv::Point> center){
+  void setPatch(cv::Rect roi,const std::vector<cv::Mat> &image, std::vector<cv::Point> center){
     patch.clear();
     //xstd::cout << image->size() << std::endl;
     

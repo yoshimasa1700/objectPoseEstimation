@@ -96,6 +96,8 @@ class CConfig
   int stride;
   // test data path
   std::string testPath;
+  // test data file
+  std::string testData;
 
  private:
   boost::property_tree::ptree pt;
@@ -112,7 +114,7 @@ class CImages{
   void loadImages(std::vector<CDataset> dataSet);
 };
 
-CImages convertScale(CImages inputImg, double scale);
+std::vector<cv::Mat> convertScale(const std::vector<cv::Mat> &inputImg, double scale);
 
 void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen);
 

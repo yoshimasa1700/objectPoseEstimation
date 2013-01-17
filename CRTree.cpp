@@ -3,6 +3,38 @@
 using namespace std;
 
 
+const LeafNode* CRTree::regression(CPatch &patch) const {
+	// pointer to current node
+	const int* pnode = &treetable[0];
+	int node = 0;
+
+	// Go through tree until one arrives at a leaf, i.e. pnode[0]>=0)
+	while(pnode[0]==-1) {
+		// binary test 0 - left, 1 - right
+		// Note that x, y are changed since the patches are given as matrix and not as image 
+		// p1 - p2 < t -> left is equal to (p1 - p2 >= t) == false
+		
+		// pointer to channel
+		//uchar* ptC = ptFCh[pnode[5]];
+	  
+	  cv::Mat ptC = patch.patch.at(pnode[5]);
+		// get pixel values 
+	  int p1 = (int)ptC.at<uchar>(pnode[1], pnode[2]);//*(ptC+pnode[1]+pnode[2]*stepImg);
+	  int p2 = (int)ptC.at<uchar>(pnode[3], pnode[2]);//*(ptC+pnode[3]+pnode[4]*stepImg);
+		// test
+		bool test = ( p1 - p2 ) >= pnode[6];
+
+		// next node: 2*node_id + 1 + test
+		// increment node/pointer by node_id + 1 + test
+		int incr = node+1+test;
+		node += incr;
+		pnode += incr*7;
+	}
+
+	// return leaf
+	return &leaf[pnode[0]];
+}
+
 // Read tree from file
 CRTree::CRTree(const char* filename) {
   cout << "Load Tree " << filename << endl;

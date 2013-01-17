@@ -64,7 +64,7 @@ class CRTree
   unsigned int GetNumCenter() const {return num_cp;}
 
   // Regression
-  const LeafNode* regression(uchar** ptFCh, int stepImg) const;
+  const LeafNode* regression(CPatch &patch) const;
 
   // Training
   void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen);

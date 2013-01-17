@@ -67,6 +67,7 @@ void CRForest::learning(){
   vPatches.resize(0);
 }
 
+// extract patch from images
 void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches, CImages &image,boost::mt19937 gen, CConfig conf, int treeNum){
   boost::uniform_real<> dst( 0, 1 );
   boost::variate_generator<boost::mt19937&, 
@@ -128,10 +129,13 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches, CImage
   std::cout << std::endl;
 }
 
-void CRForest::extractAllPatches(CDataset dataSet, std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const{
+void CRForest::extractAllPatches(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const{
 
   cv::Rect temp;
   CPatch tPatch;
+
+  temp.width = conf.p_width;
+  temp.height = conf.p_height;
 
   patches.clear();
   //std::cout << "extraction patches!" << std::endl;
@@ -154,39 +158,68 @@ void CRForest::loadForest(){
   }
 }
 
-void CRForest::detection(std::vector<CDataset> dataSet, CImages inputImages, std::vector<cv::Mat> &vDetectImg, float scale ,float ratio) const{
+void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<cv::Mat> &vDetectImg) const{
+  
+
   std::vector<CPatch> patches;
+  std::vector<cv::Mat> scaledImage;
+  
+  std::vector<const LeafNode*> result;
 
-  // get pointers to feature channels
-  //int stepImg;
-  //uchar** ptFCh     = new uchar*;
-  //uchar** ptFCh_row = new uchar*;
-  // for(unsigned int c=0; c<vImg.size(); ++c) {
-  //   cv::GetRawData( vImg[c], (uchar**)&(ptFCh[c]), &stepImg);
-  // }
-  // stepImg /= sizeof(ptFCh[0][0]);
+  int xoffset = conf.p_width / 2;
+  int yoffset = conf.p_height / 2;
+  
+  for(int i = 0; i < conf.scales.size(); ++i){
+    scaledImage = convertScale(image, conf.scales.at(i));
+    extractAllPatches(dataSet, scaledImage, patches);
 
-  for(int i = 0; i < inputImages.img.size(); ++i){ //for all images
-    boost::mt19937 gen(static_cast<unsigned long>(time(NULL)) );
-    
-    // extract all patches from an image
-    patches.clear();
-    extractAllPatches(dataSet.at(i), inputImages.img.at(i), patches);
+    result.clear();
 
     for(int j = 0; j < patches.size(); ++j){
-      this.regression
-    }
-  }
+      this->regression(result, patches.at(j));
 
-  //delete ptFCh;
-  //delete ptFCh_row;
+      // vote for all trees (leafs) 
+      for(std::vector<const LeafNode*>::const_iterator itL = result.begin(); itL!=result.end(); ++itL) {
 
+	// To speed up the voting, one can vote only for patches 
+	// with a probability for foreground > 0.5
+	// 
+	// if((*itL)->pfg>0.5) {
+
+	// voting weight for leaf 
+	float w = (*itL)->pfg / float( (*itL)->vCenter.size() * result.size() );
+
+	// vote for all points stored in the leaf
+	for(std::vector<std::vector<cv::Point> >::const_iterator it = (*itL)->vCenter.begin(); it!=(*itL)->vCenter.end(); ++it) {
+
+	  for(int c = 0; c < vDetectImg.size(); ++c) {
+	    int x = int(xoffset - (*it)[0].x * conf.ratios[c] + 0.5);
+	    int y = yoffset-(*it)[0].y;
+	    if(y>=0 && y<vDetectImg.at(c).rows && x>=0 && x<vDetectImg[c].cols) {
+	      
+	      vDetectImg.at(c).at<uchar>(x,y) = w;
+	      //*(ptDet[c]+x+y*stepDet) += w;
+	    }
+	  }
+	}
+
+	// } // end if
+
+      }
+
+    } // for every patch
+
+    // smooth result image
+    //for(int c=0; c<(int)vDetectImg.size(); ++c)
+    //  cvSmooth( vDetectImg[c], vDetectImg[c], CV_GAUSSIAN, 3, 0, 0, 0);
+
+  } // for every scale
 }
 
 // Regression 
-void CRForest::regression(std::vector<const LeafNode*>& result, uchar** ptFCh, int stepImg) const{
+void CRForest::regression(std::vector<const LeafNode*>& result, CPatch &patch) const{
   result.resize( vTrees.size() );
   for(int i=0; i<(int)vTrees.size(); ++i) {
-    //result[i] = vTrees[i]->regression(ptFCh, stepImg);
+    result[i] = vTrees[i]->regression(patch);
   }
 }
