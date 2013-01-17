@@ -3,7 +3,7 @@
 
 #include "CPatch.h"
 #include "util.h"
-#include <Ctime>
+#include <ctime>
 
 // Auxilary structure
 struct IntIndex {
