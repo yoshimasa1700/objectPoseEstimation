@@ -9,6 +9,8 @@
 /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
 util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
+HoG.h
+/Users/masahiko/Programs/objectPoseEstimation/HoG.h
 
 /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp
 CRForest.h
@@ -22,6 +24,10 @@ CPatch.h
 util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
+CRTree.h
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 CPatch.h
 /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
@@ -29,6 +35,18 @@ util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 Ctime
 -
+
+/Users/masahiko/Programs/objectPoseEstimation/HoG.h
+cxcore.h
+-
+vector
+-
+
+/Users/masahiko/Programs/objectPoseEstimation/learning.cpp
+CRForest.h
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
+util.h
+/Users/masahiko/Programs/objectPoseEstimation/util.h
 
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 iostream
@@ -15143,6 +15161,12 @@ new
 /usr/local/include/boost/visit_each.hpp
 boost/config.hpp
 -
+
+/usr/local/include/opencv/cxcore.h
+opencv2/core/core_c.h
+/usr/local/include/opencv/opencv2/core/core_c.h
+opencv2/core/core.hpp
+/usr/local/include/opencv/opencv2/core/core.hpp
 
 /usr/local/include/opencv2/calib3d/calib3d.hpp
 opencv2/core/core.hpp

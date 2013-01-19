@@ -5,6 +5,7 @@ CMakeFiles/learning.dir/CRForest.cpp.o: CPatch.h
 CMakeFiles/learning.dir/CRForest.cpp.o: CRForest.cpp
 CMakeFiles/learning.dir/CRForest.cpp.o: CRForest.h
 CMakeFiles/learning.dir/CRForest.cpp.o: CRTree.h
+CMakeFiles/learning.dir/CRForest.cpp.o: HoG.h
 CMakeFiles/learning.dir/CRForest.cpp.o: util.h
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/any.hpp
@@ -1401,6 +1402,7 @@ CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/utility/result_
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/visit_each.hpp
+CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv/cxcore.h
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -1432,6 +1434,7 @@ CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv2/video/video.h
 CMakeFiles/learning.dir/CRTree.cpp.o: CPatch.h
 CMakeFiles/learning.dir/CRTree.cpp.o: CRTree.cpp
 CMakeFiles/learning.dir/CRTree.cpp.o: CRTree.h
+CMakeFiles/learning.dir/CRTree.cpp.o: HoG.h
 CMakeFiles/learning.dir/CRTree.cpp.o: util.h
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/any.hpp
@@ -2828,6 +2831,7 @@ CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/utility/result_of
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/visit_each.hpp
+CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv/cxcore.h
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -2859,6 +2863,7 @@ CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv2/video/video.hpp
 CMakeFiles/learning.dir/learning.cpp.o: CPatch.h
 CMakeFiles/learning.dir/learning.cpp.o: CRForest.h
 CMakeFiles/learning.dir/learning.cpp.o: CRTree.h
+CMakeFiles/learning.dir/learning.cpp.o: HoG.h
 CMakeFiles/learning.dir/learning.cpp.o: learning.cpp
 CMakeFiles/learning.dir/learning.cpp.o: util.h
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/aligned_storage.hpp
@@ -4256,6 +4261,7 @@ CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/utility/result_
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/visit_each.hpp
+CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv/cxcore.h
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp

@@ -6,6 +6,7 @@ CMakeFiles/learning.dir/CRForest.cpp.o
  /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp
  /Users/masahiko/Programs/objectPoseEstimation/CRForest.h
  /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+ /Users/masahiko/Programs/objectPoseEstimation/HoG.h
  /Users/masahiko/Programs/objectPoseEstimation/util.h
  /usr/local/include/boost/aligned_storage.hpp
  /usr/local/include/boost/any.hpp
@@ -1402,6 +1403,7 @@ CMakeFiles/learning.dir/CRForest.cpp.o
  /usr/local/include/boost/utility/swap.hpp
  /usr/local/include/boost/utility/value_init.hpp
  /usr/local/include/boost/visit_each.hpp
+ /usr/local/include/opencv/cxcore.h
  /usr/local/include/opencv2/calib3d/calib3d.hpp
  /usr/local/include/opencv2/contrib/contrib.hpp
  /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -1433,6 +1435,7 @@ CMakeFiles/learning.dir/CRTree.cpp.o
  /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
  /Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
  /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+ /Users/masahiko/Programs/objectPoseEstimation/HoG.h
  /Users/masahiko/Programs/objectPoseEstimation/util.h
  /usr/local/include/boost/aligned_storage.hpp
  /usr/local/include/boost/any.hpp
@@ -2829,6 +2832,7 @@ CMakeFiles/learning.dir/CRTree.cpp.o
  /usr/local/include/boost/utility/swap.hpp
  /usr/local/include/boost/utility/value_init.hpp
  /usr/local/include/boost/visit_each.hpp
+ /usr/local/include/opencv/cxcore.h
  /usr/local/include/opencv2/calib3d/calib3d.hpp
  /usr/local/include/opencv2/contrib/contrib.hpp
  /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -2860,6 +2864,7 @@ CMakeFiles/learning.dir/learning.cpp.o
  /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
  /Users/masahiko/Programs/objectPoseEstimation/CRForest.h
  /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+ /Users/masahiko/Programs/objectPoseEstimation/HoG.h
  /Users/masahiko/Programs/objectPoseEstimation/learning.cpp
  /Users/masahiko/Programs/objectPoseEstimation/util.h
  /usr/local/include/boost/aligned_storage.hpp
@@ -4257,6 +4262,7 @@ CMakeFiles/learning.dir/learning.cpp.o
  /usr/local/include/boost/utility/swap.hpp
  /usr/local/include/boost/utility/value_init.hpp
  /usr/local/include/boost/visit_each.hpp
+ /usr/local/include/opencv/cxcore.h
  /usr/local/include/opencv2/calib3d/calib3d.hpp
  /usr/local/include/opencv2/contrib/contrib.hpp
  /usr/local/include/opencv2/contrib/openfabmap.hpp
