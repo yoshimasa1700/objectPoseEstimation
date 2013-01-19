@@ -6,36 +6,49 @@
 
 #IncludeRegexTransform: 
 
-/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
+/home/masahiko/Program/objectPoseEstimation/CPatch.h
 util.h
+<<<<<<< HEAD
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 HoG.h
 /Users/masahiko/Programs/objectPoseEstimation/HoG.h
+=======
+/home/masahiko/Program/objectPoseEstimation/util.h
+>>>>>>> temp1
 
-/Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp
+/home/masahiko/Program/objectPoseEstimation/CRForest.cpp
 CRForest.h
-/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
+/home/masahiko/Program/objectPoseEstimation/CRForest.h
 
-/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
+/home/masahiko/Program/objectPoseEstimation/CRForest.h
 CRTree.h
-/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+/home/masahiko/Program/objectPoseEstimation/CRTree.h
 CPatch.h
-/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
+/home/masahiko/Program/objectPoseEstimation/CPatch.h
 util.h
-/Users/masahiko/Programs/objectPoseEstimation/util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
 
+<<<<<<< HEAD
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
 CRTree.h
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+=======
+/home/masahiko/Program/objectPoseEstimation/CRTree.cpp
+CRTree.h
+/home/masahiko/Program/objectPoseEstimation/CRTree.h
+
+/home/masahiko/Program/objectPoseEstimation/CRTree.h
+>>>>>>> temp1
 CPatch.h
-/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
+/home/masahiko/Program/objectPoseEstimation/CPatch.h
 util.h
-/Users/masahiko/Programs/objectPoseEstimation/util.h
-Ctime
+/home/masahiko/Program/objectPoseEstimation/util.h
+ctime
 -
 
+<<<<<<< HEAD
 /Users/masahiko/Programs/objectPoseEstimation/HoG.h
 cxcore.h
 -
@@ -49,6 +62,19 @@ util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 
 /Users/masahiko/Programs/objectPoseEstimation/util.h
+=======
+/home/masahiko/Program/objectPoseEstimation/learning.cpp
+CRForest.h
+/home/masahiko/Program/objectPoseEstimation/CRForest.h
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+
+/home/masahiko/Program/objectPoseEstimation/util.cpp
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+
+/home/masahiko/Program/objectPoseEstimation/util.h
+>>>>>>> temp1
 iostream
 -
 vector
@@ -72,6 +98,7 @@ boost/lexical_cast.hpp
 boost/random.hpp
 -
 
+<<<<<<< HEAD
 /usr/local/include/boost/aligned_storage.hpp
 cstddef
 -
@@ -15418,3 +15445,5 @@ opencv2/video/tracking.hpp
 opencv2/video/background_segm.hpp
 /usr/local/include/opencv2/video/opencv2/video/background_segm.hpp
 
+=======
+>>>>>>> temp1
