@@ -144,12 +144,36 @@ CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o.provides: CMakeFiles/objectPose
 
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o.provides.build: CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o
 
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o: CMakeFiles/objectPoseEstimation.dir/flags.make
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o: HoG.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o -c /home/masahiko/Program/objectPoseEstimation/HoG.cpp
+
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/objectPoseEstimation.dir/HoG.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/masahiko/Program/objectPoseEstimation/HoG.cpp > CMakeFiles/objectPoseEstimation.dir/HoG.cpp.i
+
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/objectPoseEstimation.dir/HoG.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/masahiko/Program/objectPoseEstimation/HoG.cpp -o CMakeFiles/objectPoseEstimation.dir/HoG.cpp.s
+
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.requires:
+.PHONY : CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.requires
+
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.provides: CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.requires
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.provides.build
+.PHONY : CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.provides
+
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.provides.build: CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o
+
 # Object files for target objectPoseEstimation
 objectPoseEstimation_OBJECTS = \
 "CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o" \
 "CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o" \
 "CMakeFiles/objectPoseEstimation.dir/util.cpp.o" \
-"CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o"
+"CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o" \
+"CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o"
 
 # External object files for target objectPoseEstimation
 objectPoseEstimation_EXTERNAL_OBJECTS =
@@ -158,6 +182,7 @@ objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/objectPoseEstima
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/util.cpp.o
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o
+objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/build.make
 objectPoseEstimation-1.0.0: /usr/lib/libopencv_calib3d.so
 objectPoseEstimation-1.0.0: /usr/lib/libopencv_contrib.so
@@ -192,6 +217,7 @@ CMakeFiles/objectPoseEstimation.dir/requires: CMakeFiles/objectPoseEstimation.di
 CMakeFiles/objectPoseEstimation.dir/requires: CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o.requires
 CMakeFiles/objectPoseEstimation.dir/requires: CMakeFiles/objectPoseEstimation.dir/util.cpp.o.requires
 CMakeFiles/objectPoseEstimation.dir/requires: CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o.requires
+CMakeFiles/objectPoseEstimation.dir/requires: CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o.requires
 .PHONY : CMakeFiles/objectPoseEstimation.dir/requires
 
 CMakeFiles/objectPoseEstimation.dir/clean:

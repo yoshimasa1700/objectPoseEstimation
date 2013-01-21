@@ -6,18 +6,28 @@ CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o
  /home/masahiko/Program/objectPoseEstimation/CRForest.cpp
  /home/masahiko/Program/objectPoseEstimation/CRForest.h
  /home/masahiko/Program/objectPoseEstimation/CRTree.h
+ /home/masahiko/Program/objectPoseEstimation/HoG.h
  /home/masahiko/Program/objectPoseEstimation/util.h
+ /usr/include/opencv/cxcore.h
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o
  /home/masahiko/Program/objectPoseEstimation/CPatch.h
  /home/masahiko/Program/objectPoseEstimation/CRTree.cpp
  /home/masahiko/Program/objectPoseEstimation/CRTree.h
+ /home/masahiko/Program/objectPoseEstimation/HoG.h
  /home/masahiko/Program/objectPoseEstimation/util.h
+ /usr/include/opencv/cxcore.h
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o
+ /home/masahiko/Program/objectPoseEstimation/HoG.cpp
+ /home/masahiko/Program/objectPoseEstimation/HoG.h
+ /usr/include/opencv/cxcore.h
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o
  /home/masahiko/Program/objectPoseEstimation/CPatch.h
  /home/masahiko/Program/objectPoseEstimation/CRForest.h
  /home/masahiko/Program/objectPoseEstimation/CRTree.h
+ /home/masahiko/Program/objectPoseEstimation/HoG.h
  /home/masahiko/Program/objectPoseEstimation/objectPoseEstimation.cpp
  /home/masahiko/Program/objectPoseEstimation/util.h
+ /usr/include/opencv/cxcore.h
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o
  /home/masahiko/Program/objectPoseEstimation/util.cpp
  /home/masahiko/Program/objectPoseEstimation/util.h

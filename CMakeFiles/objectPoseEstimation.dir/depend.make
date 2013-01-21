@@ -5,18 +5,28 @@ CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: CPatch.h
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: CRForest.cpp
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: CRForest.h
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: CRTree.h
+CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: HoG.h
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: util.h
+CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/include/opencv/cxcore.h
 
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: CPatch.h
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: CRTree.cpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: CRTree.h
+CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: HoG.h
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: util.h
+CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/include/opencv/cxcore.h
+
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o: HoG.cpp
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o: HoG.h
+CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o: /usr/include/opencv/cxcore.h
 
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: CPatch.h
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: CRForest.h
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: CRTree.h
+CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: HoG.h
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: objectPoseEstimation.cpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: util.h
+CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/include/opencv/cxcore.h
 
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: util.cpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: util.h

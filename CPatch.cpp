@@ -18,7 +18,7 @@
 //       for(int k = 0; k < images.at(i).at(0).rows - height; k += stride){
 // 	if(rand() < patchRatio){
 // 	  temp.x = j;
-// 	  temp.y = k;
+// 	  temp.y k;
 // 	  tempPatches.push_back(temp);
 // 	}
 //       }

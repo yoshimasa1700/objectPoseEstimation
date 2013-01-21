@@ -144,12 +144,36 @@ CMakeFiles/learning.dir/CRTree.cpp.o.provides: CMakeFiles/learning.dir/CRTree.cp
 
 CMakeFiles/learning.dir/CRTree.cpp.o.provides.build: CMakeFiles/learning.dir/CRTree.cpp.o
 
+CMakeFiles/learning.dir/HoG.cpp.o: CMakeFiles/learning.dir/flags.make
+CMakeFiles/learning.dir/HoG.cpp.o: HoG.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/HoG.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/HoG.cpp.o -c /home/masahiko/Program/objectPoseEstimation/HoG.cpp
+
+CMakeFiles/learning.dir/HoG.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/HoG.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/masahiko/Program/objectPoseEstimation/HoG.cpp > CMakeFiles/learning.dir/HoG.cpp.i
+
+CMakeFiles/learning.dir/HoG.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/HoG.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/masahiko/Program/objectPoseEstimation/HoG.cpp -o CMakeFiles/learning.dir/HoG.cpp.s
+
+CMakeFiles/learning.dir/HoG.cpp.o.requires:
+.PHONY : CMakeFiles/learning.dir/HoG.cpp.o.requires
+
+CMakeFiles/learning.dir/HoG.cpp.o.provides: CMakeFiles/learning.dir/HoG.cpp.o.requires
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/HoG.cpp.o.provides.build
+.PHONY : CMakeFiles/learning.dir/HoG.cpp.o.provides
+
+CMakeFiles/learning.dir/HoG.cpp.o.provides.build: CMakeFiles/learning.dir/HoG.cpp.o
+
 # Object files for target learning
 learning_OBJECTS = \
 "CMakeFiles/learning.dir/learning.cpp.o" \
 "CMakeFiles/learning.dir/CRForest.cpp.o" \
 "CMakeFiles/learning.dir/util.cpp.o" \
-"CMakeFiles/learning.dir/CRTree.cpp.o"
+"CMakeFiles/learning.dir/CRTree.cpp.o" \
+"CMakeFiles/learning.dir/HoG.cpp.o"
 
 # External object files for target learning
 learning_EXTERNAL_OBJECTS =
@@ -158,6 +182,7 @@ learning-1.0.0: CMakeFiles/learning.dir/learning.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/CRForest.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/util.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/CRTree.cpp.o
+learning-1.0.0: CMakeFiles/learning.dir/HoG.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/build.make
 learning-1.0.0: /usr/lib/libopencv_calib3d.so
 learning-1.0.0: /usr/lib/libopencv_contrib.so
@@ -192,6 +217,7 @@ CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/learning.cpp.o.require
 CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/CRForest.cpp.o.requires
 CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/util.cpp.o.requires
 CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/CRTree.cpp.o.requires
+CMakeFiles/learning.dir/requires: CMakeFiles/learning.dir/HoG.cpp.o.requires
 .PHONY : CMakeFiles/learning.dir/requires
 
 CMakeFiles/learning.dir/clean:

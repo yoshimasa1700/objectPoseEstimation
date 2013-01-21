@@ -4,7 +4,7 @@
 #include "util.h"
 #include "HoG.h"
 
-static HoG hog;
+static HoG hog();
 
 class CPatch 
 {
@@ -65,7 +65,7 @@ inline void CPatch::extractFeatureChannels(const cv::Mat& img, std::vector<cv::M
   for(int  y = 0; y < img.rows; y++)
     for(int  x = 0; x < img.cols; x++) {
       // Avoid division by zero
-      float tx = I_x.at<float>(y, x) + (float)_copysign(0.000001f, I_x.at<float>(y, x));
+      float tx = I_x.at<float>(y, x) + (float)copysign(0.000001f, I_x.at<float>(y, x));
       // Scaling [-pi/2 pi/2] -> [0 80*pi]
       vImg.at(1).at<uchar>(y, x) = (uchar)(( atan((float)I_y.at<float>(y, x) / tx) + 3.14159265f / 2.0f ) * 80);
 

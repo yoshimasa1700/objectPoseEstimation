@@ -22,10 +22,10 @@ HoG::HoG() {
 	  for(int y = 0; y<g_w; ++y) {
 	    double tmp = exp(-( (a+x)*(a+x)+(a+y)*(a+y) )/sigma2);
 	    count += tmp;
-	    Gauss.at<cv::Scalar>(y, x) = Scalar(tmp);
+	    Gauss.at<cv::Scalar>(y, x) = cv::Scalar(tmp);
 	  }
 	}
-	cv::ConvertScale( Gauss, Gauss, 1.0 / count);
+	Gauss /= count;
 	
 	ptGauss = new float[g_w*g_w];
 	int i = 0;
@@ -36,56 +36,43 @@ HoG::HoG() {
 
 
 void HoG::extractOBin(const cv::Mat& Iorient,const cv::Mat& Imagn, std::vector<cv::Mat>& out, int off) {
-	double* desc = new double[bins];
+  double* desc = new double[bins];
 
-	// reset output image (border=0) and get pointers
-	uchar** ptOut     = new uchar*[bins];
-	uchar** ptOut_row = new uchar*[bins];
-	for(int k=off; k<bins+off; ++k) 
-	  out[k] = cv::Mat::zeros(out[k].rows, out[k].cols, CV_8U);
-      
-	// get pointers to orientation, magnitude
-	int step;
-	uchar* ptOrient;
-	uchar* ptOrient_row;
-	cvGetRawData( Iorient, (uchar**)&(ptOrient), &step);
-	step /= sizeof(ptOrient[0]);
-
-	uchar* ptMagn;
-	uchar* ptMagn_row;
-	cvGetRawData( Imagn, (uchar**)&(ptMagn));
-
-	int off_w = int(g_w/2.0); 
-	for(int l=0; l<bins; ++l)
-	  ptOut[l] += off_w*step;
-
-	for(int y = 0; y < Iorient.rows - g_w; y++) {
-
-		// Get row pointers
-		ptOrient_row = &ptOrient[0];
-		ptMagn_row = &ptMagn[0];
-		for(int l=0; l<bins; ++l)
-		  ptOut_row[l] = &ptOut[l][0]+off_w;
-
-		for(int x=0; x<Iorient->width-g_w; ++x, ++ptOrient_row, ++ptMagn_row) {
-		
-			calcHoGBin( ptOrient_row, ptMagn_row, step, desc );
-
-			for(int l=0; l<bins; ++l) {
-				*ptOut_row[l] = (uchar)desc[l];
-				++ptOut_row[l];
-			}
-		}
-
-		// update pointer
-		for(int l=0; l<bins; ++l)
-			ptOut[l] += step;
-	}
-
-	delete[] desc;
-	delete[] ptOut;
-	delete[] ptOut_row;
+  // reset output image (border=0) and get pointers
+  for(int k=off; k<bins+off; ++k) 
+    out[k] = cv::Mat::zeros(out[k].rows, out[k].cols, CV_8U);
+  
+  for(int y = 0; y < Iorient.rows - g_w; y++) {
+    for(int x = 0; x < Iorient.cols - g_w; x++){
+      // calc hog bin
+      calcHoGBin(Iorient, Imagn, out, x, y);
+    }
+  }   
 }
 
+void HoG::calcHoGBin(const cv::Mat& IOri, const cv::Mat& IMag, std::vector<cv::Mat>& out, int offX, int offY){
+  int yy, xx;
+
+  int i = 0;
+  for(int y = 0; y < g_w; ++y){
+    for(int x = 0; x < g_w; ++x, ++i){
+      yy = y + offY;
+      xx = x + offX;
+
+      float v = IOri.at<float>(yy, xx) / binsize;
+      float w = IMag.at<float>(yy, xx) * Gauss.at<float>(y, x);
+      int bin1 = int(v);
+      int bin2;
+      float delta = v - bin1 - 0.5f;
+      if(delta < 0){
+	bin2 = bin1 < 1 ? bins - 1 : bin1 - 1;
+	delta = - delta;
+      }else
+	bin2 = bin1 < bins - 1 ? bin1 + 1 : 0;
+      out.at(bin1).at<float>(yy, xx) += (1 - delta) * w;
+      out.at(bin2).at<float>(yy, xx) += delta * w;
+    }
+  }
+}
 
 

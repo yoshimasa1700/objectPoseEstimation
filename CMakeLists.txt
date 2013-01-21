@@ -37,7 +37,7 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 # ライブラリの場所
 LINK_DIRECTORIES("/usr/local/lib")
 
-SET(RANDOM_FOREST CRForest.cpp util.cpp CRTree.cpp)
+SET(RANDOM_FOREST CRForest.cpp util.cpp CRTree.cpp HoG.cpp)
 
 # 実行ファイルを生成
 ADD_EXECUTABLE(objectPoseEstimation objectPoseEstimation.cpp ${RANDOM_FOREST})

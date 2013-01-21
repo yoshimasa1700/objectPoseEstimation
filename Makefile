@@ -181,6 +181,33 @@ CRTree.cpp.s:
 	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.s
 .PHONY : CRTree.cpp.s
 
+HoG.o: HoG.cpp.o
+.PHONY : HoG.o
+
+# target to build an object file
+HoG.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/HoG.cpp.o
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o
+.PHONY : HoG.cpp.o
+
+HoG.i: HoG.cpp.i
+.PHONY : HoG.i
+
+# target to preprocess a source file
+HoG.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/HoG.cpp.i
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/HoG.cpp.i
+.PHONY : HoG.cpp.i
+
+HoG.s: HoG.cpp.s
+.PHONY : HoG.s
+
+# target to generate assembly for a file
+HoG.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/HoG.cpp.s
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/HoG.cpp.s
+.PHONY : HoG.cpp.s
+
 learning.o: learning.cpp.o
 .PHONY : learning.o
 
@@ -272,6 +299,9 @@ help:
 	@echo "... CRTree.o"
 	@echo "... CRTree.i"
 	@echo "... CRTree.s"
+	@echo "... HoG.o"
+	@echo "... HoG.i"
+	@echo "... HoG.s"
 	@echo "... learning.o"
 	@echo "... learning.i"
 	@echo "... learning.s"
