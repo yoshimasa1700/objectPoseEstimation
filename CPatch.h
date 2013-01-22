@@ -20,6 +20,7 @@ class CPatch
 
   void setPatch(cv::Rect roi,const std::vector<cv::Mat> &image, std::vector<cv::Point> center){
     patch.clear();
+    vCenter.clear();
     //xstd::cout << image->size() << std::endl;
     
     patchRoi = roi;

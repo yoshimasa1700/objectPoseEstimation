@@ -32,16 +32,16 @@ class CRForest {
   void regression(std::vector<const LeafNode*>& result, CPatch &patch) const;
   void loadImages(std::vector<std::vector<cv::Mat> > &img, std::vector<CDataset> dataSet);
 
-  void extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg);
-  void minFilter(cv::Mat& src, cv::Mat& des, int fWind);
-  void maxFilter(cv::Mat& src, cv::Mat& des, int fWind);
+  void extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg) const;
+  void minFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
+  void maxFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
 
  private:
   CConfig		conf;
   std::vector<CRTree*>	vTrees;
 };
 
-inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg){
+inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg) const{
   vImg.resize(32);
   for(int i = 0; i < 32; ++i)
     vImg.at(i) = cv::Mat(img.rows, img.cols, CV_8UC1);
@@ -101,7 +101,7 @@ inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv:
   
 }
 
-inline void CRForest::minFilter(cv::Mat& src, cv::Mat& des, int fWind){
+inline void CRForest::minFilter(cv::Mat& src, cv::Mat& des, int fWind) const{
   int d = (fWind - 1) / 2;
   cv::Rect roi;
   cv::Mat desTemp(src.rows, src.cols, CV_8U), vTemp;
@@ -133,7 +133,7 @@ inline void CRForest::minFilter(cv::Mat& src, cv::Mat& des, int fWind){
   } // for image width
 }
 
-inline void CRForest::maxFilter(cv::Mat& src, cv::Mat& des, int fWind){
+inline void CRForest::maxFilter(cv::Mat& src, cv::Mat& des, int fWind) const{
   int d = (fWind - 1) / 2;
   cv::Rect roi;
   cv::Mat desTemp(src.rows, src.cols, CV_8U), vTemp;

@@ -32,8 +32,9 @@ void CRForest::learning(){
     //load train image list and grand truth
     loadTrainFile(conf, dataSets, gen);
 
-    //for(int p = 0;p < dataSets.size(); ++p)
-    //dataSets.at(p).showDataset();
+
+    for(int p = 0;p < dataSets.size(); ++p)
+      dataSets.at(p).showDataset();
 
     //create tree
     vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
@@ -170,7 +171,10 @@ void CRForest::loadForest(){
 void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<cv::Mat> &vDetectImg) const{
 
   std::vector<CPatch> patches;
+
   std::vector<cv::Mat> scaledImage;
+
+  std::vector<cv::Mat> features;
   
   std::vector<const LeafNode*> result;
 
@@ -179,6 +183,11 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   
   for(int i = 0; i < conf.scales.size(); ++i){
     scaledImage = convertScale(image, conf.scales.at(i));
+
+    features.resize(0);
+    extractFeatureChannels(scaledImage.at(0), features);
+    features.push_back(scaledImage.at(1));
+
     extractAllPatches(dataSet, scaledImage, patches);
 
     result.clear();

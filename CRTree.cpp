@@ -177,7 +177,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     if( float(TrainSet[0].size()) / float(TrainSet[0].size()+TrainSet[1].size()) >= 0.05 && depth < max_depth-2 )
       measure_mode = rand();
     
-    cout << "MeasureMode " << "depth " <<depth << " " << "measure_mode " << measure_mode << " " << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() <<endl;
+    cout << "MeasureMode " << "depth " <<depth << " " << "measure_mode " << measure_mode << " " << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
     
     // Find optimal test
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
@@ -199,11 +199,11 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
 	countA += SetA[l].size(); countB += SetB[l].size();
       }
       for(unsigned int l=0; l<TrainSet.size(); ++l) {
-	cout << "Final_SplitA: " << SetA[l].size()/countA << "% "; 
+	cout << "Final_SplitA: " << 100 * SetA[l].size()/countA << "% "; 
       }
       cout << endl;
       for(unsigned int l=0; l<TrainSet.size(); ++l) {
-	cout << "Final_SplitB: " << SetB[l].size() / countB << "% "; 
+	cout << "Final_SplitB: " << 100 *SetB[l].size() / countB << "% "; 
       }
       cout << endl;
 
@@ -236,6 +236,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     makeLeaf(TrainSet, pnratio, node);
 	
   }
+  
 }
 
 // Create leaf node from patches 

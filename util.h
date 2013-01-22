@@ -118,6 +118,16 @@ std::vector<cv::Mat> convertScale(const std::vector<cv::Mat> &inputImg, double s
 
 void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen);
 
+calss databaseNode{
+ public:
+ databaseNode(int n, std::string className) : num(n), databaseN{
+  }
 
+  int num;
+  std::string name;
+};
+
+class CClassDatabase{
+};
 
 #endif

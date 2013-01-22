@@ -19,6 +19,7 @@ void CDataset::showDataset(){
 void CImages::loadImages(std::vector<CDataset> dataSet){
   img.resize(0);
 
+
   cv::Mat rgb,depth, mask;
   std::vector<cv::Mat> planes;
   std::vector<cv::Mat> allImages;
