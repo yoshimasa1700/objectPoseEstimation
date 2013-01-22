@@ -1,4 +1,4 @@
-5
+60
 bottle_1_1_1_crop.png bottle_1_1_1_depthcrop.png bottle_1_1_1_maskcrop.png 0 0 84 203 42 101 bottle 0
 bottle_1_1_2_crop.png bottle_1_1_2_depthcrop.png bottle_1_1_2_maskcrop.png 0 0 84 203 42 101 bottle 6
 bottle_1_1_3_crop.png bottle_1_1_3_depthcrop.png bottle_1_1_3_maskcrop.png 0 0 84 203 42 101 bottle 12

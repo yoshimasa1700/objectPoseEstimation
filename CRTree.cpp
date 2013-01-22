@@ -7,6 +7,7 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
 	// pointer to current node
 	const int* pnode = &treetable[0];
 	int node = 0;
+	int p1,p2;
 
 	// Go through tree until one arrives at a leaf, i.e. pnode[0]>=0)
 	while(pnode[0]==-1) {
@@ -17,18 +18,34 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
 		// pointer to channel
 		//uchar* ptC = ptFCh[pnode[5]];
 	  
-	  cv::Mat ptC = patch.patch.at(pnode[5]);
+	  cv::Mat ptC = patch.patch.at(pnode[9]);
+
+	  if(pnode[9] == 32){
+	    p1 = 0;
+	    p2 = 0;
+	    for(int j = 0;j < pnode[3]; ++j){
+	      for(int k = 0; k < pnode[4]; ++k)
+		p1 += (int)ptC.at<uchar>(k + pnode[2],j +  pnode[1]);
+	    }
+	
+	    for(int j = 0;j < pnode[7]; ++j){
+	      for(int k = 0; k < pnode[8]; ++k)
+		p2 += (int)ptC.at<uchar>(k + pnode[6],j +  pnode[5]);
+	    }
+	
+	  }else{
 		// get pixel values 
-	  int p1 = (int)ptC.at<uchar>(pnode[1], pnode[2]);//*(ptC+pnode[1]+pnode[2]*stepImg);
-	  int p2 = (int)ptC.at<uchar>(pnode[3], pnode[2]);//*(ptC+pnode[3]+pnode[4]*stepImg);
+	  p1 = (int)ptC.at<uchar>(pnode[2], pnode[1]);//*(ptC+pnode[1]+pnode[2]*stepImg);
+	  p2 = (int)ptC.at<uchar>(pnode[6], pnode[5]);//*(ptC+pnode[3]+pnode[4]*stepImg);
+	  }
 		// test
-		bool test = ( p1 - p2 ) >= pnode[6];
+		bool test = ( p1 - p2 ) >= pnode[10];
 
 		// next node: 2*node_id + 1 + test
 		// increment node/pointer by node_id + 1 + test
 		int incr = node+1+test;
 		node += incr;
-		pnode += incr*7;
+		pnode += incr*11;
 	}
 
 	// return leaf
@@ -47,7 +64,7 @@ CRTree::CRTree(const char* filename) {
     in >> max_depth;
     num_nodes = (int)pow(2.0,int(max_depth+1))-1;
     // num_nodes x 7 matrix as vector
-    treetable = new int[num_nodes * 7];
+    treetable = new int[num_nodes * 11];
     int* ptT = &treetable[0];
 		
     // allocate memory for leafs
@@ -60,7 +77,7 @@ CRTree::CRTree(const char* filename) {
     // read tree nodes
     for(unsigned int n=0; n<num_nodes; ++n) {
       in >> dummy; in >> dummy;
-      for(unsigned int i=0; i<7; ++i, ++ptT) {
+      for(unsigned int i=0; i<11; ++i, ++ptT) {
 	in >> *ptT;
       }
     }
@@ -113,7 +130,7 @@ bool CRTree::saveTree(const char* filename) const {
       }
 
       out << n << " " << depth << " ";
-      for(unsigned int i=0; i<7; ++i, ++ptT) {
+      for(unsigned int i=0; i<11; ++i, ++ptT) {
 	out << *ptT << " ";
       }
       out << endl;
@@ -153,7 +170,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     // spilit patches by the binary test
     vector<vector<CPatch> > SetA;
     vector<vector<CPatch> > SetB;
-    int test[6];
+    int test[10];
     
     // Set measure mode for split: 0 - classification, 1 - regression
     unsigned int measure_mode = 1;
@@ -166,9 +183,9 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
 
       // Store binary test for current node
-      int* ptT = &treetable[node*7];
+      int* ptT = &treetable[node*11];
       ptT[0] = -1; ++ptT; 
-      for(int t=0; t<6; ++t)
+      for(int t=0; t<10; ++t)
 	ptT[t] = test[t];
 
      
@@ -224,7 +241,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
 // Create leaf node from patches 
 void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node) {
   // Get pointer
-  treetable[node*7] = num_leaf;
+  treetable[node*11] = num_leaf;
   LeafNode* ptL = &leaf[num_leaf];
 
   // Store data
@@ -253,7 +270,7 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
   double tmpDist;
   // maximize!!!!
   double bestDist = -DBL_MAX; 
-  int tmpTest[6];
+  int tmpTest[10];
 
   boost::uniform_int<> dst( 0, INT_MAX );
   boost::variate_generator<boost::mt19937&,
@@ -277,11 +294,14 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
       
       //std::cout << TrainSet.at(0).at(0).patch.size() << std::endl;
       
-      generateTest(&tmpTest[0], TrainSet.at(0).at(0).patchRoi.width, TrainSet.at(0).at(0).patchRoi.height, TrainSet.at(0).at(0).patch.size());
+      generateTest(&tmpTest[0], 
+		   TrainSet.at(0).at(0).patchRoi.width, 
+		   TrainSet.at(0).at(0).patchRoi.height, 
+		   TrainSet.at(0).at(0).patch.size());
     
-      for(int q = 0; q < 5; ++q)
-	cout << tmpTest[q] << " ";
-      cout << endl;
+      //for(int q = 0; q < 9; ++q)
+      //cout << tmpTest[q] << " ";
+      //cout << endl;
 
 
     // compute value for each patch
@@ -326,8 +346,8 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
 
 	    found = true;
 	    bestDist = tmpDist;
-	    for(int t=0; t<5;++t) test[t] = tmpTest[t];
-	    test[5] = tr;
+	    for(int t=0; t<10;++t) test[t] = tmpTest[t];
+	    test[9] = tr;
 
 	    //cout << "iretayo" << endl;
 	    SetA = tmpA;
@@ -357,26 +377,33 @@ void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int
   //   std::cout << test[m] << ", ";
   // std::cout << std::endl;
   
+  int p1, p2;
+  
   for(unsigned int l = 0; l < TrainSet.size(); ++l) {
     valSet[l].resize(TrainSet[l].size());
     for(unsigned int i=0;i<TrainSet[l].size();++i) {
-
-      //std::cout << l << " " << i << std::endl;
-
       // pointer to channel
-      cv::Mat ptC = TrainSet[l][i].patch[test[4]];
-      ///xcv::Mat toyoshi = *(TrainSet[l][i].p_image[test[4]]);
-      //std::cout << "kokomade kitayo" <<TrainSet[l][i].p_image[test[4]] << std::endl;x
-
-
-      // get pixel values 
-      int p1 = (int)ptC.at<uchar>(test[1], test[0]);
-      int p2 = (int)ptC.at<uchar>(test[3], test[2]);
-
-      //std::cout << "nannyanen" << std::endl;
-
+      cv::Mat ptC = TrainSet[l][i].patch[test[8]];
+      if(test[8] == 32){
+	p1 = 0;
+	p2 = 0;
+	for(int j = 0;j < test[2]; ++j){
+	  for(int k = 0; k < test[3]; ++k)
+	    p1 += (int)ptC.at<uchar>(k + test[1],j +  test[0]);
+	}
+	
+	for(int j = 0;j < test[6]; ++j){
+	  for(int k = 0; k < test[7]; ++k)
+	    p2 += (int)ptC.at<uchar>(k + test[5],j +  test[4]);
+	}
+	
+      }else{
+	// get pixel values 
+	p1 = (int)ptC.at<uchar>(test[1], test[0]);
+	p2 = (int)ptC.at<uchar>(test[5], test[4]);
+      }
       valSet[l][i].val = p1 - p2;
-      valSet[l][i].index = i;			
+      valSet[l][i].index = i;	
     }
     sort( valSet[l].begin(), valSet[l].end() );
   }

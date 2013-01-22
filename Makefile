@@ -127,6 +127,33 @@ objectPoseEstimation/fast:
 	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/build
 .PHONY : objectPoseEstimation/fast
 
+CPatch.o: CPatch.cpp.o
+.PHONY : CPatch.o
+
+# target to build an object file
+CPatch.cpp.o:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.o
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CPatch.cpp.o
+.PHONY : CPatch.cpp.o
+
+CPatch.i: CPatch.cpp.i
+.PHONY : CPatch.i
+
+# target to preprocess a source file
+CPatch.cpp.i:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.i
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CPatch.cpp.i
+.PHONY : CPatch.cpp.i
+
+CPatch.s: CPatch.cpp.s
+.PHONY : CPatch.s
+
+# target to generate assembly for a file
+CPatch.cpp.s:
+	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/CPatch.cpp.s
+	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/CPatch.cpp.s
+.PHONY : CPatch.cpp.s
+
 CRForest.o: CRForest.cpp.o
 .PHONY : CRForest.o
 
@@ -293,6 +320,9 @@ help:
 	@echo "... learning"
 	@echo "... objectPoseEstimation"
 	@echo "... rebuild_cache"
+	@echo "... CPatch.o"
+	@echo "... CPatch.i"
+	@echo "... CPatch.s"
 	@echo "... CRForest.o"
 	@echo "... CRForest.i"
 	@echo "... CRForest.s"

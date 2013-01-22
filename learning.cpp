@@ -7,8 +7,9 @@ using namespace std;
 
 int main(int argc, char* argv[]){
 
+  //cout << "aiueo" << endl;
   CConfig		conf;	 // setting
-  std::vector<CDataset> dataSet; // training data name list and grand truth
+  //std::vector<CDataset> dataSet; // training data name list and grand truth
 
   //read argument
   //check argument
@@ -30,6 +31,8 @@ int main(int argc, char* argv[]){
   execstr += tpath;
   system( execstr.c_str() );
 
+
+  cout << "kokomade" << endl;
   // create random forest class
   CRForest forest(conf);
 

@@ -316,6 +316,8 @@ if (boost::optional<std::string> str
 void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen)
 {
 
+  
+  dataSet.resize(0);
   std::string traindatafilepath = conf.trainpath + PATH_SEP +  conf.traindatafile;
   int n_folders;
   int n_files;
@@ -331,6 +333,8 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
   boost::variate_generator<boost::mt19937&, 
 			   boost::uniform_real<> > rand( gen, dst );
   
+
+  
   //read train data folder list
   //cout << "train data folder list path: " << traindatafilepath << std::endl;
   std::ifstream in(traindatafilepath.c_str());
@@ -339,15 +343,17 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
     exit(1);
   }
   in >> n_folders;
-  //std::cout << "number of training data folder: "<< n_folders << std::endl;
+  std::cout << "number of training data folder: "<< n_folders << std::endl;
   trainimagefolder.resize(n_folders);
   for(int i = 0;i < n_folders; ++i)
     in >> trainimagefolder.at(i);
-  in.close();
+  //in.close();
   //std::cout << "training folder list: " << std::endl;
   //for(int i = 0;i < n_folders;  ++i)
   //  std::cout << "\t"  <<trainimagefolder.at(i) << std::endl;
-
+  
+  
+  //std::cout << "kokomadeyana" << std::endl;
   //read train file name and grand truth from file
   tempDataSet.resize(0);
   for(int i = 0;i < n_folders; ++i){
@@ -393,7 +399,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
      
       tempDataSet.push_back(temp);
     }
-    trainDataList.close();
+    //trainDataList.close();
   }
   dataSetNum = tempDataSet.size();
    for(int j = 0;j < dataSetNum; ++j)

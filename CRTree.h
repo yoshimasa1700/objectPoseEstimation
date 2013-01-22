@@ -41,9 +41,9 @@ class CRTree
     num_nodes = (int)pow(2.0, int(max_depth + 1)) - 1;
       
     // number of nodes x 7 matrix as vector
-    treetable = new int[num_nodes * 7];
+    treetable = new int[num_nodes * 11];
     // init treetable
-    for(int i = 0; i< num_nodes * 7; ++i)
+    for(int i = 0; i< num_nodes * 11; ++i)
       treetable[i] = 0;
     
     leaf= new LeafNode[(int)pow(2.0, int(max_depth))];
@@ -129,13 +129,36 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
   
   boost::uniform_int<> dst( 0, INT_MAX );
   boost::variate_generator<boost::mt19937&,
-			   boost::uniform_int<> > rand( gen2, dst );
-  
-  test[0] = rand() % max_w;
-  test[1] = rand() % max_h;
-  test[2] = rand() % max_w;
-  test[3] = rand() % max_h;
-  test[4] = rand() % max_c;
+    boost::uniform_int<> > rand( gen, dst );
+
+  boost::uniform_real<> dst2( 0, 1 );
+  boost::variate_generator<boost::mt19937&,
+    boost::uniform_real<> > rand2( gen, dst2 );
+
+  if(0.5 < rand2()){
+    test[0] = rand() % max_w;
+    test[1] = rand() % max_h;
+    test[4] = rand() % max_w;
+    test[5] = rand() % max_h;
+    test[8] = rand() % (max_c - 1);
+
+    test[2] = 0;
+    test[3] = 0;
+    test[6] = 0;
+    test[7] = 0;
+  }else{
+    test[8] = max_c - 1;
+
+    test[0] = rand() % (max_w / 2 - 1);
+    test[1] = rand() % (max_h / 2 - 1);
+    test[2] = rand() % (max_w / 2 - 1);
+    test[3] = rand() % (max_h / 2 - 1);
+
+    test[4] = test[0] + test[2] + rand() % (max_w - test[0] - test[2] - 1);
+    test[5] = test[1] + test[3] + rand() % (max_h - test[1] - test[3] - 1);
+    test[6] = 1 + rand() % (max_w - test[4] - 1);
+    test[7] = 1 + rand() % (max_h - test[5] - 1);
+  }
 
 }
 

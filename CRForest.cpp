@@ -2,9 +2,9 @@
 
 void CRForest::learning(){
   // init dataset and patch vector
-  dataSet.resize(conf.ntrees);
-  images.resize(conf.ntrees);
-  vPatches.resize(conf.ntrees);
+  //dataSet.resize(conf.ntrees);
+  //images.resize(conf.ntrees);
+  //vPatches.resize(conf.ntrees);
 
   char buffer[256];
 
@@ -15,9 +15,14 @@ void CRForest::learning(){
   // you should change below
   for(int i=0;i < conf.ntrees; ++i){
 
+    std::vector<CDataset> dataSets(0);
+    std::vector<std::vector<cv::Mat> > images;
+    std::vector<std::vector<cv::Mat> > features;
+    std::vector<std::vector<CPatch> > vPatches;
+
     // reserve memory
-    dataSet.reserve(conf.imagePerTree + 10);
-    images.reserve((conf.imagePerTree + 10) * 3);
+    //dataSet.reserve(conf.imagePerTree + 10);
+    //images.reserve((conf.imagePerTree + 10) * 3);
 
     std::cout << "tree number " << i << std::endl;
     // initialize random seed
@@ -25,50 +30,51 @@ void CRForest::learning(){
     boost::mt19937    gen( i * static_cast<unsigned long>(time(NULL)) );
     
     //load train image list and grand truth
-    loadTrainFile(conf, dataSet.at(i), gen);
+    loadTrainFile(conf, dataSets, gen);
 
-    for(int p = 0;p < dataSet.at(i).size(); ++p)
-      dataSet.at(i).at(p).showDataset();
+    //for(int p = 0;p < dataSets.size(); ++p)
+    //dataSets.at(p).showDataset();
 
     //create tree
-    vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSet.at(i).at(0).centerPoint.size(),gen);
+    vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
     
     // load images to mamory
-    images.at(i).loadImages(dataSet.at(i));
+    loadImages(images, dataSets);
 
     // reserve memory
-    vPatches.at(i).reserve((int)((conf.imagePerTree + 10) * 3 * 
-				 (images.at(i).img.at(0).at(0).cols - conf.p_width) * 
-				 (images.at(i).img.at(0).at(0).rows - conf.p_height) / conf.stride));
+    // vPatches.at(i).reserve((int)((conf.imagePerTree + 10) * 3 * 
+    // 				 (images.at(i).img.at(0).at(0).cols - conf.p_width) * 
+    // 				 (images.at(i).img.at(0).at(0).rows - conf.p_height) / conf.stride));
 
+    std::cout << "extracting feature" << std::endl;
 
+    features.resize(0);
+   
+    for(int j = 0; j < images.size(); ++j){
+      std::vector<cv::Mat> tempFeature;
+      extractFeatureChannels(images.at(j).at(0), tempFeature);
+      tempFeature.push_back(images.at(j).at(1));
+      features.push_back(tempFeature);
+    }
     std::cout << "allocate memory!" << std::endl;
 
     // extract patch from image
-    extractPatches(vPatches.at(i), images.at(i), gen, conf, i);
+    extractPatches(vPatches, dataSets, features, gen, conf);
     std::cout << "patch extracted!" << std::endl;
-
+    std::cout << vPatches.at(0).size() << " positive patches extracted" << std::endl;
+    std::cout << vPatches.at(1).size() << " negative patches extracted" << std::endl;
     // grow tree
-    vTrees.at(i)->growTree(vPatches.at(i), 0,0, (float)(vPatches.at(i).at(0).size()) / ((float)(vPatches.at(i).at(0).size()) + (float)(vPatches.at(i).at(1).size())), conf, gen);
+    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen);
 
     // save tree
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
     vTrees.at(i)->saveTree(buffer);
-
-    // release memory
-    images.at(i).img.resize(0);
-    std::vector<std::vector<cv::Mat> >().swap(images.at(i).img);
-    vPatches.at(i).resize(0);
-    std::vector<std::vector<CPatch> >().swap(vPatches.at(i));
   }
-
-  dataSet.resize(0);
-  images.resize(0);
-  vPatches.resize(0);
 }
 
 // extract patch from images
-void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches, CImages &image,boost::mt19937 gen, CConfig conf, int treeNum){
+void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const std::vector<CDataset> dataSet,const std::vector<std::vector<cv::Mat> > &image, boost::mt19937 gen, CConfig conf){
+  
   boost::uniform_real<> dst( 0, 1 );
   boost::variate_generator<boost::mt19937&, 
 			   boost::uniform_real<> > rand( gen, dst );
@@ -88,10 +94,10 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches, CImage
   negPatch.clear();
 
   std::cout << "extracting patch from image" << std::endl;
-  std::cout << image.img.at(0).size() << std::endl;
-  for(int l = 0;l < image.img.size(); ++l){
-    for(int j = 0; j < image.img.at(l).at(0).cols - conf.p_width; j += conf.stride){
-      for(int k = 0; k < image.img.at(l).at(0).rows - conf.p_height; k += conf.stride){
+  std::cout << image.at(0).size() << std::endl;
+  for(int l = 0;l < image.size(); ++l){
+    for(int j = 0; j < image.at(l).at(0).cols - conf.p_width; j += conf.stride){
+      for(int k = 0; k < image.at(l).at(0).rows - conf.p_height; k += conf.stride){
 	if(rand() < conf.patchRatio){
 	  //for(int i = 0;i < image.img.at(l).size(); ++i){// for every channel	  
 	    temp.x = j;
@@ -103,26 +109,29 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches, CImage
 	    //std::cout << image.img.at(l).at(1).rows << std::endl;
 	    for(int m = j; m < j + conf.p_width; ++m){
 	      for(int n = k; n < k + conf.p_height; ++n){
-		pixNum += (int)(image.img.at(l).at(1).at<uchar>(m, n));
+		pixNum += (int)(image.at(l).at(image.at(l).size() - 1).at<ushort>(n, m));
+		//std::cout << "depth " << image.at(l).at(32).at<ushort>(n, m) << std::endl;
+		//std::cout << image.at(l).at(32) << std::endl;
 	      }
 	    }
 	    //std::cout << "pixNum is " << pixNum << std::endl;
 	    
 	    //std::cout << image.img.at(l).size() << std::endl;
 
-	    tPatch.setPatch(temp, image.img.at(l), dataSet.at(treeNum).at(l).centerPoint);
-
-	    if(pixNum > 0)
-	      posPatch.push_back(tPatch);
-	    else
-	      negPatch.push_back(tPatch);
+	    tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint);
+	    //std::cout << pixNum << std::endl;
+	    if (pixNum > 0){
+	      if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
+		posPatch.push_back(tPatch);
+	      else
+		negPatch.push_back(tPatch);
+	    }
 	    //}
 	}
       }
-      
 
     }
-    pBar(l,dataSet.at(treeNum).size(), 50);
+    pBar(l,dataSet.size(), 50);
   }
   patches.push_back(posPatch);
   patches.push_back(negPatch);
@@ -159,7 +168,6 @@ void CRForest::loadForest(){
 }
 
 void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<cv::Mat> &vDetectImg) const{
-  
 
   std::vector<CPatch> patches;
   std::vector<cv::Mat> scaledImage;
@@ -223,3 +231,55 @@ void CRForest::regression(std::vector<const LeafNode*>& result, CPatch &patch) c
     result[i] = vTrees[i]->regression(patch);
   }
 }
+
+void CRForest::loadImages(std::vector<std::vector<cv::Mat> > &img, std::vector<CDataset> dataSet){
+  img.resize(0);
+
+  cv::Mat rgb,depth, mask;
+  std::vector<cv::Mat> planes;
+  std::vector<cv::Mat> allImages;
+  //std::vector<cv::Mat> rgbSplited;
+
+
+  std::cout << dataSet.at(0).depthImageName << std::endl;
+  
+  for(int i = 0;i < dataSet.size(); ++i){
+    // load Mask image
+    mask = cv::imread(dataSet.at(0).imageFilePath
+		      + dataSet.at(0).maskImageName,
+		      CV_LOAD_IMAGE_ANYCOLOR);
+    
+    // load RGB image
+    rgb = cv::imread(dataSet.at(0).imageFilePath
+		     + dataSet.at(0).rgbImageName,
+		     CV_LOAD_IMAGE_ANYCOLOR);
+
+    // load Depth image
+    depth = cv::imread(dataSet.at(0).imageFilePath
+		       + dataSet.at(0).depthImageName,
+		       CV_LOAD_IMAGE_ANYDEPTH);
+
+    //std::cout << depth << std::endl;
+    
+
+
+    for(int k = 0;k < rgb.cols; ++k)
+      for(int l = 0;l < rgb.rows; ++l){
+    	//std::cout << depth.at<ushort>(l, k) << " " << std::endl;
+    	if(!(bool)mask.at<char>(l, k))
+    	  depth.at<ushort>(l, k) = 0;
+    	// for(int j = 0;j < 3; ++j)
+    	//   if(!(bool)mask.at<char>(l, k))
+    	//     rgb.at<cv::Vec3b>(l, k)[j] = 0;
+      }
+    //rgbSplited.resize(rgb.channels());
+    
+    //cv::split(rgb, rgbSplited);
+    
+    allImages.clear();
+    allImages.push_back(rgb);
+    allImages.push_back(depth);
+    img.push_back(allImages);
+  }
+}
+
