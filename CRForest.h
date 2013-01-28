@@ -39,6 +39,7 @@ class CRForest {
  private:
   CConfig		conf;
   std::vector<CRTree*>	vTrees;
+  CClassDatabase classDatabase;
 };
 
 inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg) const{

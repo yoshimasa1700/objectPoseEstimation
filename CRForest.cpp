@@ -33,8 +33,14 @@ void CRForest::learning(){
     loadTrainFile(conf, dataSets, gen);
 
 
-    for(int p = 0;p < dataSets.size(); ++p)
+    for(int p = 0;p < dataSets.size(); ++p){
       dataSets.at(p).showDataset();
+      classDatabase.add(dataSets.at(p).className);
+    }
+    classDatabase.show();
+    classDatabase.write("test.dat");
+
+    std::cout << classDatabase.search("bottle") << std::endl;
 
     //create tree
     vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
@@ -70,7 +76,8 @@ void CRForest::learning(){
     // save tree
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
     vTrees.at(i)->saveTree(buffer);
-  }
+    sprintf(buffer, "%s%03d.txt",conf.classDatabaseName.c_str(), i + conf.off_tree);
+  } // end tree loop
 }
 
 // extract patch from images
@@ -119,7 +126,14 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	    
 	    //std::cout << image.img.at(l).size() << std::endl;
 
-	    tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint);
+	    int classNum = classDatabase.search(dataSet.at(l).className);
+
+	    if(classNum == -1){
+	      std::cout << "class not found!" << std::endl;
+	      exit(-1);
+	    }
+
+	    tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
 	    //std::cout << pixNum << std::endl;
 	    if (pixNum > 0){
 	      if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
@@ -154,7 +168,14 @@ void CRForest::extractAllPatches(const CDataset &dataSet, const std::vector<cv::
 	temp.x = j;
 	temp.y = k;
 	
-	tPatch.setPatch(temp, image, dataSet.centerPoint);
+	int classNum = classDatabase.search(dataSet.className);
+	
+	if(classNum == -1){
+	  std::cout << "class not found!" << std::endl;
+	  exit(-1);
+	}
+	
+	tPatch.setPatch(temp, image, dataSet.centerPoint, classNum);
 	patches.push_back(tPatch);
     }
   }
@@ -165,17 +186,16 @@ void CRForest::loadForest(){
   for(int i = 0; i < vTrees.size(); ++i){
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(),i);
     vTrees[i] = new CRTree(buffer);
+    sprintf(buffer, "%s%03dclass.txt", conf.treepath.c_str(), i);
+    classDatabase.read(buffer);
   }
 }
 
 void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<cv::Mat> &vDetectImg) const{
 
   std::vector<CPatch> patches;
-
   std::vector<cv::Mat> scaledImage;
-
   std::vector<cv::Mat> features;
-  
   std::vector<const LeafNode*> result;
 
   int xoffset = conf.p_width / 2;

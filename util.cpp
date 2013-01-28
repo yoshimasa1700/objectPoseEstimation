@@ -310,6 +310,15 @@ if (boost::optional<std::string> str
     std::cout << "root.str is nothing" << std::endl;
   }
 
+  // load test data file name
+  if (boost::optional<std::string> str
+      = pt.get_optional<std::string>("root.classdatabasename")) {
+    std::cout << str.get() << std::endl;
+    classDatabaseName = *str;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
 
   return 0; 
 }
@@ -419,4 +428,70 @@ void pBar(int p,int maxNum, int width){
     std::cout << " ";
 
   std::cout << "]" << (int)((double)(p + 1)/(double)maxNum*100) << "%"  << "\r" << std::flush;
+}
+
+void CClassDatabase::add(std::string str){
+  for(int i = 0; i < vNode.size(); ++i){
+    if(str == vNode.at(i).name){
+      vNode.at(i).instances++;
+      return;
+    }
+  }
+  vNode.push_back(databaseNode(str));
+  return;
+}
+
+void CClassDatabase::write(const char* str){
+  
+  std::ofstream out(str);
+  if(!out.is_open()){
+    std::cout << "can't open " << str << std::endl;
+    return;
+  }
+  
+  for(int i = 0; i < vNode.size(); ++i){
+    out << i << " " << vNode.at(i).name << std::endl;
+  }
+}
+
+void CClassDatabase::read(const char* str){
+  std::string tempStr;
+  std::stringstream tempStream;
+  int tempClassNum;
+  std::string tempClassName;
+
+  std::ifstream in(str);
+  if(!in.is_open()){
+    std::cout << "can't open " << str << std::endl;
+    return;
+  }
+
+  vNode.clear();
+
+  while(!in.eof()){
+    std::getline(in, tempStr);
+    tempStream.str(tempStr);
+    tempStream >> tempClassNum;
+    tempStream >> tempClassName;
+      if(!tempStream.eof())
+	vNode.push_back(databaseNode(tempClassName));
+  }
+}
+
+void CClassDatabase::show(){
+  if(vNode.size() == 0){
+    std::cout << "No class registerd" << std::endl;
+    return;
+  }
+  
+  for(int i = 0; i < vNode.size(); ++i){
+    std::cout << "class:" << i << " name:" << vNode.at(i).name << " has " << vNode.at(i).instances << " instances" << std::endl;
+  }
+}
+
+int CClassDatabase::search(std::string str) const{
+  for(int i = 0; i < vNode.size(); i++){
+    if(str == vNode.at(i).name)return i;
+  }
+  return -1;
 }

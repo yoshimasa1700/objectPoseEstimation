@@ -50,5 +50,7 @@
   <offTree>0</offTree>
   <!-- test data path -->
   <testpath>trainData</testpath>
-  <testdataname>trainData.txt</testdataname>
+  <testdataname>testData.txt</testdataname>
+  
+  <classdatabasename>classDatabase</classdatabasename>
 </root>

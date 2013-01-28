@@ -99,6 +99,8 @@ class CConfig
   // test data file
   std::string testData;
 
+  std::string classDatabaseName;
+
  private:
   boost::property_tree::ptree pt;
 
@@ -118,16 +120,30 @@ std::vector<cv::Mat> convertScale(const std::vector<cv::Mat> &inputImg, double s
 
 void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen);
 
-calss databaseNode{
+class databaseNode{
  public:
- databaseNode(int n, std::string className) : num(n), databaseN{
-  }
-
-  int num;
+ databaseNode(std::string className)
+   : name(className), instances(1){}
+  
   std::string name;
+  int instances;
 };
 
 class CClassDatabase{
+ public:
+  CClassDatabase(){
+    vNode.clear();
+  }
+
+  void add(std::string str);
+  void write(const char* str);
+  void read(const char* str);
+
+  int search(std::string str) const;
+
+  void show();
+
+  std::vector<databaseNode> vNode;
 };
 
 #endif
