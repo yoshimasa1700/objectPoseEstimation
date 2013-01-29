@@ -78,40 +78,42 @@ void loadTestFile(CConfig conf, std::vector<CDataset> &dataSet){
       = conf.testPath + PATH_SEP + testimagefolder.at(i) + PATH_SEP;
       //std::cout << trainDataListPath << std::endl;
     std::ifstream testDataList(testDataListPath.c_str());
-    testDataList >> n_files;
+    if(testDataList.is_open()){
+      testDataList >> n_files;
       //std::cout << "number of file: " << n_files << std::endl;
-    for(int j = 0;j < n_files; ++j){
-      //read file names
-      testDataList >> temp.rgbImageName;
-      testDataList >> temp.depthImageName;
-      testDataList >> temp.maskImageName;
+      for(int j = 0;j < n_files; ++j){
+	//read file names
+	testDataList >> temp.rgbImageName;
+	testDataList >> temp.depthImageName;
+	testDataList >> temp.maskImageName;
 
-      //read bounding box
-      testDataList >> temp.bBox.x;
-      testDataList >> temp.bBox.y;
-      testDataList >> temp.bBox.width;
-      testDataList >> temp.bBox.height;
+	//read bounding box
+	testDataList >> temp.bBox.x;
+	testDataList >> temp.bBox.y;
+	testDataList >> temp.bBox.width;
+	testDataList >> temp.bBox.height;
       
-      temp.centerPoint.resize(0);
+	temp.centerPoint.resize(0);
 
-      //read center point
-      testDataList >> tempPoint.x;//temp.centerPoint.x;
-      testDataList >> tempPoint.y;
+	//read center point
+	testDataList >> tempPoint.x;//temp.centerPoint.x;
+	testDataList >> tempPoint.y;
 
-      temp.centerPoint.push_back(tempPoint);
+	temp.centerPoint.push_back(tempPoint);
       
-      //read class name
-      testDataList >> temp.className;
+	//read class name
+	testDataList >> temp.className;
 
-      //read angle grand truth
-      testDataList >> temp.angle;
+	//read angle grand truth
+	testDataList >> temp.angle;
 
-      //show read data *for debug
-      //temp.showDataset();
+	//show read data *for debug
+	//temp.showDataset();
      
-      tempDataSet.push_back(temp);
+	tempDataSet.push_back(temp);
+      }
+      testDataList.close();
     }
-    testDataList.close();
   }
   dataSetNum = tempDataSet.size();
    for(int j = 0;j < dataSetNum; ++j)
@@ -123,15 +125,15 @@ void detect(const CRForest &forest, CConfig conf){
   std::vector<CDataset> dataSet;
   CImages images;
   vector<cv::Mat> image;
-  vector<CImages> scaledImages;
-  vector<vector<cv::Mat> >  vDetectedImg(conf.scales.size());
+  //vector<CImages> scaledImages;
+  //vector<vector<cv::Mat> >  vDetectedImg(conf.scales.size());
   char buffer[256];
   
   //conf.imagePerTree = 10;//読み込む画像ファイルの大まかな数
 
   loadTestFile(conf, dataSet);
-  for(int i = 0; i < dataSet.size(); ++i)
-    dataSet.at(i).showDataset();
+  //for(int i = 0; i < dataSet.size(); ++i)
+  // dataSet.at(i).showDataset();
 
   //loadImage(dataSet.at(0), image);
   for(int m = 0; m < dataSet.size(); ++m){
@@ -140,29 +142,30 @@ void detect(const CRForest &forest, CConfig conf){
     
 
     for(int i = 0; i < conf.scales.size(); ++i){
-      vDetectedImg.at(i).resize(conf.ratios.size());
+      //vDetectedImg.at(i).resize(conf.ratios.size());
       for(int j = 0; j < conf.ratios.size(); ++j){
-	vDetectedImg.at(i).at(j) = cv::Mat::zeros(int((double)image.at(0).rows * (double)conf.scales.at(j)),
-				       int((double)image.at(0).cols * (double)conf.scales.at(j)),
-				       image.at(0).type());
+	//vDetectedImg.at(i).at(j) = cv::Mat::zeros(int((double)image.at(0).rows * (double)conf.scales.at(j)),
+	//			       int((double)image.at(0).cols * (double)conf.scales.at(j)),
+	//			       image.at(0).type());
 	//std::cout << "detected image width is " << vDetectedImg.at(i).at(j).rows << std::endl;
 	
       }
-      forest.detection(dataSet.at(m), image, vDetectedImg.at(i));
+      //std::cout << "kokomade kitayo" << std::endl;
+      forest.detection(dataSet.at(m), image);//, vDetectedImg.at(i));
     }
 
-    for(unsigned int k=0;k < vDetectedImg.size(); ++k) {
-      cv::Mat tmp(vDetectedImg[k][0].cols, vDetectedImg[k][0].rows , CV_8UC1);
-      for(unsigned int c=0;c<vDetectedImg[k].size(); ++c) {
-	//cv::ConvertScale( vImgDetected[k][c], tmp, conf.out_scale); //80 128
-	tmp = vDetectedImg[k][c] * conf.out_scale;
-	sprintf(buffer,"%s/detect-%d_sc%d_c%d.png",conf.outpath.c_str(),m,k,c);
-	printf("%s/detect-%d_sc%d_c%d.png\n",conf.outpath.c_str(),m,k,c);
-	cv::imwrite( buffer, tmp );
-	//cvReleaseImage(&vImgDetect[k][c]);
-      }
-      //cvReleaseImage(&tmp);
-    }
+    // for(unsigned int k=0;k < vDetectedImg.size(); ++k) {
+    //   cv::Mat tmp(vDetectedImg[k][0].cols, vDetectedImg[k][0].rows , CV_8UC1);
+    //   for(unsigned int c=0;c<vDetectedImg[k].size(); ++c) {
+    // 	//cv::ConvertScale( vImgDetected[k][c], tmp, conf.out_scale); //80 128
+    // 	tmp = vDetectedImg[k][c] * conf.out_scale;
+    // 	sprintf(buffer,"%s/detect-%d_sc%d_c%d.png",conf.outpath.c_str(),m,k,c);
+    // 	printf("%s/detect-%d_sc%d_c%d.png\n",conf.outpath.c_str(),m,k,c);
+    // 	cv::imwrite( buffer, tmp );
+    // 	//cvReleaseImage(&vImgDetect[k][c]);
+    //   }
+    //   //cvReleaseImage(&tmp);
+    // }
   }
 }
 

@@ -157,6 +157,7 @@ int CConfig::loadConfig(const char* filename)
   }
 
   // load image scales
+  std::cout << "kokomade" << std::endl;
   scales.resize(0);
   BOOST_FOREACH (const boost::property_tree::ptree::value_type& child,
 pt.get_child("root.scales")) {
@@ -452,6 +453,7 @@ void CClassDatabase::write(const char* str){
   for(int i = 0; i < vNode.size(); ++i){
     out << i << " " << vNode.at(i).name << std::endl;
   }
+  out.close();
 }
 
 void CClassDatabase::read(const char* str){
@@ -465,20 +467,26 @@ void CClassDatabase::read(const char* str){
     std::cout << "can't open " << str << std::endl;
     return;
   }
+  
+  std::cout << str << std::endl;
 
   vNode.clear();
 
   while(!in.eof()){
-    std::getline(in, tempStr);
-    tempStream.str(tempStr);
-    tempStream >> tempClassNum;
-    tempStream >> tempClassName;
+    //std::getline(in, tempStr);
+    //std::cout << tempStr << std::endl;
+    //tempStream.str(tempStr);
+    in >> tempClassNum;//tempStream >> tempClassNum;
+    in >> tempClassName;
+    //std::cout << tempClassName << std::endl;
       if(!tempStream.eof())
 	vNode.push_back(databaseNode(tempClassName));
   }
+
+  in.close();
 }
 
-void CClassDatabase::show(){
+void CClassDatabase::show() const{
   if(vNode.size() == 0){
     std::cout << "No class registerd" << std::endl;
     return;

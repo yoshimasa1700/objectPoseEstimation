@@ -23,8 +23,8 @@ class LeafNode
     std::cout << "Leaf " << vCenter.size() << " " << pfg << std::endl;
   }
   float pfg;
-  std::vector<std::vector<cv::Point> > vCenter;
-    
+  std::vector<cv::Point> vCenter;
+  std::vector<int> vClass;
 };
 
 class CRTree 
@@ -67,7 +67,7 @@ class CRTree
   const LeafNode* regression(CPatch &patch) const;
 
   // Training
-  void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen);
+  void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen, int nclass_);
 
   bool optimizeTest(std::vector<std::vector<CPatch> > &SetA,
 			    std::vector<std::vector<CPatch> > &SetB, 
@@ -85,7 +85,7 @@ class CRTree
   double InfGain(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB);
 
   double measureSet(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB, unsigned int mode) {
-    if (mode==0) return InfGain(SetA, SetB); else return -distMean(SetA[1],SetB[1]);
+    if (mode==0) return InfGain(SetA, SetB); else return -distMean(SetA[0],SetB[0]);
   };
 
   
@@ -122,6 +122,7 @@ class CRTree
   unsigned int depth;
 
   boost::mt19937 gen;
+  int nclass;
 };
 
 inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c) {

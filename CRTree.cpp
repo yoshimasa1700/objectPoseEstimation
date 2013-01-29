@@ -9,6 +9,9 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
 	int node = 0;
 	int p1,p2;
 
+	//for(int i = 0; i < 11; i++)std::cout << pnode[i] << std::endl;
+
+	//std::cout << patch.patch.size() << std::endl;
 	// Go through tree until one arrives at a leaf, i.e. pnode[0]>=0)
 	while(pnode[0]==-1) {
 		// binary test 0 - left, 1 - right
@@ -19,6 +22,8 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
 		//uchar* ptC = ptFCh[pnode[5]];
 	  
 	  cv::Mat ptC = patch.patch.at(pnode[9]);
+	  
+	  //std::cout << ptC << std::endl;
 
 	  if(pnode[9] == 32){
 	    p1 = 0;
@@ -91,12 +96,16 @@ CRTree::CRTree(const char* filename) {
       // number of positive patches
       in >> dummy;
       ptLN->vCenter.resize(dummy);
+      ptLN->vClass.resize(dummy);
       for(int i=0; i<dummy; ++i) {
-	ptLN->vCenter[i].resize(num_cp);
-	for(unsigned int k=0; k<num_cp; ++k) {
-	  in >> ptLN->vCenter[i][k].x;
-	  in >> ptLN->vCenter[i][k].y;
-	}
+	// ptLN->vCenter[i].resize(num_cp);
+	// for(unsigned int k=0; k<num_cp; ++k) {
+	//   in >> ptLN->vCenter[i][k].x;
+	//   in >> ptLN->vCenter[i][k].y;
+	// }
+	in >> ptLN->vClass[i];
+	in >> ptLN->vCenter[i].x;
+	in >> ptLN->vCenter[i].y;
       }
     }
 
@@ -142,10 +151,14 @@ bool CRTree::saveTree(const char* filename) const {
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
       out << l << " " << ptLN->pfg << " " << ptLN->vCenter.size() << " ";
 			
-      for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
-	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
-	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
-	}
+      // for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
+      // 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
+      // 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
+      // 	}
+      // }
+
+      for(int i = 0; i < ptLN->vCenter.size(); ++i){
+	out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
       }
       out << endl;
     }
@@ -159,11 +172,13 @@ bool CRTree::saveTree(const char* filename) const {
   return done;
 }
 
-void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, CConfig conf, boost::mt19937 gen){
+void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, CConfig conf, boost::mt19937 gen, int nclass_){
   
   boost::uniform_int<> zeroOne( 0, 1 );
   boost::variate_generator<boost::mt19937&, 
 			   boost::uniform_int<> > rand( gen, zeroOne );
+  
+  nclass = nclass_;
 
   if(depth < max_depth && TrainSet[0].size() > 0) {	
     
@@ -174,10 +189,11 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     
     // Set measure mode for split: 0 - classification, 1 - regression
     unsigned int measure_mode = 1;
-    if( float(TrainSet[0].size()) / float(TrainSet[0].size()+TrainSet[1].size()) >= 0.05 && depth < max_depth-2 )
+    //if( float(TrainSet[1].size()) / float(TrainSet[0].size()+TrainSet[1].size()) >= 0.05 && 
+    if(depth < max_depth-2 )
       measure_mode = rand();
     
-    cout << "MeasureMode " << "depth " <<depth << " " << "measure_mode " << measure_mode << " " << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
+    cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
     
     // Find optimal test
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
@@ -187,8 +203,6 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       ptT[0] = -1; ++ptT; 
       for(int t=0; t<10; ++t)
 	ptT[t] = test[t];
-
-     
       
       double countA = 0;
       double countB = 0;
@@ -210,7 +224,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       // Go left
       // If enough patches are left continue growing else stop
       if(SetA[0].size()+SetA[1].size()>min_samples) {
-	growTree(SetA, 2*node+1, depth+1, pnratio, conf, gen);
+	growTree(SetA, 2*node+1, depth+1, pnratio, conf, gen, nclass_);
       } else {
 	makeLeaf(SetA, pnratio, 2*node+1);
       }
@@ -218,7 +232,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       // Go right
       // If enough patches are left continue growing else stop
       if(SetB[0].size()+SetB[1].size()>min_samples) {
-	growTree(SetB, 2*node+2, depth+1, pnratio, conf, gen);
+	growTree(SetB, 2*node+2, depth+1, pnratio, conf, gen, nclass_);
       } else {
 	makeLeaf(SetB, pnratio, 2*node+2);
       }
@@ -246,10 +260,12 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   LeafNode* ptL = &leaf[num_leaf];
 
   // Store data
-  ptL->pfg = TrainSet[1].size() / float(pnratio*TrainSet[0].size()+TrainSet[1].size());
-  ptL->vCenter.resize( TrainSet[1].size() );
-  for(unsigned int i = 0; i<TrainSet[1].size(); ++i) {
-    ptL->vCenter[i] = TrainSet[1][i].vCenter;
+  ptL->pfg = TrainSet[0].size() / float(pnratio*TrainSet[0].size()+TrainSet[1].size());
+  ptL->vCenter.resize( TrainSet[0].size() );
+  ptL->vClass.resize( TrainSet[0].size() );
+  for(unsigned int i = 0; i<TrainSet[0].size(); ++i) {
+    ptL->vCenter[i] = TrainSet[0][i].center;
+    ptL->vClass[i] = TrainSet[0][i].classNum;
   }
 
   // Increase leaf counter
@@ -435,57 +451,67 @@ void CRTree::split(vector<vector<CPatch> >& SetA, vector<vector<CPatch> >& SetB,
 }
 
 double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatch>& SetB) {
-  std::vector<double> meanAx(num_cp,0);
-  std::vector<double> meanAy(num_cp,0);
-  for(std::vector<CPatch>::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
-    for(unsigned int c = 0; c<num_cp; ++c) {
-      meanAx[c] += (*it).vCenter[c].x;
-      meanAy[c] += (*it).vCenter[c].y;
-    }
+  std::vector<double> meanAx(nclass,0);
+  std::vector<double> meanAy(nclass,0);
+  //for(std::vector<CPatch>::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
+
+
+  for(int i = 0; i < SetA.size(); ++i){
+    //for(unsigned int c = 0; c<nclass; ++c) {
+    meanAx[SetA.at(i).classNum] += SetA.at(i).center.x;
+    meanAy[SetA.at(i).classNum] += SetA.at(i).center.y;
+      //}
   }
 
-  for(unsigned int c = 0; c<num_cp; ++c) {
+  //for(unsigned int c = 0; c<num_cp; ++c) {
+  for(int c = 0; c < nclass; ++c){
     meanAx[c] /= (double)SetA.size();
     meanAy[c] /= (double)SetA.size();
   }
+    //}
 
-  vector<double> distA(num_cp,0);
-  for(std::vector<CPatch>::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
-    for(unsigned int c = 0; c<num_cp; ++c) {
-      double tmp = (*it).vCenter[c].x - meanAx[c];
-      distA[c] += tmp*tmp;
-      tmp = (*it).vCenter[c].y - meanAy[c];
-      distA[c] += tmp*tmp;
-    }
+  vector<double> distA(nclass,0);
+  //for(std::vector<CPatch>::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
+  for(int i = 0; i< SetA.size(); ++i){
+    //for(unsigned int c = 0; c<num_cp; ++c) {
+    double tmp = SetA.at(i).center.x - meanAx[SetA.at(i).classNum];
+    distA[SetA.at(i).classNum] += tmp*tmp;
+    tmp = SetA.at(i).center.y - meanAy[SetA.at(i).classNum];
+    distA[SetA.at(i).classNum] += tmp*tmp;
+      //}
   }
 
-  std::vector<double> meanBx(num_cp,0);
-  std::vector<double> meanBy(num_cp,0);
-  for(std::vector<CPatch>::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
-    for(unsigned int c = 0; c<num_cp; ++c) {
-      meanBx[c] += (*it).vCenter[c].x;
-      meanBy[c] += (*it).vCenter[c].y;
-    }
+  std::vector<double> meanBx(nclass,0);
+  std::vector<double> meanBy(nclass,0);
+  //for(std::vector<CPatch>::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
+  for(int i = 0; i < SetB.size(); ++i){
+    //for(unsigned int c = 0; c<num_cp; ++c) {
+    meanBx[SetB.at(i).classNum] += SetB.at(i).center.x;
+    meanBy[SetB.at(i).classNum] += SetB.at(i).center.y;
+      //}
   }
 
-  for(unsigned int c = 0; c<num_cp; ++c) {
+  for(int c = 0; c < nclass; c++){
+
+  //for(unsigned int c = 0; c<num_cp; ++c) {
     meanBx[c] /= (double)SetB.size();
     meanBy[c] /= (double)SetB.size();
+    //}
   }
 
-  std::vector<double> distB(num_cp,0);
+  std::vector<double> distB(nclass,0);
   for(std::vector<CPatch>::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
-    for(unsigned int c = 0; c<num_cp; ++c) {
-      double tmp = (*it).vCenter[c].x - meanBx[c];
-      distB[c] += tmp*tmp;
-      tmp = (*it).vCenter[c].y - meanBy[c];
-      distB[c] += tmp*tmp;
-    }
+    //for(unsigned int c = 0; c<num_cp; ++c) {
+    double tmp = (*it).center.x - meanBx[(*it).classNum];
+    distB[(*it).classNum] += tmp*tmp;
+    tmp = (*it).center.y - meanBy[(*it).classNum];
+    distB[(*it).classNum] += tmp*tmp;
+      //}
   }
 
   double minDist = DBL_MAX;
 
-  for(unsigned int c = 0; c<num_cp; ++c) {
+  for(unsigned int c = 0; c < nclass; ++c) {
     distA[c] += distB[c];
     if(distA[c] < minDist) minDist = distA[c];
   }
@@ -495,6 +521,9 @@ double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatc
 
 double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB) {
 
+  //std::vector<double> n_entoropyA;
+  std::vector<int> classDataA(nclass, 0);
+  std::vector<int> classDataB(nclass, 0);
   // get size of set A
   double sizeA = 0;
   for(std::vector<std::vector<CPatch> >::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
@@ -503,9 +532,23 @@ double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std:
 
   // negative entropy: sum_i p_i*log(p_i)
   double n_entropyA = 0;
-  for(std::vector<std::vector<CPatch> >::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
-    double p = double( it->size() ) / sizeA;
-    if(p>0) n_entropyA += p*log(p); 
+  if(SetA.at(1).size() > 0){
+    for(std::vector<std::vector<CPatch> >::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
+      //for(int i = 0; i < nclass; ++i){
+      double p = double( it->size() ) / sizeA;
+      if(p>0) n_entropyA += p*log(p) / log(2.0); 
+    }
+  }
+
+  // calculate entropy of class
+  for(int i = 0; i < SetA.at(0).size(); ++i){
+    classDataA.at(SetA.at(0).at(i).classNum)++;
+  }
+  for(int c = 0; c < nclass; ++c){
+    if(classDataA.at(c) != 0){
+      double p = double(classDataA.at(c)) / SetA.at(0).size();
+      n_entropyA += p * log(p) / log(2.0);
+    }
   }
 
   // get size of set B
@@ -516,9 +559,22 @@ double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std:
 
   // negative entropy: sum_i p_i*log(p_i)
   double n_entropyB = 0;
-  for(std::vector<std::vector<CPatch> >::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
-    double p = double( it->size() ) / sizeB;
-    if(p>0) n_entropyB += p*log(p); 
+  if(SetB.at(1).size() > 0){
+    for(std::vector<std::vector<CPatch> >::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
+      double p = double( it->size() ) / sizeB;
+      if(p>0) n_entropyB += p*log(p) / log(2.0); 
+    }
+  }
+
+  // calculate entropy of class
+  for(int i = 0; i < SetB.at(0).size(); ++i){
+    classDataB.at(SetB.at(0).at(i).classNum)++;
+  }
+  for(int c = 0; c < nclass; ++c){
+    if(classDataB.at(c) != 0){
+      double p = double(classDataB.at(c)) / SetB.at(0).size();
+      n_entropyB += p * log(p) / log(2.0);
+    }
   }
 
   return (sizeA*n_entropyA+sizeB*n_entropyB)/(sizeA+sizeB); 
@@ -531,18 +587,20 @@ void LeafNode::show(int delay, int width, int height) {
 
   print();
 
+
+
   if(vCenter.size()>0) {
-    vector<IplImage*> iShow(vCenter[0].size());
-    for(unsigned int c = 0; c<iShow.size(); ++c) {
+    vector<IplImage*> iShow(vCenter.size());
+    for(unsigned int c = 0; c < iShow.size(); ++c) {
       iShow[c] = cvCreateImage( cvSize(width,height), IPL_DEPTH_8U , 1 );
       cvSetZero( iShow[c] );
-      for(unsigned int i = 0; i<vCenter.size(); ++i) {
-	int y = height/2+vCenter[i][c].y;
-	int x = width/2+vCenter[i][c].x;
+      //for(unsigned int i = 0; i<vCenter.size(); ++i) {
+	int y = height/2+vCenter[c].y;
+	int x = width/2+vCenter[c].x;
 
 	if(x>=0 && y>=0 && x<width && y<height)
 	  cvSetReal2D( iShow[c],  y,  x, 255 );
-      }
+	//}
       sprintf(buffer,"Leaf%d",c);
       cvNamedWindow(buffer,1);
       cvShowImage(buffer, iShow[c]);

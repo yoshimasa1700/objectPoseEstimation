@@ -34,13 +34,13 @@ void CRForest::learning(){
 
 
     for(int p = 0;p < dataSets.size(); ++p){
-      dataSets.at(p).showDataset();
+      //dataSets.at(p).showDataset();
       classDatabase.add(dataSets.at(p).className);
     }
     classDatabase.show();
     classDatabase.write("test.dat");
 
-    std::cout << classDatabase.search("bottle") << std::endl;
+    //std::cout << classDatabase.search("bottle") << std::endl;
 
     //create tree
     vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
@@ -71,12 +71,13 @@ void CRForest::learning(){
     std::cout << vPatches.at(0).size() << " positive patches extracted" << std::endl;
     std::cout << vPatches.at(1).size() << " negative patches extracted" << std::endl;
     // grow tree
-    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen);
+    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, classDatabase.vNode.size());
 
     // save tree
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
     vTrees.at(i)->saveTree(buffer);
     sprintf(buffer, "%s%03d.txt",conf.classDatabaseName.c_str(), i + conf.off_tree);
+    classDatabase.write(buffer);
   } // end tree loop
 }
 
@@ -108,40 +109,40 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
       for(int k = 0; k < image.at(l).at(0).rows - conf.p_height; k += conf.stride){
 	if(rand() < conf.patchRatio){
 	  //for(int i = 0;i < image.img.at(l).size(); ++i){// for every channel	  
-	    temp.x = j;
-	    temp.y = k;
+	  temp.x = j;
+	  temp.y = k;
 
-	    pixNum = 0;
+	  pixNum = 0;
 
-	    //std::cout << image.img.at(l).at(1).cols << std::endl;
-	    //std::cout << image.img.at(l).at(1).rows << std::endl;
-	    for(int m = j; m < j + conf.p_width; ++m){
-	      for(int n = k; n < k + conf.p_height; ++n){
-		pixNum += (int)(image.at(l).at(image.at(l).size() - 1).at<ushort>(n, m));
-		//std::cout << "depth " << image.at(l).at(32).at<ushort>(n, m) << std::endl;
-		//std::cout << image.at(l).at(32) << std::endl;
-	      }
+	  //std::cout << image.img.at(l).at(1).cols << std::endl;
+	  //std::cout << image.img.at(l).at(1).rows << std::endl;
+	  for(int m = j; m < j + conf.p_width; ++m){
+	    for(int n = k; n < k + conf.p_height; ++n){
+	      pixNum += (int)(image.at(l).at(image.at(l).size() - 1).at<ushort>(n, m));
+	      //std::cout << "depth " << image.at(l).at(32).at<ushort>(n, m) << std::endl;
+	      //std::cout << image.at(l).at(32) << std::endl;
 	    }
-	    //std::cout << "pixNum is " << pixNum << std::endl;
+	  }
+	  //std::cout << "pixNum is " << pixNum << std::endl;
 	    
-	    //std::cout << image.img.at(l).size() << std::endl;
+	  //std::cout << image.img.at(l).size() << std::endl;
 
-	    int classNum = classDatabase.search(dataSet.at(l).className);
+	  int classNum = classDatabase.search(dataSet.at(l).className);
 
-	    if(classNum == -1){
-	      std::cout << "class not found!" << std::endl;
-	      exit(-1);
-	    }
+	  if(classNum == -1){
+	    std::cout << "class not found!" << std::endl;
+	    exit(-1);
+	  }
 
-	    tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
-	    //std::cout << pixNum << std::endl;
-	    if (pixNum > 0){
-	      if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
-		posPatch.push_back(tPatch);
-	      else
-		negPatch.push_back(tPatch);
-	    }
-	    //}
+	  tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
+	  //std::cout << pixNum << std::endl;
+	  if (pixNum > 0){
+	    if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
+	      posPatch.push_back(tPatch);
+	    else
+	      negPatch.push_back(tPatch);
+	  }
+	  //}
 	}
       }
 
@@ -169,10 +170,10 @@ void CRForest::extractAllPatches(const CDataset &dataSet, const std::vector<cv::
 	temp.y = k;
 	
 	int classNum = classDatabase.search(dataSet.className);
-	
+	//classDatabase.show();
 	if(classNum == -1){
-	  std::cout << "class not found!" << std::endl;
-	  exit(-1);
+	  std::cout << "This tree not contain this class data" << std::endl;
+	  //exit(-1);
 	}
 	
 	tPatch.setPatch(temp, image, dataSet.centerPoint, classNum);
@@ -186,37 +187,47 @@ void CRForest::loadForest(){
   for(int i = 0; i < vTrees.size(); ++i){
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(),i);
     vTrees[i] = new CRTree(buffer);
-    sprintf(buffer, "%s%03dclass.txt", conf.treepath.c_str(), i);
+    sprintf(buffer, "%s%03d.txt", conf.classDatabaseName.c_str(), i);
     classDatabase.read(buffer);
   }
 }
 
-void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<cv::Mat> &vDetectImg) const{
-
-  std::vector<CPatch> patches;
+void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image) const{
   std::vector<cv::Mat> scaledImage;
+  std::vector<CPatch> patches;
   std::vector<cv::Mat> features;
   std::vector<const LeafNode*> result;
+  
+  std::vector<int> classSum(classDatabase.vNode.size(),0);
+  std::vector<double> classification_result(classDatabase.vNode.size(), 0);
+  //classSum.resize(classDatabase.vNode.size());
 
   int xoffset = conf.p_width / 2;
   int yoffset = conf.p_height / 2;
+
+  
   
   for(int i = 0; i < conf.scales.size(); ++i){
     scaledImage = convertScale(image, conf.scales.at(i));
-
+    
     features.resize(0);
     extractFeatureChannels(scaledImage.at(0), features);
+    
     features.push_back(scaledImage.at(1));
 
-    extractAllPatches(dataSet, scaledImage, patches);
+    extractAllPatches(dataSet, features, patches);
 
+    
     result.clear();
 
     for(int j = 0; j < patches.size(); ++j){
       this->regression(result, patches.at(j));
-
+      //std::cout << "kokomade" << std::endl;
       // vote for all trees (leafs) 
       for(std::vector<const LeafNode*>::const_iterator itL = result.begin(); itL!=result.end(); ++itL) {
+
+	for(int k = 0; k < classDatabase.vNode.size(); ++k)
+	  classSum.at(k) = 0;
 
 	// To speed up the voting, one can vote only for patches 
 	// with a probability for foreground > 0.5
@@ -227,35 +238,30 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 	float w = (*itL)->pfg / float( (*itL)->vCenter.size() * result.size() );
 
 	// vote for all points stored in the leaf
-	for(std::vector<std::vector<cv::Point> >::const_iterator it = (*itL)->vCenter.begin(); it!=(*itL)->vCenter.end(); ++it) {
-
-	  for(int c = 0; c < vDetectImg.size(); ++c) {
-	    int x = int(xoffset - (*it)[0].x * conf.ratios[c] + 0.5);
-	    int y = yoffset-(*it)[0].y;
-	    if(y>=0 && y<vDetectImg.at(c).rows && x>=0 && x<vDetectImg[c].cols) {
-	      
-	      vDetectImg.at(c).at<uchar>(x,y) = w;
-	      //*(ptDet[c]+x+y*stepDet) += w;
-	    }
-	  }
+	for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
+	  classSum.at((*itL)->vClass.at(k))++;
 	}
-
+	for(int c = 0; c < classDatabase.vNode.size(); ++c){
+	  if(classSum.at(c) != 0)
+	  classification_result.at(c) += w * classSum.at(c) / (*itL)->vClass.size();
+	}
 	// } // end if
-
       }
-
     } // for every patch
 
-    // smooth result image
-    //for(int c=0; c<(int)vDetectImg.size(); ++c)
-    //  cvSmooth( vDetectImg[c], vDetectImg[c], CV_GAUSSIAN, 3, 0, 0, 0);
-
   } // for every scale
+
+
+  //std::cout << "result" << std::endl;
+  for(int i = 0; i < classSum.size(); ++i){
+    std::cout << classDatabase.vNode.at(i).name << " : " << classification_result.at(i) << std::endl;
+  }
 }
 
 // Regression 
 void CRForest::regression(std::vector<const LeafNode*>& result, CPatch &patch) const{
   result.resize( vTrees.size() );
+  //std::cout << "enter regression" << std::endl;
   for(int i=0; i<(int)vTrees.size(); ++i) {
     result[i] = vTrees[i]->regression(patch);
   }

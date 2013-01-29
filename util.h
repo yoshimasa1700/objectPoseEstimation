@@ -141,7 +141,7 @@ class CClassDatabase{
 
   int search(std::string str) const;
 
-  void show();
+  void show() const;
 
   std::vector<databaseNode> vNode;
 };
