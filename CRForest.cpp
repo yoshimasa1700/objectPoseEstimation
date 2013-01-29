@@ -1,14 +1,7 @@
 #include "CRForest.h"
 
 void CRForest::learning(){
-  // init dataset and patch vector
-  //dataSet.resize(conf.ntrees);
-  //images.resize(conf.ntrees);
-  //vPatches.resize(conf.ntrees);
-
   char buffer[256];
-
-  //boost::mt19937    gen( conf.ntrees * static_cast<unsigned long>(time(0)) );
 
   // grow each tree
   // if you want to fix this program multi thread
@@ -34,7 +27,7 @@ void CRForest::learning(){
 
 
     for(int p = 0;p < dataSets.size(); ++p){
-      //dataSets.at(p).showDataset();
+      //makedataSets.at(p).showDataset();
       classDatabase.add(dataSets.at(p).className);
     }
     classDatabase.show();
@@ -205,7 +198,10 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   int xoffset = conf.p_width / 2;
   int yoffset = conf.p_height / 2;
 
-  
+  cv::namedWindow("test");
+  cv::imshow("test",image.at(0));
+  cv::waitKey(0);
+  cv::destroyWindow("test");
   
   for(int i = 0; i < conf.scales.size(); ++i){
     scaledImage = convertScale(image, conf.scales.at(i));
@@ -218,8 +214,10 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
     extractAllPatches(dataSet, features, patches);
 
     
+    
     result.clear();
 
+    std::cout << patches.size() << std::endl;
     for(int j = 0; j < patches.size(); ++j){
       this->regression(result, patches.at(j));
       //std::cout << "kokomade" << std::endl;
@@ -243,7 +241,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 	}
 	for(int c = 0; c < classDatabase.vNode.size(); ++c){
 	  if(classSum.at(c) != 0)
-	  classification_result.at(c) += w * classSum.at(c) / (*itL)->vClass.size();
+	    classification_result.at(c) += ((double)classSum.at(c) / (double)(*itL)->vClass.size());
 	}
 	// } // end if
       }
@@ -251,11 +249,12 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 
   } // for every scale
 
-
+  std::cout << dataSet.className << std::endl;
   //std::cout << "result" << std::endl;
   for(int i = 0; i < classSum.size(); ++i){
     std::cout << classDatabase.vNode.at(i).name << " : " << classification_result.at(i) << std::endl;
   }
+  std::cout << std::endl;
 }
 
 // Regression 

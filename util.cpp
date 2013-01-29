@@ -472,16 +472,13 @@ void CClassDatabase::read(const char* str){
 
   vNode.clear();
 
-  while(!in.eof()){
-    //std::getline(in, tempStr);
-    //std::cout << tempStr << std::endl;
-    //tempStream.str(tempStr);
-    in >> tempClassNum;//tempStream >> tempClassNum;
+  do{
+    in >> tempClassNum;
     in >> tempClassName;
-    //std::cout << tempClassName << std::endl;
-      if(!tempStream.eof())
-	vNode.push_back(databaseNode(tempClassName));
-  }
+    in.ignore();
+    if(!in.eof())
+      vNode.push_back(databaseNode(tempClassName));
+  }while(!in.eof());
 
   in.close();
 }

@@ -10,12 +10,10 @@ static HoG hog;
 
 class CRForest {
  public:
-
   CRForest(CConfig config){
     conf = config;
     vTrees.resize(conf.ntrees);
   }
-
   ~CRForest() {
     int numberOfTrees = vTrees.size();
     for(int i = 0;i < numberOfTrees;++i){
@@ -24,15 +22,27 @@ class CRForest {
   }
   
   void learning();
-  void detection(const CDataset &dataSet, const std::vector<cv::Mat> &image) const;
-  void extractPatches(std::vector<std::vector<CPatch> > &patches, const std::vector<CDataset> dataSet, const std::vector<std::vector<cv::Mat> > &image, boost::mt19937 gen, CConfig conf);
-  void loadForest();
-  void extractAllPatches(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const;
-  // Regression 
-  void regression(std::vector<const LeafNode*>& result, CPatch &patch) const;
-  void loadImages(std::vector<std::vector<cv::Mat> > &img, std::vector<CDataset> dataSet);
+  
+  void detection(const CDataset &dataSet, 
+		 const std::vector<cv::Mat> &image) const;
+  
+  void extractPatches(std::vector<std::vector<CPatch> > &patches, 
+		      const std::vector<CDataset> dataSet, 
+		      const std::vector<std::vector<cv::Mat> > &image, 
+		      boost::mt19937 gen, CConfig conf);
 
-  void extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg) const;
+  void loadForest();
+  void extractAllPatches(const CDataset &dataSet, 
+			 const std::vector<cv::Mat> &image, 
+			 std::vector<CPatch> &patches) const;
+  // Regression 
+  void regression(std::vector<const LeafNode*>& result, 
+		  CPatch &patch) const;
+  void loadImages(std::vector<std::vector<cv::Mat> > &img, 
+		  std::vector<CDataset> dataSet);
+
+  void extractFeatureChannels(const cv::Mat& img, 
+			      std::vector<cv::Mat>& vImg) const;
   void minFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
   void maxFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
 

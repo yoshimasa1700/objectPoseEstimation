@@ -10,10 +10,6 @@
 util.h
 /home/masahiko/Program/objectPoseEstimation/util.h
 
-/home/masahiko/Program/objectPoseEstimation/CRForest.cpp
-CRForest.h
-/home/masahiko/Program/objectPoseEstimation/CRForest.h
-
 /home/masahiko/Program/objectPoseEstimation/CRForest.h
 CRTree.h
 /home/masahiko/Program/objectPoseEstimation/CRTree.h
@@ -37,6 +33,18 @@ cxcore.h
 -
 vector
 -
+
+/home/masahiko/Program/objectPoseEstimation/objectPoseEstimation.cpp
+CRForest.h
+/home/masahiko/Program/objectPoseEstimation/CRForest.h
+opencv2/opencv.hpp
+-
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+
+/home/masahiko/Program/objectPoseEstimation/util.cpp
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
 
 /home/masahiko/Program/objectPoseEstimation/util.h
 iostream
