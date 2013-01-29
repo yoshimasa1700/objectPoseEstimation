@@ -63,6 +63,17 @@ void CRForest::learning(){
     std::cout << "patch extracted!" << std::endl;
     std::cout << vPatches.at(0).size() << " positive patches extracted" << std::endl;
     std::cout << vPatches.at(1).size() << " negative patches extracted" << std::endl;
+
+    std::vector<int> patchClassNum(classDatabase.vNode.size(), 0);
+
+    for(int j = 0; j < vPatches.at(0).size(); ++j){
+      patchClassNum.at(vPatches.at(0).at(j).classNum)++;
+      //std::cout << vPatches.at(0).at(j).classNum << std::endl;
+    }
+
+    for(int c = 0; c < classDatabase.vNode.size(); ++c)
+      std::cout << patchClassNum.at(c) << std::endl;
+    
     // grow tree
     vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, classDatabase.vNode.size());
 
@@ -87,7 +98,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   
   int pixNum;
 
-  temp.width = conf.p_width;
+  temp.width  = conf.p_width;
   temp.height = conf.p_height;
 
   patches.resize(0);
@@ -121,6 +132,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  //std::cout << image.img.at(l).size() << std::endl;
 
 	  int classNum = classDatabase.search(dataSet.at(l).className);
+	  //std::cout << classNum << std::endl;
 
 	  if(classNum == -1){
 	    std::cout << "class not found!" << std::endl;

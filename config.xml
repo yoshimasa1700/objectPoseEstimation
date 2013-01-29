@@ -32,15 +32,15 @@
   <!-- Train data file name -->
   <traindataname>trainData.txt</traindataname>
   <!-- Train image per tree-->
-  <trainimagepertree>300</trainimagepertree>
+  <trainimagepertree>50</trainimagepertree>
   <!-- min sample number-->
-  <minsample>10</minsample>
+  <minsample>5</minsample>
   <!-- max depth of tree-->
   <maxdepth>10</maxdepth>
   <!-- feature channel number-->
   <featurechannel>2</featurechannel>
   <!-- extract patch ratio-->
-  <patchratio>0.6</patchratio>
+  <patchratio>0.8</patchratio>
   <!-- Stride -->
   <stride>10</stride>
   <!-- Offset of tree-->

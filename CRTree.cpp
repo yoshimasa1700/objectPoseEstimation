@@ -191,6 +191,15 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       measure_mode = rand();
     
     cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
+
+    std::vector<int> containClass(nclass, 0);
+
+    for(int i = 0; i < TrainSet.at(0).size(); ++i){
+      containClass.at(TrainSet.at(0).at(i).classNum)++;
+    }
+
+    for(int i = 0; i < nclass; ++i)
+      std::cout << "class" << i << " : " << containClass.at(i) << endl;
     
     // Find optimal test
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
@@ -537,6 +546,8 @@ double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std:
     }
   }
 
+  std::cout << "n_entropyA = " << n_entropyA << std::endl;
+
   // calculate entropy of class
   for(int i = 0; i < SetA.at(0).size(); ++i){
     classDataA.at(SetA.at(0).at(i).classNum)++;
@@ -548,6 +559,8 @@ double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std:
     }
   }
 
+
+  std::cout << "n_entropyA = " << n_entropyA << std::endl;
   // get size of set B
   double sizeB = 0;
   for(std::vector<std::vector<CPatch> >::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
@@ -563,6 +576,8 @@ double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std:
     }
   }
 
+  std::cout << "n_entropyB = " << n_entropyB << std::endl;
+
   // calculate entropy of class
   for(int i = 0; i < SetB.at(0).size(); ++i){
     classDataB.at(SetB.at(0).at(i).classNum)++;
@@ -573,6 +588,8 @@ double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std:
       n_entropyB += p * log(p) / log(2.0);
     }
   }
+
+  std::cout << "n_entropyB = " << n_entropyB << std::endl;
 
   return (sizeA*n_entropyA+sizeB*n_entropyB)/(sizeA+sizeB); 
 }
