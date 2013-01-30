@@ -83,9 +83,9 @@ class CRTree
   void split(std::vector<std::vector<CPatch> >& SetA, std::vector<std::vector<CPatch> >& SetB, const std::vector<std::vector<CPatch> >& TrainSet, const std::vector<std::vector<IntIndex> >& valSet, int t);
   double distMean(const std::vector<CPatch>& SetA, const std::vector<CPatch>& SetB);
   double InfGain(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB);
-
+  double calcEntropy(const std::vector<CPatch> &set, int maxClass);
   double measureSet(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB, unsigned int mode) {
-    if (mode==0) return InfGain(SetA, SetB); else return -distMean(SetA[0],SetB[0]);
+    return InfGain(SetA, SetB);
   };
 
   
@@ -123,6 +123,8 @@ class CRTree
 
   boost::mt19937 gen;
   int nclass;
+
+  std::vector<int> containClass, containClassA, containClassB;
 };
 
 inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c) {

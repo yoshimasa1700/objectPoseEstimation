@@ -192,7 +192,8 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     
     cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
 
-    std::vector<int> containClass(nclass, 0);
+    containClass.clear();
+    containClass.resize(nclass);
 
     for(int i = 0; i < TrainSet.at(0).size(); ++i){
       containClass.at(TrainSet.at(0).at(i).classNum)++;
@@ -226,6 +227,19 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
 	cout << "Final_SplitB: " << 100 *SetB[l].size() / countB << "% "; 
       }
       cout << endl;
+
+      containClassA.clear();
+      containClassA.resize(nclass);
+      containClassB.clear();
+      containClassB.resize(nclass);
+      
+      for(int l = 0; l < SetA.at(0).size(); ++l)
+	containClassA.at(SetA.at(0).at(l).classNum)++;
+      for(int l = 0; l < SetB.at(0).size(); ++l)
+	containClassB.at(SetB.at(0).at(l).classNum)++;
+      
+      for(int l = 0; l < nclass; ++l)
+      std:cout << "class" << l << " is splitted " << containClassA.at(l) << " " << containClassB.at(l) << std::endl;
 
       // Go left
       // If enough patches are left continue growing else stop
@@ -526,74 +540,113 @@ double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatc
 }
 
 double CRTree::InfGain(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB) {
+  std::vector<CPatch> set;
+  set.clear();
 
-  //std::vector<double> n_entoropyA;
-  std::vector<int> classDataA(nclass, 0);
-  std::vector<int> classDataB(nclass, 0);
-  // get size of set A
-  double sizeA = 0;
-  for(std::vector<std::vector<CPatch> >::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
-    sizeA += it->size();
-  }
-
-  // negative entropy: sum_i p_i*log(p_i)
-  double n_entropyA = 0;
-  if(SetA.at(1).size() > 0){
-    for(std::vector<std::vector<CPatch> >::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
-      //for(int i = 0; i < nclass; ++i){
-      double p = double( it->size() ) / sizeA;
-      if(p>0) n_entropyA += p*log(p) / log(2.0); 
+  int maxClass = 0;
+  int maxClassNum = 0;
+  for(int i = 0; i < nclass; ++i)
+    if(maxClassNum < containClass.at(i)){
+      maxClassNum = containClass.at(i);
+      maxClass = i;
     }
-  }
 
-  std::cout << "n_entropyA = " << n_entropyA << std::endl;
+  for(int i = 0; i < SetA.at(0).size(); ++i)
+    set.push_back(SetA.at(0).at(i));
 
-  // calculate entropy of class
-  for(int i = 0; i < SetA.at(0).size(); ++i){
-    classDataA.at(SetA.at(0).at(i).classNum)++;
-  }
-  for(int c = 0; c < nclass; ++c){
-    if(classDataA.at(c) != 0){
-      double p = double(classDataA.at(c)) / SetA.at(0).size();
-      n_entropyA += p * log(p) / log(2.0);
-    }
-  }
+  for(int i = 0; i < SetB.at(0).size(); ++i)
+    set.push_back(SetB.at(0).at(i));
+ 
+  double entoropyA = calcEntropy(SetA.at(0), maxClass);
+  double entoropyB = calcEntropy(SetB.at(0), maxClass);
+  double entoropy = calcEntropy(set, maxClass);
+
+  double wa = (double)SetA.at(0).size() / set.size();
+  double wb = (double)SetB.at(0).size() / set.size();
+
+  return entoropy - (wa * entoropyA + wb * entoropyB);
+
+  // //std::vector<double> n_entoropyA;
+  // std::vector<int> classDataA(nclass, 0);
+  // std::vector<int> classDataB(nclass, 0);
+  // // get size of set A
+  // double sizeA = 0;
+  // for(std::vector<std::vector<CPatch> >::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
+  //   sizeA += it->size();
+  // }
+
+  // // negative entropy: sum_i p_i*log(p_i)
+  // double n_entropyA = 0;
+  // // if(SetA.at(1).size() > 0){
+  // //   for(std::vector<std::vector<CPatch> >::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
+  // //     //for(int i = 0; i < nclass; ++i){
+  // //     double p = double( it->size() ) / sizeA;
+  // //     if(p>0) n_entropyA += p*log(p) / log(2.0); 
+  // //   }
+  // // }
+
+  // std::cout << "n_entropyA = " << n_entropyA << std::endl;
+
+  // // calculate entropy of class
+  // for(int i = 0; i < SetA.at(0).size(); ++i){
+  //   classDataA.at(SetA.at(0).at(i).classNum)++;
+  // }
+  // for(int c = 0; c < nclass; ++c){
+  //   if(classDataA.at(c) != 0){
+  //     double p = double(classDataA.at(c)) / SetA.at(0).size();
+  //     n_entropyA += p * log(p) / log(2.0);
+  //   }
+  // }
 
 
-  std::cout << "n_entropyA = " << n_entropyA << std::endl;
-  // get size of set B
-  double sizeB = 0;
-  for(std::vector<std::vector<CPatch> >::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
-    sizeB += it->size();
-  }
+  // std::cout << "n_entropyA = " << n_entropyA << std::endl;
+  // // get size of set B
+  // double sizeB = 0;
+  // for(std::vector<std::vector<CPatch> >::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
+  //   sizeB += it->size();
+  // }
 
-  // negative entropy: sum_i p_i*log(p_i)
-  double n_entropyB = 0;
-  if(SetB.at(1).size() > 0){
-    for(std::vector<std::vector<CPatch> >::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
-      double p = double( it->size() ) / sizeB;
-      if(p>0) n_entropyB += p*log(p) / log(2.0); 
-    }
-  }
+  // // negative entropy: sum_i p_i*log(p_i)
+  // double n_entropyB = 0;
+  // if(SetB.at(1).size() > 0){
+  //   for(std::vector<std::vector<CPatch> >::const_iterator it = SetB.begin(); it != SetB.end(); ++it) {
+  //     double p = double( it->size() ) / sizeB;
+  //     if(p>0) n_entropyB += p*log(p) / log(2.0); 
+  //   }
+  // }
 
-  std::cout << "n_entropyB = " << n_entropyB << std::endl;
+  // std::cout << "n_entropyB = " << n_entropyB << std::endl;
 
-  // calculate entropy of class
-  for(int i = 0; i < SetB.at(0).size(); ++i){
-    classDataB.at(SetB.at(0).at(i).classNum)++;
-  }
-  for(int c = 0; c < nclass; ++c){
-    if(classDataB.at(c) != 0){
-      double p = double(classDataB.at(c)) / SetB.at(0).size();
-      n_entropyB += p * log(p) / log(2.0);
-    }
-  }
+  // // calculate entropy of class
+  // for(int i = 0; i < SetB.at(0).size(); ++i){
+  //   classDataB.at(SetB.at(0).at(i).classNum)++;
+  // }
+  // for(int c = 0; c < nclass; ++c){
+  //   if(classDataB.at(c) != 0){
+  //     double p = double(classDataB.at(c)) / SetB.at(0).size();
+  //     n_entropyB += p * log(p) / log(2.0);
+  //   }
+  // }
 
-  std::cout << "n_entropyB = " << n_entropyB << std::endl;
+  // std::cout << "n_entropyB = " << n_entropyB << std::endl;
 
-  return (sizeA*n_entropyA+sizeB*n_entropyB)/(sizeA+sizeB); 
+  // return (sizeA*n_entropyA+sizeB*n_entropyB)/(sizeA+sizeB); 
 }
 
+double CRTree::calcEntropy(const std::vector<CPatch> &set, int maxClass)
+{
+  double entropy = 0;
+  int maxClassNum = 0;
+  
+  for(int i = 0; i < set.size(); ++i)
+    if(set.at(i).classNum == maxClass)
+      maxClassNum++;
+
+  double p = (double)maxClassNum / (double)set.size();
+  entropy += -1 * p * log(p);
+
+  return entropy;
+}
 /////////////////////// IO functions /////////////////////////////
 
 void LeafNode::show(int delay, int width, int height) {

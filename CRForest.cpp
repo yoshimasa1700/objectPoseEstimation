@@ -3,6 +3,8 @@
 void CRForest::learning(){
   char buffer[256];
 
+  
+
   // grow each tree
   // if you want to fix this program multi thread
   // you should change below
@@ -142,10 +144,10 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
 	  //std::cout << pixNum << std::endl;
 	  if (pixNum > 0){
-	    if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
+	    //if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
 	      posPatch.push_back(tPatch);
-	    else
-	      negPatch.push_back(tPatch);
+	      //else
+	      //negPatch.push_back(tPatch);
 	  }
 	  //}
 	}

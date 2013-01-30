@@ -136,7 +136,7 @@ void detect(const CRForest &forest, CConfig conf){
 
   //loadImage(dataSet.at(0), image);
   for(int m = 0; m < dataSet.size(); ++m){
-    image.clear();
+    image.clear();               
     loadImage(dataSet.at(m), image);
     
     //for(int i = 0; i < conf.scales.size(); ++i){
