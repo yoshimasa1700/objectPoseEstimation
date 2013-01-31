@@ -311,7 +311,7 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
     if(TrainSet.at(0).at(i).classNum == maxClass){
       ptL->vCenter[current] = TrainSet[0][i].center;
       ptL->vClass[current] = TrainSet[0][i].classNum;
-      current++;
+      current++;                                                 
     }
   }
 

@@ -223,7 +223,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
     features.resize(0);
     extractFeatureChannels(image.at(0), features);
     
-    features.push_back(image.at(1));
+    features.push_back(image             .at(1));
 
     extractAllPatches(dataSet, features, patches);
 
