@@ -184,7 +184,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
   }
 
   int remainClass = 0;
-  for(int c = 0; c < nclass; ++c)
+                                       for(int c = 0; c < nclass; ++c)
     if(containClass.at(c) != 0)
       remainClass++;
   
@@ -293,35 +293,25 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   for(int i = 0; i < TrainSet.at(0).size(); ++i){
     numberOfClassPatch.at(TrainSet.at(0).at(i).classNum)++;
   }
-  int maxNumber(0);
-  std::vector<int> maxClass(1 , 0);
+  int maxNumber = 0;
+  int maxClass = 0;
   for(int c = 0; c < nclass; ++c){
     if(numberOfClassPatch.at(c) > maxNumber){
-      maxClass.clear();
-      maxClass.push_back(c);
-      maxNumber =  numberOfClassPatch.at(c);
-    }else if(numberOfClassPatch.at(c) == maxNumber){
-      maxClass.push_back(c);
+      maxNumber = numberOfClassPatch.at(c);
+      maxClass = c;
     }
   }
 
-  int totalMaxNum = 0;
- 
-  for(int i = 0; i < maxClass.size(); ++i)
-    totalMaxNum += maxClass.at(i);
-
   // Store data
-  ptL->pfg = (float)totalMaxNum / float(TrainSet.at(0).size());
+  ptL->pfg = (float)maxNumber / float(TrainSet.at(0).size());
   ptL->vCenter.resize( maxNumber );
   ptL->vClass.resize( maxNumber );
   int current = 0;
   for(unsigned int i = 0; i < TrainSet.at(0).size(); ++i) {
-    for(int c = 0; c < maxClass.size(); ++c){
-      if(TrainSet.at(0).at(i).classNum == maxClass.at(c)){
-	ptL->vCenter[current] = TrainSet[0][i].center;
-	ptL->vClass[current] = TrainSet[0][i].classNum;
-	current++;
-      }
+    if(TrainSet.at(0).at(i).classNum == maxClass){
+      ptL->vCenter[current] = TrainSet[0][i].center;
+      ptL->vClass[current] = TrainSet[0][i].classNum;
+      current++;
     }
   }
 
@@ -413,7 +403,7 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
 
 	  // Measure quality of split with measure_mode 0 - classification, 1 - regression
 	  
-	  tmpDist = measureSet(tmpA, tmpB, depth);
+	  tmpDist = measureSet(tmpA, tmpB, measure_mode);
 
 	  // Take binary test with best split
 	  if(tmpDist>bestDist) {

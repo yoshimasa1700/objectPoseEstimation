@@ -26,15 +26,15 @@
   <!-- Output path-->
   <outpath>example/detect</outpath>
   <!-- Scale factor for output image-->
-  <sfactor>50</sfactor>
+  <sfactor>20</sfactor>
   <!-- Path to training images -->
   <trainimgpath>trainData</trainimgpath>
   <!-- Train data file name -->
   <traindataname>trainData.txt</traindataname>
   <!-- Train image per tree-->
-  <trainimagepertree>50</trainimagepertree>
+  <trainimagepertree>10</trainimagepertree>
   <!-- min sample number-->
-  <minsample>5</minsample>
+  <minsample>20</minsample>
   <!-- max depth of tree-->
   <maxdepth>10</maxdepth>
   <!-- feature channel number-->

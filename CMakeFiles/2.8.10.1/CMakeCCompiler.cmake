@@ -1,7 +1,7 @@
 set(CMAKE_C_COMPILER "/usr/bin/cc")
 set(CMAKE_C_COMPILER_ARG1 "")
 set(CMAKE_C_COMPILER_ID "Clang")
-set(CMAKE_C_COMPILER_VERSION "4.0.0")
+set(CMAKE_C_COMPILER_VERSION "4.2.0")
 set(CMAKE_C_PLATFORM_ID "Darwin")
 
 set(CMAKE_AR "/usr/bin/ar")
@@ -48,7 +48,7 @@ endif()
 
 
 
-set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "/usr/bin/../lib/clang/4.0/lib/darwin/libclang_rt.osx.a")
+set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "/usr/bin/../lib/clang/4.2/lib/darwin/libclang_rt.osx.a")
 set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "")
 
 

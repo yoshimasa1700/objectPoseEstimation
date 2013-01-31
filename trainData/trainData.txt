@@ -1,4 +1,4 @@
-16
+6
 bottle/bottle_1
 bottle/bottle_2
 can/can_1
