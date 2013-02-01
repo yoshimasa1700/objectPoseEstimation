@@ -3,8 +3,6 @@
 void CRForest::learning(){
   char buffer[256];
 
-  
-
   // grow each tree
   // if you want to fix this program multi thread
   // you should change below
@@ -78,11 +76,13 @@ void CRForest::learning(){
     
     // grow tree
     vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, classDatabase.vNode.size());
-
+    std::cout << "modottayo" << std::endl;
     // save tree
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
+    std::cout << "tree file name is " << buffer << std::endl;
     vTrees.at(i)->saveTree(buffer);
     sprintf(buffer, "%s%03d.txt",conf.classDatabaseName.c_str(), i + conf.off_tree);
+    std::cout << "write tree data" << std::endl;
     classDatabase.write(buffer);
   } // end tree loop
 }
@@ -223,7 +223,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
     features.resize(0);
     extractFeatureChannels(image.at(0), features);
     
-    features.push_back(image.at(1));
+    features.push_back(image             .at(1));
 
     extractAllPatches(dataSet, features, patches);
 

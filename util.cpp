@@ -39,7 +39,7 @@ CV_LOAD_IMAGE_ANYCOLOR);
 + dataSet.at(0).rgbImageName,
 CV_LOAD_IMAGE_ANYCOLOR);
 
-t    // load Depth image
+   // load Depth image
     depth = cv::imread(dataSet.at(0).imageFilePath
 + dataSet.at(0).depthImageName,
 CV_LOAD_IMAGE_ANYDEPTH);

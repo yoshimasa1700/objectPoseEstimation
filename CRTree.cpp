@@ -179,9 +179,8 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
 
   containClass.clear();
   containClass.resize(nclass);
-  for(int i = 0; i < TrainSet.at(0).size(); ++i){
+  for(int i = 0; i < TrainSet.at(0).size(); ++i)
     containClass.at(TrainSet.at(0).at(i).classNum)++;
-  }
 
   int remainClass = 0;
   for(int c = 0; c < nclass; ++c)
@@ -202,10 +201,6 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       measure_mode = rand();
     
     cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
-
-
-
-
 
     for(int i = 0; i < nclass; ++i)
       std::cout << "class" << i << " : " << containClass.at(i) << endl;
@@ -278,11 +273,13 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     makeLeaf(TrainSet, pnratio, node);
 	
   }
+
+  std::cout << "gakushu owari" << std::endl;
   
 }
 
 // Create leaf node from patches 
-void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node) {
+void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node) {
   // Get pointer
   treetable[node*11] = num_leaf;
   LeafNode* ptL = &leaf[num_leaf];
@@ -325,6 +322,8 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
     }
   }
 
+
+  std::cout << "happa tukutta" << std::endl;
   // Increase leaf counter
   ++num_leaf;
 }

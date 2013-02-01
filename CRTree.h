@@ -78,7 +78,7 @@ class CRTree
 			    unsigned int measure_mode);
   void generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c);
 
-  void makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node);
+  void makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node);
 
   void evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int* test, std::vector<std::vector<CPatch> > &TrainSet);
   void split(std::vector<std::vector<CPatch> >& SetA, std::vector<std::vector<CPatch> >& SetB, const std::vector<std::vector<CPatch> >& TrainSet, const std::vector<std::vector<IntIndex> >& valSet, int t);
@@ -87,7 +87,7 @@ class CRTree
   double calcEntropy(const std::vector<CPatch> &set, int maxClass);
   double measureSet(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB, unsigned int depth) {
     double lamda = 1;
-    return InfGain(SetA, SetB) + (1 - exp((double)depth / lamda)) * distMean(SetA.at(0), SetB.at(0)) * -1;
+    return InfGain(SetA, SetB);// + (1 - exp((double)depth / lamda)) * distMean(SetA.at(0), SetB.at(0)) * -1;
   };
 
   
