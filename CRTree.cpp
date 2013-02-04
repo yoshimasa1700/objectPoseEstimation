@@ -169,7 +169,7 @@ bool CRTree::saveTree(const char* filename) const {
   return done;
 }
 
-void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, CConfig conf, boost::mt19937 gen, int nclass_){
+void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, const CConfig &conf, boost::mt19937 gen, int nclass_){
   
   boost::uniform_int<> zeroOne( 0, 1 );
   boost::variate_generator<boost::mt19937&, 
@@ -273,8 +273,6 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     makeLeaf(TrainSet, pnratio, node);
 	
   }
-
-  std::cout << "gakushu owari" << std::endl;
   
 }
 
@@ -287,9 +285,8 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
   std::vector<int> numberOfClassPatch(nclass, 0);
 
   // Find most big class
-  for(int i = 0; i < TrainSet.at(0).size(); ++i){
+  for(int i = 0; i < TrainSet.at(0).size(); ++i)
     numberOfClassPatch.at(TrainSet.at(0).at(i).classNum)++;
-  }
   int maxNumber(0);
   std::vector<int> maxClass(1 , 0);
   for(int c = 0; c < nclass; ++c){
@@ -307,20 +304,25 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
   for(int i = 0; i < maxClass.size(); ++i)
     totalMaxNum += maxClass.at(i);
 
+  ptL->vCenter.clear();
+  ptL->vClass.clear();
+
   // Store data
   ptL->pfg = (float)totalMaxNum / float(TrainSet.at(0).size());
-  ptL->vCenter.resize( maxNumber );
-  ptL->vClass.resize( maxNumber );
+  ptL->vCenter.resize( totalMaxNum );
+  ptL->vClass.resize( totalMaxNum );
   int current = 0;
   for(unsigned int i = 0; i < TrainSet.at(0).size(); ++i) {
     for(int c = 0; c < maxClass.size(); ++c){
       if(TrainSet.at(0).at(i).classNum == maxClass.at(c)){
-	ptL->vCenter[current] = TrainSet[0][i].center;
+	ptL->vCenter[current].x = TrainSet[0][i].center.x;
+	ptL->vCenter[current].y = TrainSet[0][i].center.y;
 	ptL->vClass[current] = TrainSet[0][i].classNum;
 	current++;
       }
     }
   }
+
 
 
   std::cout << "happa tukutta" << std::endl;

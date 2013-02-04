@@ -38,7 +38,7 @@ class CConfig
 
   int loadConfig(const char* filename);
   
-				// Path to trees
+  // Path to trees
   std::string	treepath;
   // Number of trees
   int		ntrees;

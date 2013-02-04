@@ -156,18 +156,18 @@ int CConfig::loadConfig(const char* filename)
     std::cout << "root.str is nothing" << std::endl;
   }
 
-//   // load image scales
-//   std::cout << "kokomade" << std::endl;
-//   scales.resize(0);
-//   BOOST_FOREACH (const boost::property_tree::ptree::value_type& child,
-// pt.get_child("root.scales")) {
-//     const float value = boost::lexical_cast<float>(child.second.data());
-//     scales.push_back(value);
+  // load image scales
+  std::cout << "kokomade" << std::endl;
+  scales.resize(0);
+  BOOST_FOREACH (const boost::property_tree::ptree::value_type& child,
+pt.get_child("root.scales")) {
+    const float value = boost::lexical_cast<float>(child.second.data());
+    scales.push_back(value);
     
-//     std::cout << value << std::endl;
-//   }
-//   for (int i;i < scales.size(); ++i)
-//     std::cout << i << ": " << scales.at(i) << std::endl;
+    std::cout << value << std::endl;
+  }
+  for (int i;i < scales.size(); ++i)
+    std::cout << i << ": " << scales.at(i) << std::endl;
   float value_temp = 1;
   scales.clear();
   scales.push_back(value_temp);
@@ -177,15 +177,15 @@ int CConfig::loadConfig(const char* filename)
   ratios.push_back(value_temp);
 
   // // load image ratios
-  // ratios.resize(0);
-  // BOOST_FOREACH (const boost::property_tree::ptree::value_type& child, pt.get_child("root.ratio")) {
-  //   const float value = boost::lexical_cast<float>(child.second.data());
-  //   ratios.push_back(value);
+  ratios.resize(0);
+  BOOST_FOREACH (const boost::property_tree::ptree::value_type& child, pt.get_child("root.ratio")) {
+    const float value = boost::lexical_cast<float>(child.second.data());
+    ratios.push_back(value);
     
-  //   std::cout << value << std::endl;
-  // }
-  // for (int i;i < ratios.size(); ++i)
-  //   std::cout << i << ": " << ratios.at(i) << std::endl;
+    std::cout << value << std::endl;
+  }
+  for (int i;i < ratios.size(); ++i)
+    std::cout << i << ": " << ratios.at(i) << std::endl;
 
 // load output path
 if (boost::optional<std::string> str
