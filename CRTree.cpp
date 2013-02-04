@@ -177,7 +177,19 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
   
   nclass = nclass_;
 
-  if(depth < max_depth && TrainSet[0].size() > 0) {	
+  containClass.clear();
+  containClass.resize(nclass);
+  for(int i = 0; i < TrainSet.at(0).size(); ++i)
+    containClass.at(TrainSet.at(0).at(i).classNum)++;
+
+  int remainClass = 0;
+  for(int c = 0; c < nclass; ++c)
+    if(containClass.at(c) != 0)
+      remainClass++;
+  
+  if(depth < max_depth && remainClass > 1) {
+
+    //if(depth < max_depth && TrainSet[0].size() > 0) {	
     
     // spilit patches by the binary test
     vector<vector<CPatch> > SetA;
@@ -192,15 +204,15 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     
     cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
 
-    containClass.clear();
-    containClass.resize(nclass);
+    //containClass.clear();
+    //containClass.resize(nclass);
 
-    for(int i = 0; i < TrainSet.at(0).size(); ++i){
-      containClass.at(TrainSet.at(0).at(i).classNum)++;
-    }
+    //for(int i = 0; i < TrainSet.at(0).size(); ++i){
+    //containClass.at(TrainSet.at(0).at(i).classNum)++;
+    //}
 
-    for(int i = 0; i < nclass; ++i)
-      std::cout << "class" << i << " : " << containClass.at(i) << endl;
+    //for(int i = 0; i < nclass; ++i)
+    //std::cout << "class" << i << " : " << containClass.at(i) << endl;
     
     // Find optimal test
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
