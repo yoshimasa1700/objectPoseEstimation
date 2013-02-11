@@ -291,13 +291,50 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   treetable[node*11] = num_leaf;
   LeafNode* ptL = &leaf[num_leaf];
 
+  std::vector<int> maxclass(nclass,0);
+  std::vector<int> maxflag;
+
+  for(int i = 0; i < TrainSet.at(0).size(); ++i)
+    maxclass.at(TrainSet.at(0).at(i)) += 1;
+
+  maxflag.clear();
+
+  int maxnum = 0;
+  for(int c = 0; c < nclass, ++c){
+    if(maxclass.at(c) > maxnum){
+      maxflag.clear();
+      maxflag.push_back(c);
+      maxnum = maxclass.at(c);
+    }else if(maxclass.at(c) == 0){
+      maxflag.push_back(c);
+    }
+  }
+
+  int totalnum = 0;
+
+  for(int i = 0; i < maxflag.size(); ++i)
+    totalnum += maxclass.at(maxflat.at(i)).size();
+
   // Store data
-  ptL->pfg = TrainSet[0].size() / float(pnratio*TrainSet[0].size()+TrainSet[1].size());
-  ptL->vCenter.resize( TrainSet[0].size() );
-  ptL->vClass.resize( TrainSet[0].size() );
-  for(unsigned int i = 0; i<TrainSet[0].size(); ++i) {
-    ptL->vCenter[i] = TrainSet[0][i].center;
-    ptL->vClass[i] = TrainSet[0][i].classNum;
+  ptL->pfg = totalnum / float(TrainSet[0].size());
+
+  // ptL->vCenter.resize( TrainSet[0].size() );
+  // ptL->vClass.resize( TrainSet[0].size() );
+  // for(unsigned int i = 0; i<TrainSet[0].size(); ++i) {
+  //   ptL->vCenter[i] = TrainSet[0][i].center;
+  //   ptL->vClass[i] = TrainSet[0][i].classNum;
+  // }
+
+  ptL->vCenter.resize(totalnum);
+  ptL->vClass.resize(totalnum);
+  
+  int count = 0;
+
+  for(int i = 0; i < TrainSet.at(0).size(); ++i){
+    for(int j = 0; j < maxflag.size(); ++j){
+      if(TrainSet.at(0).at(i).classNum == )
+      ptL->vCenter[count] = TrainSet.at(0).at(i);
+    }
   }
 
   // Increase leaf counter
