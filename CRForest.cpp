@@ -23,6 +23,8 @@ void CRForest::learning(){
     // initialize random seed
     //std::cout << "time is " << time(NULL) << std::endl;
     boost::mt19937    gen( i * static_cast<unsigned long>(time(NULL)) );
+
+    
     
     //load train image list and grand truth
     loadTrainFile(conf, dataSets, gen);
@@ -46,7 +48,7 @@ void CRForest::learning(){
     // reserve memory
     // vPatches.at(i).reserve((int)((conf.imagePerTree + 10) * 3 * 
     // 				 (images.at(i).img.at(0).at(0).cols - conf.p_width) * 
-    // 				 (images.at(i).img.at(0).at(0).rows - conf.p_height) / conf.stride));
+    // 				 (images.at(i).img.at(0).at(0).ros - conf.p_height) / conf.stride));
 
     std::cout << "extracting feature" << std::endl;
 
@@ -76,8 +78,9 @@ void CRForest::learning(){
     for(int c = 0; c < classDatabase.vNode.size(); ++c)
       std::cout << patchClassNum.at(c) << std::endl;
     
+
     // grow tree
-    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, classDatabase.vNode.size());
+    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
 
     // save tree
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
@@ -212,18 +215,24 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   int xoffset = conf.p_width / 2;
   int yoffset = conf.p_height / 2;
 
-  cv::namedWindow("test");
-  cv::imshow("test",image.at(0));
-  cv::waitKey(0);
-  cv::destroyWindow("test");
+  // cv::namedWindow("test");
+  // cv::imshow("test",image.at(0));
+  // cv::waitKey(0);
+  // cv::destroyWindow("test");
+
+  //this is for debug
+  std::vector<int> leafPerClass(classDatabase.vNode.size(), 0);
+  std::vector<int> patchPerClass(classDatabase.vNode.size(), 0);
+
+  
   
   for(int i = 0; i < conf.scales.size(); ++i){
     scaledImage = convertScale(image, conf.scales.at(i));
     
     features.resize(0);
-    extractFeatureChannels(scaledImage.at(0), features);
+    extractFeatureChannels(image.at(0), features);
     
-    features.push_back(scaledImage.at(1));
+    features.push_back(image.at(1));
 
     extractAllPatches(dataSet, features, patches);
 
@@ -245,20 +254,32 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 	// with a probability for foreground > 0.5
 	// 
 	// if((*itL)->pfg>0.5) {
+	
+	for(int l = 0; l < (*itL)->pfg.size(); ++l){
 
-	// voting weight for leaf 
-	float w = (*itL)->pfg / float( (*itL)->vCenter.size() * result.size() );
+	  // vote for all points stored in the leaf
+	  for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
+	    classSum.at((*itL)->vClass.at(k))++;
+	    
+	  }
 
-	// vote for all points stored in the leaf
-	for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
-	  classSum.at((*itL)->vClass.at(k))++;
+	  
+	  for(int c = 0; c < classDatabase.vNode.size(); c++)
+	    patchPerClass.at(c) += classSum.at(c);
+
+	  //leafPerClass.at((*itL)->vClass.at(0))++;
+ 
+	  // voting weight for leaf 
+	  float w = (*itL)->pfg.at(l) / (float)((float)(*itL)->vCenter.size()/ (*itL)->pfg.size() * result.size() );
+
+	  
+	  for(int c = 0; c < classDatabase.vNode.size(); ++c){
+	    if(classSum.at(c) != 0)
+	      classification_result.at(c) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
+	  }
+	  // } // end if
 	}
-	for(int c = 0; c < classDatabase.vNode.size(); ++c){
-	  if(classSum.at(c) != 0)
-	    classification_result.at(c) += ((double)classSum.at(c) / (double)(*itL)->vClass.size());
-	}
-	// } // end if
-      }
+      } // for every leaf
     } // for every patch
 
   } // for every scale
@@ -269,6 +290,13 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
     std::cout << classDatabase.vNode.at(i).name << " : " << classification_result.at(i) << std::endl;
   }
   std::cout << std::endl;
+
+  // this is for debug
+  for(int c = 0; c < classSum.size(); ++c){
+    std::cout << "class1: ";
+    std::cout << leafPerClass.at(c) << " ";
+    std::cout << (float)classification_result.at(c) /  (float)patchPerClass.at(c) << std::endl;
+  }
 }
 
 // Regression 

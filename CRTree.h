@@ -20,9 +20,11 @@ class LeafNode
   void show(int delay, int width, int height);
   void print() 
   {
-    std::cout << "Leaf " << vCenter.size() << " " << pfg << std::endl;
+    std::cout << "Leaf " << vCenter.size() << " ";
+    for(int i = 0; i < pfg.size(); i++)std::cout << pfg.at(i) << " ";
+    std::cout << std::endl;
   }
-  float pfg;
+  std::vector<float> pfg;
   std::vector<cv::Point> vCenter;
   std::vector<int> vClass;
 };
@@ -67,7 +69,7 @@ class CRTree
   const LeafNode* regression(CPatch &patch) const;
 
   // Training
-  void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen, int nclass_);
+  void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen,const std::vector<int> &defaultClass_);
 
   bool optimizeTest(std::vector<std::vector<CPatch> > &SetA,
 			    std::vector<std::vector<CPatch> > &SetB, 
@@ -124,7 +126,7 @@ class CRTree
   boost::mt19937 gen;
   int nclass;
 
-  std::vector<int> containClass, containClassA, containClassB;
+  std::vector<int> defaultClass, containClass, containClassA, containClassB;
 };
 
 inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c) {
