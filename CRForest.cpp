@@ -202,17 +202,19 @@ void CRForest::loadForest(){
   }
 }
 
-void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image) const{
+void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<double> &detectionResult) const{
+  int classNum = classDatabase.vNode.size();
+  
   std::vector<cv::Mat> scaledImage;
   std::vector<CPatch> patches;
   std::vector<cv::Mat> features;
   std::vector<const LeafNode*> result;
-  std::vector<int> classSum(classDatabase.vNode.size(),0);
-  std::vector<double> classification_result(classDatabase.vNode.size(), 0);
+  std::vector<int> classSum(classNum,0);
+  std::vector<double> classification_result(classNum, 0);
 
   //this is for debug
-  std::vector<int> leafPerClass(classDatabase.vNode.size(), 0);
-  std::vector<int> patchPerClass(classDatabase.vNode.size(), 0);
+  std::vector<int> leafPerClass(classNum, 0);
+  std::vector<int> patchPerClass(classNum, 0);
 
   int xoffset = conf.p_width / 2;
   int yoffset = conf.p_height / 2;
@@ -274,8 +276,9 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 
 	  
 	for(int c = 0; c < classDatabase.vNode.size(); ++c){
-	  if(classSum.at(c) != 0)
+	  if(classSum.at(c) != 0){
 	    classification_result.at(c) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
+	  }
 	}
 	// } // end if
       }
@@ -285,11 +288,26 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
     //} // for every scale
 
   std::cout << dataSet.className << std::endl;
-  //std::cout << "result" << std::endl;
+  std::cout << "result" << std::endl;
   for(int i = 0; i < classSum.size(); ++i){
-    std::cout << classDatabase.vNode.at(i).name << " : " << classification_result.at(i) << std::endl;
+   std::cout << classDatabase.vNode.at(i).name << " : " << classification_result.at(i) << std::endl;
   }
   std::cout << std::endl;
+
+  int maxResult = 0;
+  double maxResultTemp = 0;
+
+  for(int i = 0; i < classification_result.size(); ++i){
+    if(classification_result.at(i) > maxResultTemp){
+      maxResult = 0;
+      maxResultTemp = classification_result.at(i);
+    }
+  }
+  
+  //for(int i = 0; i < classNum; ++i){
+    if(dataSet.className == classDatabase.vNode.at(maxResult).name)
+      detectionResult.at(0) += 1;// += classification_result.at(i);
+    //}
 
   // this is for debug
   // for(int c = 0; c < classSum.size(); ++c){

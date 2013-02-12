@@ -24,7 +24,7 @@ class CRForest {
   void learning();
   
   void detection(const CDataset &dataSet, 
-		 const std::vector<cv::Mat> &image) const;
+		 const std::vector<cv::Mat> &image, std::vector<double> &detectionResult) const;
   
   void extractPatches(std::vector<std::vector<CPatch> > &patches, 
 		      const std::vector<CDataset> dataSet, 
@@ -46,10 +46,12 @@ class CRForest {
   void minFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
   void maxFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
 
+  CClassDatabase classDatabase;
+
  private:
   CConfig		conf;
   std::vector<CRTree*>	vTrees;
-  CClassDatabase classDatabase;
+  
 };
 
 inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg) const{
