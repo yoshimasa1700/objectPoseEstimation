@@ -1,6 +1,6 @@
 #include "util.h"
 
-boost::lagged_fibonacci1279 gen = boost::lagged_fibonacci1279();
+boost::lagged_fibonacci1279 nCk::gen = boost::lagged_fibonacci1279();
 
 CDataset::CDataset(){
 }
@@ -346,7 +346,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
   boost::variate_generator<boost::mt19937&, 
 			   boost::uniform_real<> > rand( gen, dst );
   
-
+  nCk nck;
   
   //read train data folder list
   //cout << "train data folder list path: " << traindatafilepath << std::endl;
@@ -415,10 +415,18 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
     //trainDataList.close();
   }
   dataSetNum = tempDataSet.size();
-   for(int j = 0;j < dataSetNum; ++j)
-      if(rand() * dataSetNum < conf.imagePerTree)
-	dataSet.push_back(tempDataSet.at(j));
-    std::cout << "train data number: " << dataSet.size() << std::endl;
+  std::set<int> chosenData = nck.generate(n_files, conf.imagePerTree);
+  
+  std::set<int>::iterator ite = chosenData.begin();
+  
+  while(ite != chosenData.end()){
+    dataSet.push_back(tempDataSet.at(*ite));
+  }
+
+  // for(int j = 0;j < dataSetNum; ++j)
+  //   if(rand() * dataSetNum < conf.imagePerTree)
+  //     dataSet.push_back(tempDataSet.at(j));
+  // std::cout << "train data number: " << dataSet.size() << std::endl;
 }
 
 void pBar(int p,int maxNum, int width){

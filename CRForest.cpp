@@ -99,15 +99,17 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   cv::Rect temp;
   CPatch tPatch;
 
-  std::vector<CPatch> posPatch, negPatch;
+  std::vector<CPatch> tPosPatch, posPatch, negPatch;
   
   int pixNum;
+  nCk nck;
 
   temp.width  = conf.p_width;
   temp.height = conf.p_height;
 
   patches.resize(0);
-
+  
+  tPosPatch.clear();
   posPatch.clear();
   negPatch.clear();
 
@@ -116,7 +118,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   for(int l = 0;l < image.size(); ++l){
     for(int j = 0; j < image.at(l).at(0).cols - conf.p_width; j += conf.stride){
       for(int k = 0; k < image.at(l).at(0).rows - conf.p_height; k += conf.stride){
-	if(rand() < conf.patchRatio){
+	//if(rand() < conf.patchRatio){
 	  //for(int i = 0;i < image.img.at(l).size(); ++i){// for every channel	  
 	  temp.x = j;
 	  temp.y = k;
@@ -148,17 +150,28 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  //std::cout << pixNum << std::endl;
 	  if (pixNum > 0){
 	    //if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
-	      posPatch.push_back(tPatch);
+	      tPosPatch.push_back(tPatch);
 	      //else
 	      //negPatch.push_back(tPatch);
 	  }
 	  //}
-	}
+	  //}
       }
+    }    
+    int totalPatchNum = (int)(((double)(image.at(l).at(0).cols - conf.p_width) / (double)conf.stride) * ((double)(image.at(l).at(0).rows - conf.p_height) / (double)conf.stride));
+    
+    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), totalPatchNum);
 
+    std::set<int>::iterator ite = chosenPatch.begin();
+    
+    while(ite != chosenPatch.end()){
+      posPatch.push_back(tPosPatch.at(*ite));
     }
     pBar(l,dataSet.size(), 50);
   }
+
+
+
   patches.push_back(posPatch);
   patches.push_back(negPatch);
   std::cout << std::endl;
