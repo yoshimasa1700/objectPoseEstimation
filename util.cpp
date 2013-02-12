@@ -421,6 +421,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
   
   while(ite != chosenData.end()){
     dataSet.push_back(tempDataSet.at(*ite));
+    ite++;
   }
 
   // for(int j = 0;j < dataSetNum; ++j)

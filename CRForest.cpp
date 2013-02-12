@@ -166,6 +166,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     
     while(ite != chosenPatch.end()){
       posPatch.push_back(tPosPatch.at(*ite));
+      ite++;
     }
     pBar(l,dataSet.size(), 50);
   }
