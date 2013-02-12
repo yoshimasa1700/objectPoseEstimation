@@ -340,6 +340,8 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
   std::string trainDataListPath;
   int dataSetNum;
 
+  CClassDatabase database;
+
   cv::Point tempPoint;
 
   boost::uniform_real<> dst( 0, 1 );
@@ -404,6 +406,8 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
       //read class name
       trainDataList >> temp.className;
 
+      database.add(temp.className);
+
       //read angle grand truth
       trainDataList >> temp.angle;
 
@@ -415,13 +419,18 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
     //trainDataList.close();
   }
   dataSetNum = tempDataSet.size();
-  std::set<int> chosenData = nck.generate(n_files, conf.imagePerTree);
-  
-  std::set<int>::iterator ite = chosenData.begin();
-  
-  while(ite != chosenData.end()){
-    dataSet.push_back(tempDataSet.at(*ite));
-    ite++;
+  int dataOffset = 0;
+  database.show();
+  for(int j = 0;j < database.vNode.size(); j++){
+    std::set<int> chosenData = nck.generate(database.vNode.at(j).instances, conf.imagePerTree);
+    
+    std::set<int>::iterator ite = chosenData.begin();
+    
+    while(ite != chosenData.end()){
+      dataSet.push_back(tempDataSet.at(*ite + dataOffset));
+      ite++;
+    }
+    dataOffset += database.vNode.at(j).instances;
   }
 
   // for(int j = 0;j < dataSetNum; ++j)

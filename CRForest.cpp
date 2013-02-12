@@ -113,9 +113,12 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   posPatch.clear();
   negPatch.clear();
 
+  std::cout << "image num is " << image.size();
+
   std::cout << "extracting patch from image" << std::endl;
   std::cout << image.at(0).size() << std::endl;
   for(int l = 0;l < image.size(); ++l){
+    tPosPatch.clear();
     for(int j = 0; j < image.at(l).at(0).cols - conf.p_width; j += conf.stride){
       for(int k = 0; k < image.at(l).at(0).rows - conf.p_height; k += conf.stride){
 	//if(rand() < conf.patchRatio){
@@ -163,7 +166,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
     //std::cout << "tPosPatch.size()" << tPosPat
     
-    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), totalPatchNum * conf.patchRatio);
+    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
     
     //std::cout << "keisan deketa" << std::endl;
 
@@ -173,6 +176,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
       posPatch.push_back(tPosPatch.at(*ite));
       ite++;
     }
+    
     pBar(l,dataSet.size(), 50);
   }
 
