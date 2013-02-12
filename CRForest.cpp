@@ -159,8 +159,13 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
       }
     }    
     int totalPatchNum = (int)(((double)(image.at(l).at(0).cols - conf.p_width) / (double)conf.stride) * ((double)(image.at(l).at(0).rows - conf.p_height) / (double)conf.stride));
+
+    //std::cout << "total patch num is " << totalPatchNum << std::endl;
+    //std::cout << "tPosPatch.size()" << tPosPat
     
-    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), totalPatchNum);
+    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), totalPatchNum * conf.patchRatio);
+    
+    //std::cout << "keisan deketa" << std::endl;
 
     std::set<int>::iterator ite = chosenPatch.begin();
     
