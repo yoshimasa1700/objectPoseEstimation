@@ -211,7 +211,12 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     if(depth < max_depth-2 )
       measure_mode = rand();
     
-    cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
+    //cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
+
+    cout << "Node num: " << node << endl;
+    for(int i = 0; i < nclass; ++i){
+      std::cout << "class" << i << ": " << containClass.at(i) << endl;
+    }
 
     //containClass.clear();
     //containClass.resize(nclass);
@@ -236,18 +241,18 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       double countB = 0;
      
 
-      for(unsigned int l=0; l<TrainSet.size(); ++l) {
-	cout << "Final_Split A/B " << l << " " << SetA[l].size() << " " << SetB[l].size() << endl; 
-	countA += SetA[l].size(); countB += SetB[l].size();
-      }
-      for(unsigned int l=0; l<TrainSet.size(); ++l) {
-	cout << "Final_SplitA: " << 100 * SetA[l].size()/countA << "% "; 
-      }
-      cout << endl;
-      for(unsigned int l=0; l<TrainSet.size(); ++l) {
-	cout << "Final_SplitB: " << 100 *SetB[l].size() / countB << "% "; 
-      }
-      cout << endl;
+      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
+      // 	cout << "Final_Split A/B " << l << " " << SetA[l].size() << " " << SetB[l].size() << endl; 
+      // 	countA += SetA[l].size(); countB += SetB[l].size();
+      // }
+      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
+      // 	cout << "Final_SplitA: " << 100 * SetA[l].size()/countA << "% "; 
+      // }
+      // cout << endl;
+      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
+      // 	cout << "Final_SplitB: " << 100 *SetB[l].size() / countB << "% "; 
+      // }
+      //cout << endl;
 
       containClassA.clear();
       containClassA.resize(nclass);

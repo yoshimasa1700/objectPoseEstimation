@@ -146,4 +146,29 @@ class CClassDatabase{
   std::vector<databaseNode> vNode;
 };
 
+class nCk{
+public:
+  std::set<int> generate(int n, int k){
+    std::set<int> cmb;
+    int j;
+    //srand(time(NULL));
+    boost::uniform_smallint<> dst(0,n);
+    boost::variate_generator<
+      boost::lagged_fibonacci1279&, boost::uniform_smallint<>
+      > rand( gen, dst );
+  
+    for(int i = n - k; i < n; i++){
+      j = rand()%i;
+      if(cmb.find(j) == cmb.end())
+	cmb.insert(j);
+      else
+	cmb.insert(i);
+    }     
+    return cmb;
+  }
+private:
+  static boost::lagged_fibonacci1279 gen;
+};
+
+
 #endif

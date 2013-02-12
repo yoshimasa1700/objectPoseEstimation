@@ -1,5 +1,7 @@
 #include "util.h"
 
+boost::lagged_fibonacci1279 gen = boost::lagged_fibonacci1279();
+
 CDataset::CDataset(){
 }
 
