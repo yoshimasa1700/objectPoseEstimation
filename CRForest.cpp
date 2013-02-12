@@ -207,82 +207,82 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   std::vector<CPatch> patches;
   std::vector<cv::Mat> features;
   std::vector<const LeafNode*> result;
-  
   std::vector<int> classSum(classDatabase.vNode.size(),0);
   std::vector<double> classification_result(classDatabase.vNode.size(), 0);
-  //classSum.resize(classDatabase.vNode.size());
-
-  int xoffset = conf.p_width / 2;
-  int yoffset = conf.p_height / 2;
-
-  // cv::namedWindow("test");
-  // cv::imshow("test",image.at(0));
-  // cv::waitKey(0);
-  // cv::destroyWindow("test");
 
   //this is for debug
   std::vector<int> leafPerClass(classDatabase.vNode.size(), 0);
   std::vector<int> patchPerClass(classDatabase.vNode.size(), 0);
 
-  
-  
-  for(int i = 0; i < conf.scales.size(); ++i){
-    scaledImage = convertScale(image, conf.scales.at(i));
-    
-    features.resize(0);
-    extractFeatureChannels(image.at(0), features);
-    
-    features.push_back(image.at(1));
+  int xoffset = conf.p_width / 2;
+  int yoffset = conf.p_height / 2;
 
-    extractAllPatches(dataSet, features, patches);
+  // show load image
+  // cv::namedWindow("test");
+  // cv::imshow("test",image.at(0));
+  // cv::waitKey(0);
+  // cv::destroyWindow("test");
 
+  // for every scale but this time off
+  //for(int i = 0; i < conf.scales.size(); ++i){
+  //scaledImage = convertScale(image, conf.scales.at(i));
     
+  // extract feature from test image
+  features.clear();
+  extractFeatureChannels(image.at(0), features);
     
+  // add depth image to features
+  features.push_back(image.at(1));
+
+  // extract patches from features
+  extractAllPatches(dataSet, features, patches);
+
+  std::cout << "patch num: " << patches.size() << std::endl;
+
+  // regression for every patch
+  for(int j = 0; j < patches.size(); ++j){
     result.clear();
+    this->regression(result, patches.at(j));
+    //std::cout << "kokomade" << std::endl;
+    // vote for all trees (leafs) 
+    for(std::vector<const LeafNode*>::const_iterator itL = result.begin(); itL!=result.end(); ++itL) {
 
-    std::cout << patches.size() << std::endl;
-    for(int j = 0; j < patches.size(); ++j){
-      this->regression(result, patches.at(j));
-      //std::cout << "kokomade" << std::endl;
-      // vote for all trees (leafs) 
-      for(std::vector<const LeafNode*>::const_iterator itL = result.begin(); itL!=result.end(); ++itL) {
+      for(int k = 0; k < classDatabase.vNode.size(); ++k)
+	classSum.at(k) = 0;
 
-	for(int k = 0; k < classDatabase.vNode.size(); ++k)
-	  classSum.at(k) = 0;
-
-	// To speed up the voting, one can vote only for patches 
-	// with a probability for foreground > 0.5
-	// 
-	// if((*itL)->pfg>0.5) {
+      // To speed up the voting, one can vote only for patches 
+      // with a probability for foreground > 0.5
+      // 
+      // if((*itL)->pfg>0.5) {
 	
-	for(int l = 0; l < (*itL)->pfg.size(); ++l){
+      for(int l = 0; l < (*itL)->pfg.size(); ++l){
 
-	  // vote for all points stored in the leaf
-	  for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
-	    classSum.at((*itL)->vClass.at(k))++;
+	// vote for all points stored in the leaf
+	for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
+	  classSum.at((*itL)->vClass.at(k))++;
 	    
-	  }
-
-	  
-	  for(int c = 0; c < classDatabase.vNode.size(); c++)
-	    patchPerClass.at(c) += classSum.at(c);
-
-	  //leafPerClass.at((*itL)->vClass.at(0))++;
- 
-	  // voting weight for leaf 
-	  float w = (*itL)->pfg.at(l) / (float)((float)(*itL)->vCenter.size()/ (*itL)->pfg.size() * result.size() );
-
-	  
-	  for(int c = 0; c < classDatabase.vNode.size(); ++c){
-	    if(classSum.at(c) != 0)
-	      classification_result.at(c) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
-	  }
-	  // } // end if
 	}
-      } // for every leaf
-    } // for every patch
 
-  } // for every scale
+	  
+	for(int c = 0; c < classDatabase.vNode.size(); c++)
+	  patchPerClass.at(c) += classSum.at(c);
+
+	//leafPerClass.at((*itL)->vClass.at(0))++;
+ 
+	// voting weight for leaf 
+	float w = (*itL)->pfg.at(l) / (float)((float)(*itL)->vCenter.size()/ (*itL)->pfg.size() * result.size() );
+
+	  
+	for(int c = 0; c < classDatabase.vNode.size(); ++c){
+	  if(classSum.at(c) != 0)
+	    classification_result.at(c) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
+	}
+	// } // end if
+      }
+    } // for every leaf
+  } // for every patch
+
+    //} // for every scale
 
   std::cout << dataSet.className << std::endl;
   //std::cout << "result" << std::endl;
@@ -292,11 +292,11 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   std::cout << std::endl;
 
   // this is for debug
-  for(int c = 0; c < classSum.size(); ++c){
-    std::cout << "class1: ";
-    std::cout << leafPerClass.at(c) << " ";
-    std::cout << (float)classification_result.at(c) /  (float)patchPerClass.at(c) << std::endl;
-  }
+  // for(int c = 0; c < classSum.size(); ++c){
+  //   std::cout << "class1: ";
+  //   std::cout << leafPerClass.at(c) << " ";
+  //   std::cout << (float)classification_result.at(c) /  (float)patchPerClass.at(c) << std::endl;
+  // }
 }
 
 // Regression 
