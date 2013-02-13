@@ -1,8 +1,6 @@
-4
+2
 bottle/bottle_1
-bottle/bottle_2
 can/can_1
-can/can_2
 cup/cup_1
 cup/cup_2
 koaramarch/koaramarch_1

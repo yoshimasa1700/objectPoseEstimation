@@ -328,9 +328,13 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   }
   
   //for(int i = 0; i < classNum; ++i){
-    if(dataSet.className == classDatabase.vNode.at(maxResult).name)
+  if(dataSet.className == classDatabase.vNode.at(maxResult).name){
       detectionResult.at(0) += 1;// += classification_result.at(i);
+      std::cout << "correct !" << std::endl;
+  }else{
+    std::cout << "hazure !" << std::endl;
     //}
+    detectionResult.at(1) += 1;
 
   // this is for debug
   // for(int c = 0; c < classSum.size(); ++c){
