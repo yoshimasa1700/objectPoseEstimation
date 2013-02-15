@@ -25,7 +25,7 @@ class LeafNode
     std::cout << std::endl;
   }
   std::vector<float> pfg;
-  std::vector<cv::Point> vCenter;
+  std::vector<std::vector<cv::Point> > vCenter; // per class per patch
   std::vector<int> vClass;
 };
 

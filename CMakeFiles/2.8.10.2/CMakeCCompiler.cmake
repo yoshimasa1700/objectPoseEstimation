@@ -1,13 +1,13 @@
 set(CMAKE_C_COMPILER "/usr/bin/cc")
 set(CMAKE_C_COMPILER_ARG1 "")
-set(CMAKE_C_COMPILER_ID "GNU")
-set(CMAKE_C_COMPILER_VERSION "4.7.2")
-set(CMAKE_C_PLATFORM_ID "Linux")
+set(CMAKE_C_COMPILER_ID "Clang")
+set(CMAKE_C_COMPILER_VERSION "4.2.0")
+set(CMAKE_C_PLATFORM_ID "Darwin")
 
 set(CMAKE_AR "/usr/bin/ar")
 set(CMAKE_RANLIB "/usr/bin/ranlib")
 set(CMAKE_LINKER "/usr/bin/ld")
-set(CMAKE_COMPILER_IS_GNUCC 1)
+set(CMAKE_COMPILER_IS_GNUCC )
 set(CMAKE_C_COMPILER_LOADED 1)
 set(CMAKE_C_COMPILER_WORKS TRUE)
 set(CMAKE_C_ABI_COMPILED TRUE)
@@ -30,7 +30,7 @@ set(CMAKE_C_LINKER_PREFERENCE 10)
 
 # Save compiler ABI information.
 set(CMAKE_C_SIZEOF_DATA_PTR "8")
-set(CMAKE_C_COMPILER_ABI "ELF")
+set(CMAKE_C_COMPILER_ABI "")
 set(CMAKE_C_LIBRARY_ARCHITECTURE "")
 
 if(CMAKE_C_SIZEOF_DATA_PTR)
@@ -48,8 +48,8 @@ endif()
 
 
 
-set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "c")
-set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/usr/lib/gcc/x86_64-unknown-linux-gnu/4.7.2;/usr/lib;/lib")
+set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "/usr/bin/../lib/clang/4.2/lib/darwin/libclang_rt.osx.a")
+set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "")
 
 
 

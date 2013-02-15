@@ -35,7 +35,7 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
 	for(int k = 0; k < pnode[8]; ++k)
 	  p2 += (int)ptC.at<uchar>(k + pnode[6],j +  pnode[5]);
       }
-	
+
     }else{
       // get pixel values 
       p1 = (int)ptC.at<uchar>(pnode[2], pnode[1]);//*(ptC+pnode[1]+pnode[2]*stepImg);
@@ -89,26 +89,46 @@ CRTree::CRTree(const char* filename) {
     LeafNode* ptLN = &leaf[0];
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
       in >> dummy;
-      int maxNum = 0;
-      in >> maxNum;
-      ptLN->pfg.resize(maxNum);
-      for(int m = 0; m < maxNum; m++){
-	in >> ptLN->pfg.at(m);
-      }	
-      // number of positive patches
-      in >> dummy;
-      ptLN->vCenter.resize(dummy);
-      ptLN->vClass.resize(dummy);
-      for(int i=0; i<dummy; ++i) {
-	// ptLN->vCenter[i].resize(num_cp);
-	// for(unsigned int k=0; k<num_cp; ++k) {
-	//   in >> ptLN->vCenter[i][k].x;
-	//   in >> ptLN->vCenter[i][k].y;
-	// }
-	in >> ptLN->vClass[i];
-	in >> ptLN->vCenter[i].x;
-	in >> ptLN->vCenter[i].y;
+      int allClassNum = 0;
+      in >> allClassNum;
+      int containClassNum = 0;
+      in >> containClassNum;
+      ptLN->pfg.resize(allClassNum);
+      ptLN->vCenter.resize(allClassNum);
+
+      int cNum;
+      int containPoints;
+      for(int i = 0; i < containClassNum; ++i){
+	in >> cNum;
+	ptLN->pfg.at(cNum);
+	in >> containPoints;
+
+	ptLN->vCenter.at(cNum).resize(containPoints);
+	
+	for(int j = 0; j < containPoints; j++){
+	  in >> ptLN->vCenter.at(cNum).at(j).x;
+
+	  in >> ptLN->vCenter.at(cNum).at(j).y;
+	}      
       }
+      
+      // for(int m = 0; m < maxNum; m++){
+      // 	in >> ptLN->pfg.at(m);
+      // }
+      // // number of positive patches
+      // in >> dummy;
+      // ptLN->vCenter.resize(dummy);
+      // ptLN->vClass.resize(dummy);
+      // for(int i=0; i<dummy; ++i) {
+      // 	// ptLN->vCenter[i].resize(num_cp);
+      // 	// for(unsigned int k=0; k<num_cp; ++k) {
+      // 	//   in >> ptLN->vCenter[i][k].x;
+      // 	//   in >> ptLN->vCenter[i][k].y;
+      // 	// }
+      // 	in >> ptLN->vClass[i];
+      // 	in >> ptLN->vCenter[i].x;
+      // 	in >> ptLN->vCenter[i].y;
+      // }
     }
 
   } else {
@@ -154,27 +174,45 @@ bool CRTree::saveTree(const char* filename) const {
     LeafNode* ptLN = &leaf[0];
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
       out << l << " ";
-      int coutainClassNum =  ptLN->pfg.size();
-      out << containClassNum << " ";
-      
-      std::vector<int> classNum(defaultClass.size(), 0);
-      for(int i = 0; i < ptLN->vCenter.size(); ++i)
-	classNum(ptLN->vClass.at(i)) += 1;
-      
-      for(int j = 0; j < containClassNum; j++){
-	out << ptLN->pfg.at(j) << " " << classNum.at(j) << " ";
-			
-	// for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
-	// 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
-	// 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
-	// 	}
-	// }
 
-	for(int i = 0; i < classNum.at(); ++i){
-	  out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
+      // calc contain class num
+      int containClassNum = 0;
+      for(int i = 0; i < ptLN->pfg.size(); ++i)
+	if(ptLN->pfg.at(i) != 0)
+	  containClassNum++;
+      
+      out << ptLN->pfg.size() << " " << containClassNum << " ";
+      
+      // std::vector<int> classNum(defaultClass.size(), 0);
+      // for(int i = 0; i < ptLN->vCenter.size(); ++i)
+      // 	classNum(ptLN->vClass.at(i)) += 1;
+
+      for(int j = 0; j < ptLN->pfg.size(); ++j){
+	if(ptLN->pfg.at(j) != 0){
+	  out << j << " " << ptLN->pfg.at(j) << " " << ptLN->vCenter.at(j).size() << " ";
+	  for(int i = 0; i < ptLN->vCenter.at(j).size(); ++i)
+	    out << ptLN->vCenter.at(j).at(i).x << " " << ptLN->vCenter.at(j).at(i).y
+		<< " ";	  
 	}
       }
+      
       out << endl;
+
+      // for(int j = 0; j < containClassNum; j++){
+      // 	out << ptLN->pfg.at(j) << " " << classNum.at(j) << " ";
+	
+	
+      // 	// for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
+      // 	// 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
+      // 	// 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
+      // 	// 	}
+      // 	// }
+
+      // 	for(int i = 0; i < classNum.at(); ++i){
+      // 	  out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
+      // 	}
+      // }
+      // out << endl;
     }
 
     out.close();
@@ -347,17 +385,18 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   for(int c = 0; c < nclass; ++c)
     totalPatchNum += defaultClass.at(c);
 
-  ptL->pfg.resize(patchPerClass.size());
+  ptL->pfg.resize(nclass);
   for(int k = 0; k < patchPerClass.size(); ++k){
     if(patchPerClass.size() != 0){
-      int totalnum = reachedClass.at(k);
+      //int totalnum = reachedClass.at(k);
     
       float maxOtherRatio = (float)defaultClass.at(k) 
 	/ (float)(totalPatchNum - defaultClass.at(k));
   
       // Store data
-      ptL->pfg.at(k) = (float)reachedClass.at(k) / (maxOtherRatio * (float)(TrainSet.at(1).size() - reachedClass.at(k)) + reachedClass.at(k));
-
+      ptL->pfg.at(k) = (float)patchPerClass.at(k).size() / (maxOtherRatio * (float)(TrainSet.at(0).size() - patchPerClass.at(k).size()) + patchPerClass.at(k).size());
+    }else{
+      ptL->pfg.at(k) = 0;
     }
   }
 				  
@@ -369,19 +408,16 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   // }
 				  
       
-  ptL->vCenter.resize(TrainSet.at(0).size());
+  ptL->vCenter.resize(nclass);
   ptL->vClass.resize(TrainSet.at(0).size());
   
   int count = 0;
 
-  for(int i = 0; i < TrainSet.at(1).size(); ++i){
-    //for(int j = 0; j < maxflag.size(); ++j){
-      //if(TrainSet.at(0).at(i).classNum == maxflag.at(j)){
-	ptL->vCenter[i] = TrainSet.at(0).at(i).center;
-	ptL->vClass[i] = TrainSet.at(0).at(i).classNum;
-	count++;
-	//}
-	// }
+  for(int i = 0; i < nclass; ++i){
+    ptL->vCenter.at(i).clear();
+
+    for(int j = 0; j < patchPerClass.at(i).size(); ++j)
+      ptL->vCenter.at(i).push_back(patchPerClass.at(i).at(j).center);
   }
 
   // Increase leaf counter
@@ -763,13 +799,13 @@ void LeafNode::show(int delay, int width, int height) {
     for(unsigned int c = 0; c < iShow.size(); ++c) {
       iShow[c] = cvCreateImage( cvSize(width,height), IPL_DEPTH_8U , 1 );
       cvSetZero( iShow[c] );
-      //for(unsigned int i = 0; i<vCenter.size(); ++i) {
-	int y = height/2+vCenter[c].y;
-	int x = width/2+vCenter[c].x;
+      for(unsigned int i = 0; i<vCenter[c].size(); ++i) {
+	int y = height/2+vCenter[c][i].y;
+	int x = width/2+vCenter[c][i].x;
 
 	if(x>=0 && y>=0 && x<width && y<height)
 	  cvSetReal2D( iShow[c],  y,  x, 255 );
-	//}
+	}
       sprintf(buffer,"Leaf%d",c);
       cvNamedWindow(buffer,1);
       cvShowImage(buffer, iShow[c]);
