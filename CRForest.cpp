@@ -272,38 +272,44 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
     // vote for all trees (leafs) 
     for(std::vector<const LeafNode*>::const_iterator itL = result.begin(); itL!=result.end(); ++itL) {
 
-      for(int k = 0; k < classDatabase.vNode.size(); ++k)
-	classSum.at(k) = 0;
+      //for(int k = 0; k < classDatabase.vNode.size(); ++k)
+      //classSum.at(k) = 0;
 
       // To speed up the voting, one can vote only for patches 
       // with a probability for foreground > 0.5
       // 
       // if((*itL)->pfg>0.5) {
-	
-      for(int l = 0; l < (*itL)->pfg.size(); ++l){
 
-	// vote for all points stored in the leaf
-	for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
-	  classSum.at((*itL)->vClass.at(k))++;
+      int classNum = (*itL)->pfg.size();
+
+      int containPoints = 0;
+
+      for(int i = 0; i < classNum; ++i)
+	containPoints += (*itL)->vCenter.at(i).size();
+      
+      for(int l = 0; l < classNum; ++l){
+	if((*itL)->pfg.at(l) != 0){
+	  // vote for all points stored in the leaf
+	  //for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
+	  //  classSum.at((*itL)->vClass.at(k))++;
 	    
-	}
+	  //}
 
 	  
-	for(int c = 0; c < classDatabase.vNode.size(); c++)
-	  patchPerClass.at(c) += classSum.at(c);
+	  //for(int c = 0; c < classDatabase.vNode.size(); c++)
+	  // patchPerClass.at(c) += classSum.at(c);
 
-	//leafPerClass.at((*itL)->vClass.at(0))++;
+	  //leafPerClass.at((*itL)->vClass.at(0))++;
  
-	// voting weight for leaf 
-	float w = (*itL)->pfg.at(l) / (float)((float)(*itL)->vCenter.size()/ (*itL)->pfg.size() * result.size() );
+	  // voting weight for leaf 
+	  float w = (*itL)->pfg.at(l) / (float)((float)(*itL)->vCenter.at(l).size() * result.size() );
 
 	  
-	for(int c = 0; c < classDatabase.vNode.size(); ++c){
-	  if(classSum.at(c) != 0){
-	    classification_result.at(c) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
-	  }
+	  //for(int c = 0; c < classNum; ++c){
+	  classification_result.at(l) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
+	      //}
+	  // } // end if
 	}
-	// } // end if
       }
     } // for every leaf
   } // for every patch
@@ -312,7 +318,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 
   std::cout << dataSet.className << std::endl;
   std::cout << "result" << std::endl;
-  for(int i = 0; i < classSum.size(); ++i){
+  for(int i = 0; i < classNum; ++i){
    std::cout << classDatabase.vNode.at(i).name << " : " << classification_result.at(i) << std::endl;
   }
   std::cout << std::endl;
