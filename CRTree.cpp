@@ -9,6 +9,7 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
   int node = 0;
   int p1,p2;
 
+
   // Go through tree until one arrives at a leaf, i.e. pnode[0]>=0)
   while(pnode[0]==-1) {
     // binary test 0 - left, 1 - right
@@ -147,23 +148,31 @@ bool CRTree::saveTree(const char* filename) const {
     }
     out << endl;
 
+    
+
     // save tree leafs
     LeafNode* ptLN = &leaf[0];
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
       out << l << " ";
-      int maxNum =  ptLN->pfg.size();
-      out << maxNum << " ";
-      for(int j = 0; j < maxNum; j++)
-	out << ptLN->pfg.at(j) << " " << ptLN->vCenter.size() << " ";
+      int coutainClassNum =  ptLN->pfg.size();
+      out << containClassNum << " ";
+      
+      std::vector<int> classNum(defaultClass.size(), 0);
+      for(int i = 0; i < ptLN->vCenter.size(); ++i)
+	classNum(ptLN->vClass.at(i)) += 1;
+      
+      for(int j = 0; j < containClassNum; j++){
+	out << ptLN->pfg.at(j) << " " << classNum.at(j) << " ";
 			
-      // for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
-      // 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
-      // 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
-      // 	}
-      // }
+	// for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
+	// 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
+	// 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
+	// 	}
+	// }
 
-      for(int i = 0; i < ptLN->vCenter.size(); ++i){
-	out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
+	for(int i = 0; i < classNum.at(); ++i){
+	  out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
+	}
       }
       out << endl;
     }
@@ -283,6 +292,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
 	makeLeaf(SetB, pnratio, 2*node+2);
       }
 
+
     } else {
 
       // Could not find split (only invalid one leave split)
@@ -305,67 +315,73 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   treetable[node*11] = num_leaf;
   LeafNode* ptL = &leaf[num_leaf];
 
-  std::vector<int> reachedClass(nclass,0);
-  std::vector<int> maxflag;
+  //std::vector<int> reachedClass(nclass,0);
+  // std::vector<int> maxflag;
+
+  // for(int i = 0; i < TrainSet.at(0).size(); ++i)
+  //   reachedClass.at(TrainSet.at(0).at(i).classNum) += 1;
+
+  // maxflag.clear();
+
+  // int maxnum = 0;
+  // for(int c = 0; c < nclass; ++c){
+  //   if(reachedClass.at(c) > maxnum){
+  //     maxflag.clear();
+  //     maxflag.push_back(c);
+  //     maxnum = reachedClass.at(c);
+  //   }else if(reachedClass.at(c) == maxnum){
+  //     maxflag.push_back(c);
+  //   }
+  // }
+
+  // divide reached patch to each class
+  patchPerClass.resize(nclass);
+  for(int c = 0; c < nclass; ++c)
+    patchPerClass.at(c).clear();
 
   for(int i = 0; i < TrainSet.at(0).size(); ++i)
-    reachedClass.at(TrainSet.at(0).at(i).classNum) += 1;
+    patchPerClass.at(TrainSet.at(0).at(i).classNum).push_back(TrainSet.at(0).at(i));
 
-  maxflag.clear();
-
-  int maxnum = 0;
-  for(int c = 0; c < nclass; ++c){
-    if(reachedClass.at(c) > maxnum){
-      maxflag.clear();
-      maxflag.push_back(c);
-      maxnum = reachedClass.at(c);
-    }else if(reachedClass.at(c) == maxnum){
-      maxflag.push_back(c);
-    }
-  }
-
-
+  // calc total default patch num
   int totalPatchNum = 0;
-
-
-    
   for(int c = 0; c < nclass; ++c)
     totalPatchNum += defaultClass.at(c);
 
-  ptL->pfg.resize(maxflag.size());
-  for(int k = 0; k < maxflag.size(); ++k){
+  ptL->pfg.resize(patchPerClass.size());
+  for(int k = 0; k < patchPerClass.size(); ++k){
+    if(patchPerClass.size() != 0){
+      int totalnum = reachedClass.at(k);
     
-    int totalnum = reachedClass.at(maxflag.at(k));
-    
-    float maxOtherRatio = (float)defaultClass.at(maxflag.at(k)) 
-      / (float)(totalPatchNum - defaultClass.at(maxflag.at(k)));
+      float maxOtherRatio = (float)defaultClass.at(k) 
+	/ (float)(totalPatchNum - defaultClass.at(k));
   
-    // Store data
-    ptL->pfg.at(k) = (float)maxnum / (maxOtherRatio * (float)(TrainSet.at(0).size() - maxnum) + maxnum);
+      // Store data
+      ptL->pfg.at(k) = (float)reachedClass.at(k) / (maxOtherRatio * (float)(TrainSet.at(1).size() - reachedClass.at(k)) + reachedClass.at(k));
 
+    }
   }
 				  
-				  // ptL->vCenter.resize( TrainSet[0].size() );
-				  // ptL->vClass.resize( TrainSet[0].size() );
-				  // for(unsigned int i = 0; i<TrainSet[0].size(); ++i) {
-				  //   ptL->vCenter[i] = TrainSet[0][i].center;
-				  //   ptL->vClass[i] = TrainSet[0][i].classNum;
-				  // }
+  // ptL->vCenter.resize( TrainSet[0].size() );
+  // ptL->vClass.resize( TrainSet[0].size() );
+  // for(unsigned int i = 0; i<TrainSet[0].size(); ++i) {
+  //   ptL->vCenter[i] = TrainSet[0][i].center;
+  //   ptL->vClass[i] = TrainSet[0][i].classNum;
+  // }
 				  
       
-  ptL->vCenter.resize(maxnum * maxflag.size());
-  ptL->vClass.resize(maxnum * maxflag.size());
+  ptL->vCenter.resize(TrainSet.at(0).size());
+  ptL->vClass.resize(TrainSet.at(0).size());
   
   int count = 0;
 
-  for(int i = 0; i < TrainSet.at(0).size(); ++i){
-    for(int j = 0; j < maxflag.size(); ++j){
-      if(TrainSet.at(0).at(i).classNum == maxflag.at(j)){
-	ptL->vCenter[count] = TrainSet.at(0).at(i).center;
-	ptL->vClass[count] = TrainSet.at(0).at(i).classNum;
+  for(int i = 0; i < TrainSet.at(1).size(); ++i){
+    //for(int j = 0; j < maxflag.size(); ++j){
+      //if(TrainSet.at(0).at(i).classNum == maxflag.at(j)){
+	ptL->vCenter[i] = TrainSet.at(0).at(i).center;
+	ptL->vClass[i] = TrainSet.at(0).at(i).classNum;
 	count++;
-      }
-    }
+	//}
+	// }
   }
 
   // Increase leaf counter

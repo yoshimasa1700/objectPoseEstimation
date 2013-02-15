@@ -127,6 +127,8 @@ class CRTree
   int nclass;
 
   std::vector<int> defaultClass, containClass, containClassA, containClassB;
+
+  std::vector<std::vector<CPatch> > patchPerClass;
 };
 
 inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c) {

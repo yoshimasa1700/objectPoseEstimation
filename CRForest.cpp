@@ -335,7 +335,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
     std::cout << "hazure !" << std::endl;
     //}
     detectionResult.at(1) += 1;
-
+  }
   // this is for debug
   // for(int c = 0; c < classSum.size(); ++c){
   //   std::cout << "class1: ";
