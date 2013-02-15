@@ -65,6 +65,7 @@ CRTree::CRTree(const char* filename) {
   if(in.is_open()) {
     // allocate memory for tree table
     in >> max_depth;
+    std::cout << "max depth: " << max_depth << std::endl;
     num_nodes = (int)pow(2.0,int(max_depth+1))-1;
     // num_nodes x 7 matrix as vector
     treetable = new int[num_nodes * 11];
@@ -73,6 +74,8 @@ CRTree::CRTree(const char* filename) {
     // allocate memory for leafs
     in >> num_leaf;
     leaf = new LeafNode[num_leaf];
+
+    std::cout << "number of leaf: " << num_leaf << std::endl;
 
     // number of center points per patch 
     in >> num_cp;
@@ -88,8 +91,8 @@ CRTree::CRTree(const char* filename) {
     // read tree leafs
     LeafNode* ptLN = &leaf[0];
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
-      in >> dummy;
-      int allClassNum = 0;
+      in >> dummy; // leaf node number
+      int allClassNum = 0; // class number
       in >> allClassNum;
       int containClassNum = 0;
       in >> containClassNum;
@@ -98,7 +101,7 @@ CRTree::CRTree(const char* filename) {
 
       int cNum;
       int containPoints;
-      for(int i = 0; i < containClassNum; ++i){
+      for(int i = 0; i < allClassNum; ++i){
 	in >> cNum;
 	ptLN->pfg.at(cNum);
 	in >> containPoints;
@@ -129,6 +132,15 @@ CRTree::CRTree(const char* filename) {
       // 	in >> ptLN->vCenter[i].x;
       // 	in >> ptLN->vCenter[i].y;
       // }
+
+      for(int i = 0; i < ptLN->pfg.size(); ++i)
+	std::cout << ptLN->pfg.at(i) << std::endl;
+
+      for(int i = 0; i < ptLN->vCenter.size(); ++i){
+	for(int j = 0; j < ptLN->vCenter.at(i).size(); ++j)
+	  std::cout << ptLN->vCenter.at(i).at(j).x << " ";
+	std::cout << std::endl;
+      }
     }
 
   } else {
@@ -136,6 +148,8 @@ CRTree::CRTree(const char* filename) {
   }
 
   in.close();
+
+  std::cin >> dummy;
 
 }
 
@@ -175,13 +189,13 @@ bool CRTree::saveTree(const char* filename) const {
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
       out << l << " ";
 
-      // calc contain class num
       int containClassNum = 0;
-      for(int i = 0; i < ptLN->pfg.size(); ++i)
+      for(int i = 0; i < ptLN->pfg.size(); ++i){
 	if(ptLN->pfg.at(i) != 0)
 	  containClassNum++;
-      
-      out << ptLN->pfg.size() << " " << containClassNum << " ";
+      }
+
+      out << ptLN->pfg.size() << " " << containClassNum << " "; // class number
       
       // std::vector<int> classNum(defaultClass.size(), 0);
       // for(int i = 0; i < ptLN->vCenter.size(); ++i)
@@ -371,6 +385,7 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   //     maxflag.push_back(c);
   //   }
   // }
+  patchPerClass.clear();
 
   // divide reached patch to each class
   patchPerClass.resize(nclass);
@@ -387,7 +402,7 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
 
   ptL->pfg.resize(nclass);
   for(int k = 0; k < patchPerClass.size(); ++k){
-    if(patchPerClass.size() != 0){
+    if(patchPerClass.at(k).size() != 0){
       //int totalnum = reachedClass.at(k);
     
       float maxOtherRatio = (float)defaultClass.at(k) 
