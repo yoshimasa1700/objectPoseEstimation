@@ -654,10 +654,13 @@ void CRTree::split(vector<vector<CPatch> >& SetA, vector<vector<CPatch> >& SetB,
   SetB.at(0).clear();
   
   for(int i = 0; i < valSet.at(0).size(); ++i){
-    if(valSet.at(0).at(i).val < t)
+    if(valSet.at(0).at(i).val < t){
       SetA.at(0).push_back(TrainSet.at(0).at(valSet.at(0).at(i).index));
-    else
+      SetA.at(0).back().center = TrainSet.at(0).at(valSet.at(0).at(i).index).center;
+    }else{
       SetB.at(0).push_back(TrainSet.at(0).at(valSet.at(0).at(i).index));
+      SetB.at(0).back().center = TrainSet.at(0).at(valSet.at(0).at(i).index).center;
+    }
   }
 
   //std::cout << TrainSet.at(0).size() << " " << SetA.at(0).size() << " " << SetB.at(0).size() << std::endl;
@@ -665,7 +668,7 @@ void CRTree::split(vector<vector<CPatch> >& SetA, vector<vector<CPatch> >& SetB,
   //int dummy;
   //std::cin >> dummy;
 
-  // // this is for debug
+  // this is for debug
   // std::cout << "TrainSet-----------------------------------------------------------------------------------------------------------------" << std::endl;
   // for(int i = 0; i < TrainSet.at(0).size(); ++i)
   //   std::cout << TrainSet.at(0).at(i).center << std::endl;

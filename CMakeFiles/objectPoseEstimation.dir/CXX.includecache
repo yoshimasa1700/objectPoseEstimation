@@ -24,6 +24,10 @@ util.h
 HoG.h
 /Users/masahiko/Programs/objectPoseEstimation/HoG.h
 
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
+CRTree.h
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
+
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 CPatch.h
 /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
