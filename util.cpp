@@ -31,19 +31,23 @@ void CImages::loadImages(std::vector<CDataset> dataSet){
   std::cout << dataSet.at(0).depthImageName << std::endl;
   
   for(int i = 0;i < dataSet.size(); ++i){
+    
+    std::cout << dataSet.at(i).imageFilePath
+      + dataSet.at(i).maskImageName << std::endl;
+
     // load Mask image
-    mask = cv::imread(dataSet.at(0).imageFilePath
-+ dataSet.at(0).maskImageName,
+    mask = cv::imread(dataSet.at(i).imageFilePath
++ dataSet.at(i).maskImageName,
 CV_LOAD_IMAGE_ANYCOLOR);
     
     // load RGB image
-    rgb = cv::imread(dataSet.at(0).imageFilePath
-+ dataSet.at(0).rgbImageName,
+    rgb = cv::imread(dataSet.at(i).imageFilePath
++ dataSet.at(i).rgbImageName,
 CV_LOAD_IMAGE_ANYCOLOR);
 
     // load Depth image
-    depth = cv::imread(dataSet.at(0).imageFilePath
-+ dataSet.at(0).depthImageName,
+    depth = cv::imread(dataSet.at(i).imageFilePath
++ dataSet.at(i).depthImageName,
 CV_LOAD_IMAGE_ANYDEPTH);
 
     for(int k = 0;k < rgb.cols; ++k)

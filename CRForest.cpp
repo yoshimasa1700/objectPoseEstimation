@@ -30,7 +30,7 @@ void CRForest::learning(){
     loadTrainFile(conf, dataSets, gen);
 
     for(int k = 0; k < dataSets.size(); ++k)
-      dataSets.at(k).showDataset();
+       dataSets.at(k).showDataset();
 
     for(int p = 0;p < dataSets.size(); ++p){
       //makedataSets.at(p).showDataset();
@@ -46,6 +46,12 @@ void CRForest::learning(){
     
     // load images to mamory
     loadImages(images, dataSets);
+
+    for(int v = 0; v < images.size(); v++){
+      cv::namedWindow("test");cv::imshow("test",images.at(v).at(0));
+      cv::waitKey(0);
+      cv::destroyWindow("test");
+    }
 
     // reserve memory
     // vPatches.at(i).reserve((int)((conf.imagePerTree + 10) * 3 * 
@@ -124,7 +130,9 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     for(int j = 0; j < image.at(l).at(0).cols - conf.p_width; j += conf.stride){
       for(int k = 0; k < image.at(l).at(0).rows - conf.p_height; k += conf.stride){
 	//if(rand() < conf.patchRatio){
-	  //for(int i = 0;i < image.img.at(l).size(); ++i){// for every channel	  
+	  //for(int i = 0;i < image.img.at(l).size(); ++i){// for every channel	
+
+	//std::cout << "x = " << j << " y = " << k << std::endl;
 	  temp.x = j;
 	  temp.y = k;
 
@@ -148,11 +156,19 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	    exit(-1);
 	  }
 
+	  // std::cout << "this is for debug" << std::endl;
+	  // std::cout << temp << std::endl;
+	  // std::cout << dataSet.at(l).centerPoint << std::endl;
+
 	  tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
 	  //std::cout << pixNum << std::endl;
 	  if (pixNum > 0){
 	    //if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
 	      tPosPatch.push_back(tPatch);
+	      
+	      // std::cout << "this is for debug patch center point is :" << std::endl;
+	      // std::cout << tPatch.center << std::endl;
+
 	      //else
 	      //negPatch.push_back(tPatch);
 	  }
@@ -171,7 +187,9 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 
     std::set<int>::iterator ite = chosenPatch.begin();
     
+    
     while(ite != chosenPatch.end()){
+      //std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
       posPatch.push_back(tPosPatch.at(*ite));
       ite++;
     }
@@ -184,9 +202,9 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   patches.push_back(posPatch);
   patches.push_back(negPatch);
 
-  for(int i = 0; i < patches.at(0).size(); ++i){
-    std::cout << "patch: " << i << " x: " << patches.at(0).at(i).center.x << std::endl;
-  }
+  // for(int i = 0; i < patches.at(0).size(); ++i){
+  //   std::cout << "patch: " << i << " center: " << patches.at(0).at(i).center << std::endl;
+  // }
 
   std::cout << std::endl;
 }
@@ -376,18 +394,18 @@ void CRForest::loadImages(std::vector<std::vector<cv::Mat> > &img, std::vector<C
   
   for(int i = 0;i < dataSet.size(); ++i){
     // load Mask image
-    mask = cv::imread(dataSet.at(0).imageFilePath
-		      + dataSet.at(0).maskImageName,
+    mask = cv::imread(dataSet.at(i).imageFilePath
+		      + dataSet.at(i).maskImageName,
 		      CV_LOAD_IMAGE_ANYCOLOR);
     
     // load RGB image
-    rgb = cv::imread(dataSet.at(0).imageFilePath
-		     + dataSet.at(0).rgbImageName,
+    rgb = cv::imread(dataSet.at(i).imageFilePath
+		     + dataSet.at(i).rgbImageName,
 		     CV_LOAD_IMAGE_ANYCOLOR);
 
     // load Depth image
-    depth = cv::imread(dataSet.at(0).imageFilePath
-		       + dataSet.at(0).depthImageName,
+    depth = cv::imread(dataSet.at(i).imageFilePath
+		       + dataSet.at(i).depthImageName,
 		       CV_LOAD_IMAGE_ANYDEPTH);
 
     //std::cout << depth << std::endl;

@@ -7,9 +7,10 @@
 
 // Auxilary structure
 struct IntIndex {
-	int val;
-	unsigned int index;
-	bool operator<(const IntIndex& a) const { return val<a.val; }
+  int val;
+  unsigned int index;
+  bool operator<(const IntIndex& a) const { return val<a.val; }
+  static bool lessVal(const IntIndex& rLeft, const IntIndex& rRight) { return rLeft.val < rRight.val; }
 };
 
 class LeafNode
@@ -73,7 +74,7 @@ class CRTree
 
   bool optimizeTest(std::vector<std::vector<CPatch> > &SetA,
 			    std::vector<std::vector<CPatch> > &SetB, 
-			    std::vector<std::vector<CPatch> > &TrainSet, 
+			    const std::vector<std::vector<CPatch> > &TrainSet, 
 			    int* test, 
 			    unsigned int iter, 
 			    unsigned int measure_mode);
@@ -81,7 +82,7 @@ class CRTree
 
   void makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node);
 
-  void evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int* test, std::vector<std::vector<CPatch> > &TrainSet);
+  void evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector<std::vector<CPatch> > &TrainSet);
   void split(std::vector<std::vector<CPatch> >& SetA, std::vector<std::vector<CPatch> >& SetB, const std::vector<std::vector<CPatch> >& TrainSet, const std::vector<std::vector<IntIndex> >& valSet, int t);
   double distMean(const std::vector<CPatch>& SetA, const std::vector<CPatch>& SetB);
   double InfGain(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB);
