@@ -29,6 +29,8 @@ void CRForest::learning(){
     //load train image list and grand truth
     loadTrainFile(conf, dataSets, gen);
 
+    for(int k = 0; k < dataSets.size(); ++k)
+      dataSets.at(k).showDataset();
 
     for(int p = 0;p < dataSets.size(); ++p){
       //makedataSets.at(p).showDataset();
@@ -130,16 +132,13 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 
 	  //std::cout << image.img.at(l).at(1).cols << std::endl;
 	  //std::cout << image.img.at(l).at(1).rows << std::endl;
+
+	  // detect negative patch
 	  for(int m = j; m < j + conf.p_width; ++m){
 	    for(int n = k; n < k + conf.p_height; ++n){
 	      pixNum += (int)(image.at(l).at(image.at(l).size() - 1).at<ushort>(n, m));
-	      //std::cout << "depth " << image.at(l).at(32).at<ushort>(n, m) << std::endl;
-	      //std::cout << image.at(l).at(32) << std::endl;
 	    }
 	  }
-	  //std::cout << "pixNum is " << pixNum << std::endl;
-	    
-	  //std::cout << image.img.at(l).size() << std::endl;
 
 	  int classNum = classDatabase.search(dataSet.at(l).className);
 	  //std::cout << classNum << std::endl;
@@ -176,7 +175,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
       posPatch.push_back(tPosPatch.at(*ite));
       ite++;
     }
-    
+    tPosPatch.clear();
     pBar(l,dataSet.size(), 50);
   }
 
@@ -184,6 +183,11 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 
   patches.push_back(posPatch);
   patches.push_back(negPatch);
+
+  for(int i = 0; i < patches.at(0).size(); ++i){
+    std::cout << "patch: " << i << " x: " << patches.at(0).at(i).center.x << std::endl;
+  }
+
   std::cout << std::endl;
 }
 

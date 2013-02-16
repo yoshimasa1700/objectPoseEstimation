@@ -370,7 +370,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
   
   //std::cout << "kokomadeyana" << std::endl;
   //read train file name and grand truth from file
-  tempDataSet.resize(0);
+  tempDataSet.clear();
   for(int i = 0;i < n_folders; ++i){
     trainDataListPath 
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) 
@@ -395,7 +395,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
       trainDataList >> temp.bBox.width;
       trainDataList >> temp.bBox.height;
       
-      temp.centerPoint.resize(0);
+      temp.centerPoint.clear();
 
       //read center point
       trainDataList >> tempPoint.x;//temp.centerPoint.x;

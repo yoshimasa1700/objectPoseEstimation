@@ -395,6 +395,16 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
   for(int i = 0; i < TrainSet.at(0).size(); ++i)
     patchPerClass.at(TrainSet.at(0).at(i).classNum).push_back(TrainSet.at(0).at(i));
 
+  for(int i = 0; i < nclass; ++i){
+    for(int j = 0; j < patchPerClass.at(i).size(); ++j){
+      std::cout << "class: " << i  << " patch: " << j << "x:" << patchPerClass.at(i).at(j).center.x << std::endl;
+    }
+  }
+
+
+  int dummy;
+  std::cin >> dummy;
+
   // calc total default patch num
   int totalPatchNum = 0;
   for(int c = 0; c < nclass; ++c)
@@ -424,10 +434,11 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
 				  
       
   ptL->vCenter.resize(nclass);
-  ptL->vClass.resize(TrainSet.at(0).size());
+  //ptL->vClass.resize(TrainSet.at(0).size());
   
   int count = 0;
 
+ 
   for(int i = 0; i < nclass; ++i){
     ptL->vCenter.at(i).clear();
 

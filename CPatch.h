@@ -42,9 +42,6 @@ class CPatch
   //std::vector<cv::Mat *> p_image;
 
   //HoG hog;
-  
-  
-  
 };
 
 #endif
