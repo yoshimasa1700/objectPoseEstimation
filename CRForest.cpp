@@ -47,11 +47,11 @@ void CRForest::learning(){
     // load images to mamory
     loadImages(images, dataSets);
 
-    for(int v = 0; v < images.size(); v++){
-      cv::namedWindow("test");cv::imshow("test",images.at(v).at(0));
-      cv::waitKey(0);
-      cv::destroyWindow("test");
-    }
+    // for(int v = 0; v < images.size(); v++){
+    //   cv::namedWindow("test");cv::imshow("test",images.at(v).at(0));
+    //   cv::waitKey(0);
+    //   cv::destroyWindow("test");
+    // }
 
     // reserve memory
     // vPatches.at(i).reserve((int)((conf.imagePerTree + 10) * 3 * 
