@@ -103,7 +103,7 @@ CRTree::CRTree(const char* filename) {
       int containPoints;
       for(int i = 0; i < allClassNum; ++i){
 	in >> cNum;
-	ptLN->pfg.at(cNum);
+	in >> ptLN->pfg.at(cNum);
 	in >> containPoints;
 
 	ptLN->vCenter.at(cNum).resize(containPoints);

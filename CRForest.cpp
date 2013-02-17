@@ -95,6 +95,8 @@ void CRForest::learning(){
     vTrees.at(i)->saveTree(buffer);
     sprintf(buffer, "%s%03d.txt",conf.classDatabaseName.c_str(), i + conf.off_tree);
     classDatabase.write(buffer);
+
+    delete vTrees.at(i);
   } // end tree loop
 }
 
