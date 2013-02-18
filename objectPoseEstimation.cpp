@@ -161,7 +161,7 @@ void detect(const CRForest &forest, CConfig conf){
   // }
   // std::cout << std::endl;
 
-  std::cout << "detection result:" << (detectionResult.at(0) / detectionResult.at(1)) * 100 << "%" << std::endl;
+  std::cout << "detection result:" << (detectionResult.at(0) / (detectionResult.at(1) + detectionResult.at(1))) * 100 << "%" << std::endl;
 }
 
 int main(int argc, char* argv[]){

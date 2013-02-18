@@ -149,7 +149,7 @@ CRTree::CRTree(const char* filename) {
 
   in.close();
 
-  std::cin >> dummy;
+  //std::cin >> dummy;
 
 }
 

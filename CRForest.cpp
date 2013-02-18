@@ -183,7 +183,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
     //std::cout << "tPosPatch.size()" << tPosPat
     
-    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
+    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 30);//totalPatchNum * conf.patchRatio);
     
     //std::cout << "keisan deketa" << std::endl;
 
@@ -326,7 +326,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 	  //leafPerClass.at((*itL)->vClass.at(0))++;
  
 	  // voting weight for leaf 
-	  float w = (*itL)->pfg.at(l) / (float)((float)(*itL)->vCenter.at(l).size() * result.size() );
+	  float w = (*itL)->pfg.at(l) / (float)((float)containPoints * result.size() );
 
 	  
 	  //for(int c = 0; c < classNum; ++c){
@@ -352,7 +352,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 
   for(int i = 0; i < classification_result.size(); ++i){
     if(classification_result.at(i) > maxResultTemp){
-      maxResult = 0;
+      maxResult = i;
       maxResultTemp = classification_result.at(i);
     }
   }
@@ -363,6 +363,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
       std::cout << "correct !" << std::endl;
   }else{
     std::cout << "hazure !" << std::endl;
+    std::cout << classDatabase.vNode.at(maxResult).name << std::endl;
     //}
     detectionResult.at(1) += 1;
   }

@@ -1,2 +1,4 @@
 0 bottle
 1 can
+2 koaramarch
+3 ornament
