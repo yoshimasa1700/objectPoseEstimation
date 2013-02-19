@@ -404,7 +404,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
      
       tempDataSet.push_back(temp);
     }
-    //trainDataList.close();
+    trainDataList.close();
   }
   dataSetNum = tempDataSet.size();
   int dataOffset = 0;
@@ -421,10 +421,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
     dataOffset += database.vNode.at(j).instances;
   }
 
-  // for(int j = 0;j < dataSetNum; ++j)
-  //   if(rand() * dataSetNum < conf.imagePerTree)
-  //     dataSet.push_back(tempDataSet.at(j));
-  // std::cout << "train data number: " << dataSet.size() << std::endl;
+  in.close();
 }
 
 void pBar(int p,int maxNum, int width){
