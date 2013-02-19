@@ -19,14 +19,11 @@ void CDataset::showDataset(){
 }
 
 void CImages::loadImages(std::vector<CDataset> dataSet){
-  img.resize(0);
-
-
   cv::Mat rgb,depth, mask;
   std::vector<cv::Mat> planes;
   std::vector<cv::Mat> allImages;
-  //std::vector<cv::Mat> rgbSplited;
 
+  img.resize(0);
 
   std::cout << dataSet.at(0).depthImageName << std::endl;
   
@@ -330,10 +327,8 @@ if (boost::optional<std::string> str
   return 0; 
 }
 
-void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen)
+void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
 {
-
-  
   dataSet.resize(0);
   std::string traindatafilepath = conf.trainpath + PATH_SEP +  conf.traindatafile;
   int n_folders;
@@ -343,36 +338,27 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
   std::vector<CDataset> tempDataSet;
   std::string trainDataListPath;
   int dataSetNum;
-
   CClassDatabase database;
-
   cv::Point tempPoint;
-
-  boost::uniform_real<> dst( 0, 1 );
-  boost::variate_generator<boost::mt19937&, 
-			   boost::uniform_real<> > rand( gen, dst );
-  
   nCk nck;
   
   //read train data folder list
-  //cout << "train data folder list path: " << traindatafilepath << std::endl;
   std::ifstream in(traindatafilepath.c_str());
   if(!in.is_open()){
     std::cout << "train data floder list is not found!" << std::endl;
     exit(1);
   }
+  
+  // read folder number
   in >> n_folders;
-  std::cout << "number of training data folder: "<< n_folders << std::endl;
+  std::cout << "number of training data folder: "
+	    << n_folders << std::endl;
   trainimagefolder.resize(n_folders);
+
+  // read train folder name
   for(int i = 0;i < n_folders; ++i)
     in >> trainimagefolder.at(i);
-  //in.close();
-  //std::cout << "training folder list: " << std::endl;
-  //for(int i = 0;i < n_folders;  ++i)
-  //  std::cout << "\t"  <<trainimagefolder.at(i) << std::endl;
   
-  
-  //std::cout << "kokomadeyana" << std::endl;
   //read train file name and grand truth from file
   tempDataSet.clear();
   for(int i = 0;i < n_folders; ++i){
@@ -381,11 +367,9 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 
       + PATH_SEP + "dataList.txt";
     temp.imageFilePath 
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) + PATH_SEP;
-      //std::cout << trainDataListPath << std::endl;
+
     std::ifstream trainDataList(trainDataListPath.c_str());
     trainDataList >> n_files;
-      //std::cout << "number of file: " << n_files << std::endl;
-    
     
     for(int j = 0;j < n_files; ++j){
       //read file names

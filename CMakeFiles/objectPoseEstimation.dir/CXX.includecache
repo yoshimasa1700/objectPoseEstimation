@@ -6,21 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/masahiko/Program/objectPoseEstimation/CPatch.h
+/home/masahiko/Program/objectPoseEstimation/util.cpp
 util.h
 /home/masahiko/Program/objectPoseEstimation/util.h
-
-/home/masahiko/Program/objectPoseEstimation/CRTree.cpp
-CRTree.h
-/home/masahiko/Program/objectPoseEstimation/CRTree.h
-
-/home/masahiko/Program/objectPoseEstimation/CRTree.h
-CPatch.h
-/home/masahiko/Program/objectPoseEstimation/CPatch.h
-util.h
-/home/masahiko/Program/objectPoseEstimation/util.h
-ctime
--
 
 /home/masahiko/Program/objectPoseEstimation/util.h
 iostream

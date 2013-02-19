@@ -1,18 +1,13 @@
 #include "CRForest.h"
-//#include "CRTree.h"
-
 #include "util.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]){
 
-  //cout << "aiueo" << endl;
   CConfig		conf;	 // setting
-  //std::vector<CDataset> dataSet; // training data name list and grand truth
 
-  //read argument
-  //check argument
+  //read and check argument
   if(argc < 2) {
     cout << "Usage: ./learning [config.xml]"<< endl;
     conf.loadConfig("config.xml");
@@ -31,8 +26,6 @@ int main(int argc, char* argv[]){
   execstr += tpath;
   system( execstr.c_str() );
 
-
-  cout << "kokomade" << endl;
   // create random forest class
   CRForest forest(conf);
 

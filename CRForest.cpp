@@ -3,12 +3,10 @@
 void CRForest::learning(){
   char buffer[256];
 
-  
-
   // grow each tree
   // if you want to fix this program multi thread
   // you should change below
-  for(int i=0;i < conf.ntrees; ++i){
+  for(int i = 0;i < conf.ntrees; ++i){
 
     std::vector<CDataset> dataSets(0);
     std::vector<std::vector<cv::Mat> > images;
@@ -24,10 +22,9 @@ void CRForest::learning(){
     //std::cout << "time is " << time(NULL) << std::endl;
     boost::mt19937    gen( i * static_cast<unsigned long>(time(NULL)) );
 
-    
-    
+
     //load train image list and grand truth
-    loadTrainFile(conf, dataSets, gen);
+    loadTrainFile(conf, dataSets);//, gen);
 
     for(int k = 0; k < dataSets.size(); ++k)
        dataSets.at(k).showDataset();
