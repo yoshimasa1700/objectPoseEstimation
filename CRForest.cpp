@@ -85,13 +85,8 @@ void CRForest::learning(){
     
 
     // grow tree
-<<<<<<< HEAD
     vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
 
-=======
-    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, classDatabase.vNode.size());
-    std::cout << "modottayo" << std::endl;
->>>>>>> origin/master
     // save tree
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
     std::cout << "tree file name is " << buffer << std::endl;
@@ -271,28 +266,11 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   int xoffset = conf.p_width / 2;
   int yoffset = conf.p_height / 2;
 
-<<<<<<< HEAD
   // show load image
   // cv::namedWindow("test");
   // cv::imshow("test",image.at(0));
   // cv::waitKey(0);
   // cv::destroyWindow("test");
-=======
-  cv::namedWindow("test");
-  cv::imshow("test",image.at(0));
-  cv::waitKey(0);
-  cv::destroyWindow("test");
-  
-  for(int i = 0; i < conf.scales.size(); ++i){
-    scaledImage = convertScale(image, conf.scales.at(i));
-    
-    features.resize(0);
-    extractFeatureChannels(image.at(0), features);
-    
-    features.push_back(image             .at(1));
-
-    extractAllPatches(dataSet, features, patches);
->>>>>>> origin/master
 
   // for every scale but this time off
   //for(int i = 0; i < conf.scales.size(); ++i){

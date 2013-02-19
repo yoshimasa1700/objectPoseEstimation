@@ -42,15 +42,10 @@ CV_LOAD_IMAGE_ANYCOLOR);
 + dataSet.at(i).rgbImageName,
 CV_LOAD_IMAGE_ANYCOLOR);
 
-<<<<<<< HEAD
     // load Depth image
     depth = cv::imread(dataSet.at(i).imageFilePath
 + dataSet.at(i).depthImageName,
-=======
-   // load Depth image
-    depth = cv::imread(dataSet.at(0).imageFilePath
-+ dataSet.at(0).depthImageName,
->>>>>>> origin/master
+
 CV_LOAD_IMAGE_ANYDEPTH);
 
     for(int k = 0;k < rgb.cols; ++k)

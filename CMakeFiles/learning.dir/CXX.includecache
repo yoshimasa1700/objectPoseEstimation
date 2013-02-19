@@ -10,25 +10,23 @@
 util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 
-<<<<<<< HEAD
-/home/masahiko/Program/objectPoseEstimation/CRForest.cpp
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp
 CRForest.h
-/home/masahiko/Program/objectPoseEstimation/CRForest.h
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
 
-/home/masahiko/Program/objectPoseEstimation/CRForest.h
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
 CRTree.h
-/home/masahiko/Program/objectPoseEstimation/CRTree.h
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 CPatch.h
-/home/masahiko/Program/objectPoseEstimation/CPatch.h
+/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
 util.h
-/home/masahiko/Program/objectPoseEstimation/util.h
+/Users/masahiko/Programs/objectPoseEstimation/util.h
 HoG.h
-/home/masahiko/Program/objectPoseEstimation/HoG.h
-=======
+/Users/masahiko/Programs/objectPoseEstimation/HoG.h
+
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
 CRTree.h
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
->>>>>>> origin/master
 
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 CPatch.h
@@ -40,17 +38,23 @@ ctime
 cmath
 -
 
-<<<<<<< HEAD
-/home/masahiko/Program/objectPoseEstimation/HoG.h
+/Users/masahiko/Programs/objectPoseEstimation/HoG.h
 cxcore.h
 -
 vector
 -
 
-/home/masahiko/Program/objectPoseEstimation/util.h
-=======
+/Users/masahiko/Programs/objectPoseEstimation/learning.cpp
+CRForest.h
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
+util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
->>>>>>> origin/master
+
+/Users/masahiko/Programs/objectPoseEstimation/util.cpp
+util.h
+/Users/masahiko/Programs/objectPoseEstimation/util.h
+
+/Users/masahiko/Programs/objectPoseEstimation/util.h
 iostream
 -
 vector
@@ -74,13 +78,6 @@ boost/lexical_cast.hpp
 boost/random.hpp
 -
 
-<<<<<<< HEAD
-/usr/include/opencv/cxcore.h
-opencv2/core/core_c.h
-/usr/include/opencv/opencv2/core/core_c.h
-opencv2/core/core.hpp
-/usr/include/opencv/opencv2/core/core.hpp
-=======
 /usr/local/include/boost/aligned_storage.hpp
 cstddef
 -
@@ -3248,6 +3245,8 @@ boost/config.hpp
 -
 
 /usr/local/include/boost/get_pointer.hpp
+boost/config.hpp
+-
 boost/config/no_tr1/memory.hpp
 -
 
@@ -3590,6 +3589,10 @@ boost/type_traits/is_arithmetic.hpp
 -
 boost/type_traits/remove_pointer.hpp
 -
+boost/type_traits/has_left_shift.hpp
+-
+boost/type_traits/has_right_shift.hpp
+-
 boost/math/special_functions/sign.hpp
 -
 boost/math/special_functions/fpclassify.hpp
@@ -3644,7 +3647,7 @@ string
 -
 cerrno
 -
-complex
+boost/config/no_tr1/complex.hpp
 -
 boost/config/no_tr1/cmath.hpp
 -
@@ -3812,6 +3815,8 @@ boost/math/special_functions/math_fwd.hpp
 -
 boost/math/special_functions/log1p.hpp
 -
+boost/math/constants/constants.hpp
+-
 
 /usr/local/include/boost/math/special_functions/airy.hpp
 boost/math/special_functions/bessel.hpp
@@ -3831,6 +3836,8 @@ boost/math/special_functions/math_fwd.hpp
 boost/math/special_functions/sqrt1pm1.hpp
 -
 boost/math/special_functions/log1p.hpp
+-
+boost/math/constants/constants.hpp
 -
 
 /usr/local/include/boost/math/special_functions/atanh.hpp
@@ -12454,6 +12461,8 @@ functional
 -
 new
 -
+boost/utility/addressof.hpp
+-
 
 /usr/local/include/boost/smart_ptr/detail/shared_ptr_nmt.hpp
 boost/assert.hpp
@@ -12490,11 +12499,13 @@ boost/smart_ptr/detail/sp_counted_base_pt.hpp
 -
 boost/smart_ptr/detail/sp_counted_base_nt.hpp
 -
+boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp
+-
 boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp
 -
-boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp
--
 boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp
+-
+boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp
 -
 boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp
 -
@@ -12510,6 +12521,8 @@ boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp
 -
 boost/smart_ptr/detail/sp_counted_base_w32.hpp
 -
+boost/smart_ptr/detail/sp_counted_base_aix.hpp
+-
 boost/smart_ptr/detail/sp_counted_base_nt.hpp
 -
 boost/smart_ptr/detail/sp_counted_base_spin.hpp
@@ -12519,6 +12532,14 @@ boost/smart_ptr/detail/sp_counted_base_spin.hpp
 boost/detail/sp_typeinfo.hpp
 -
 machine/sys/inline.h
+-
+
+/usr/local/include/boost/smart_ptr/detail/sp_counted_base_aix.hpp
+boost/detail/sp_typeinfo.hpp
+-
+builtins.h
+-
+sys/atomic_op.h
 -
 
 /usr/local/include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp
@@ -12555,6 +12576,12 @@ boost/detail/sp_typeinfo.hpp
 boost/detail/sp_typeinfo.hpp
 -
 pthread.h
+-
+
+/usr/local/include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp
+boost/detail/sp_typeinfo.hpp
+-
+inttypes.h
 -
 
 /usr/local/include/boost/smart_ptr/detail/sp_counted_base_spin.hpp
@@ -12598,6 +12625,12 @@ cstddef
 -
 
 /usr/local/include/boost/smart_ptr/detail/sp_has_sync.hpp
+
+/usr/local/include/boost/smart_ptr/detail/sp_nullptr_t.hpp
+boost/config.hpp
+-
+cstddef
+-
 
 /usr/local/include/boost/smart_ptr/detail/spinlock.hpp
 boost/config.hpp
@@ -12677,6 +12710,8 @@ boost/smart_ptr/detail/shared_count.hpp
 boost/detail/workaround.hpp
 -
 boost/smart_ptr/detail/sp_convertible.hpp
+-
+boost/smart_ptr/detail/sp_nullptr_t.hpp
 -
 boost/smart_ptr/detail/spinlock_pool.hpp
 -
@@ -13848,6 +13883,8 @@ msl_utility
 -
 boost/type_traits/is_same.hpp
 -
+boost/type_traits/is_function.hpp
+-
 cstddef
 -
 boost/type_traits/is_same.hpp
@@ -14048,8 +14085,6 @@ boost/type_traits/config.hpp
 -
 boost/type_traits/is_array.hpp
 -
-boost/type_traits/add_reference.hpp
--
 boost/type_traits/ice.hpp
 -
 boost/type_traits/is_arithmetic.hpp
@@ -14057,6 +14092,8 @@ boost/type_traits/is_arithmetic.hpp
 boost/type_traits/is_void.hpp
 -
 boost/type_traits/is_abstract.hpp
+-
+boost/type_traits/add_lvalue_reference.hpp
 -
 boost/type_traits/add_rvalue_reference.hpp
 -
@@ -15171,6 +15208,12 @@ new
 boost/config.hpp
 -
 
+/usr/local/include/opencv/cxcore.h
+opencv2/core/core_c.h
+/usr/local/include/opencv/opencv2/core/core_c.h
+opencv2/core/core.hpp
+/usr/local/include/opencv/opencv2/core/core.hpp
+
 /usr/local/include/opencv2/calib3d/calib3d.hpp
 opencv2/core/core.hpp
 /usr/local/include/opencv2/calib3d/opencv2/core/core.hpp
@@ -15420,5 +15463,4 @@ opencv2/video/tracking.hpp
 /usr/local/include/opencv2/video/opencv2/video/tracking.hpp
 opencv2/video/background_segm.hpp
 /usr/local/include/opencv2/video/opencv2/video/background_segm.hpp
->>>>>>> origin/master
 

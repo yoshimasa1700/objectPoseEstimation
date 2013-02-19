@@ -11,24 +11,6 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/2.8.10.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/2.8.10.1/CMakeSystem.cmake"
   "CMakeLists.txt"
-<<<<<<< HEAD
-  "/usr/share/cmake-2.8/Modules/CMakeCInformation.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake"
-  "/usr/share/cmake-2.8/Modules/Compiler/GNU-C.cmake"
-  "/usr/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake"
-  "/usr/share/cmake-2.8/Modules/Compiler/GNU.cmake"
-  "/usr/share/cmake-2.8/Modules/FindBoost.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU-C.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU-CXX.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake"
-  "/usr/share/opencv/OpenCVConfig-version.cmake"
-  "/usr/share/opencv/OpenCVConfig.cmake"
-=======
   "/usr/local/Cellar/cmake/2.8.10.1/share/cmake/Modules/CMakeCCompiler.cmake.in"
   "/usr/local/Cellar/cmake/2.8.10.1/share/cmake/Modules/CMakeCCompilerABI.c"
   "/usr/local/Cellar/cmake/2.8.10.1/share/cmake/Modules/CMakeCInformation.cmake"
@@ -65,7 +47,6 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/Cellar/cmake/2.8.10.1/share/cmake/Modules/Platform/UnixPaths.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
->>>>>>> origin/master
   )
 
 # The corresponding makefile is:

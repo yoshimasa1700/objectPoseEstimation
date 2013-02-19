@@ -71,11 +71,7 @@ class CRTree
   const LeafNode* regression(CPatch &patch) const;
 
   // Training
-<<<<<<< HEAD
   void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen,const std::vector<int> &defaultClass_);
-=======
-  void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, const CConfig &conf, boost::mt19937 gen, int nclass_);
->>>>>>> origin/master
 
   bool optimizeTest(std::vector<std::vector<CPatch> > &SetA,
 			    std::vector<std::vector<CPatch> > &SetB, 

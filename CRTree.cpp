@@ -241,11 +241,8 @@ bool CRTree::saveTree(const char* filename) const {
   return done;
 }
 
-<<<<<<< HEAD
 void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, CConfig conf, boost::mt19937 gen, const std::vector<int> &defaultClass_){
-=======
-void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, const CConfig &conf, boost::mt19937 gen, int nclass_){
->>>>>>> origin/master
+
   
   // for(int i = 0; i < TrainSet.at(0).size(); ++i){
   //   std::cout << "this is for debug growtree trainset center " << TrainSet.at(0).at(i).center << std::endl;
@@ -273,21 +270,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
   
   if(depth < max_depth && remainClass > 1) {
 
-<<<<<<< HEAD
     //if(depth < max_depth && TrainSet[0].size() > 0) {	
-=======
-  containClass.clear();
-  containClass.resize(nclass);
-  for(int i = 0; i < TrainSet.at(0).size(); ++i)
-    containClass.at(TrainSet.at(0).at(i).classNum)++;
-
-  int remainClass = 0;
-  for(int c = 0; c < nclass; ++c)
-    if(containClass.at(c) != 0)
-      remainClass++;
-  
-  if(depth < max_depth && remainClass > 1) {	
->>>>>>> origin/master
     
     // spilit patches by the binary test
     vector<vector<CPatch> > SetA;
@@ -300,7 +283,6 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     if(depth < max_depth-2 )
       measure_mode = rand();
     
-<<<<<<< HEAD
     //cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
 
     cout << "Node num: " << node << endl;
@@ -316,13 +298,6 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     //}
 
     //for(int i = 0; i < nclass; ++i)
-    //std::cout << "class" << i << " : " << containClass.at(i) << endl;
-=======
-    cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
-
-    for(int i = 0; i < nclass; ++i)
-      std::cout << "class" << i << " : " << containClass.at(i) << endl;
->>>>>>> origin/master
     
     // Find optimal test
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
@@ -401,8 +376,6 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
   // Get pointer
   treetable[node*11] = num_leaf;
   LeafNode* ptL = &leaf[num_leaf];
-
-<<<<<<< HEAD
 
   // for(int i = 0; i < TrainSet.at(0).size(); ++i){
   //   cv::namedWindow("test");cv::imshow("test",TrainSet.at(0).at(i).patch.at(0));
@@ -491,47 +464,6 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
 
     for(int j = 0; j < patchPerClass.at(i).size(); ++j)
       ptL->vCenter.at(i).push_back(patchPerClass.at(i).at(j).center);
-=======
-  std::vector<int> numberOfClassPatch(nclass, 0);
-
-  // Find most big class
-  for(int i = 0; i < TrainSet.at(0).size(); ++i)
-    numberOfClassPatch.at(TrainSet.at(0).at(i).classNum)++;
-  int maxNumber(0);
-  std::vector<int> maxClass(1 , 0);
-  for(int c = 0; c < nclass; ++c){
-    if(numberOfClassPatch.at(c) > maxNumber){
-      maxClass.clear();
-      maxClass.push_back(c);
-      maxNumber =  numberOfClassPatch.at(c);
-    }else if(numberOfClassPatch.at(c) == maxNumber){
-      maxClass.push_back(c);
-    }
-  }
-
-  int totalMaxNum = 0;
- 
-  for(int i = 0; i < maxClass.size(); ++i)
-    totalMaxNum += maxClass.at(i);
-
-  ptL->vCenter.clear();
-  ptL->vClass.clear();
-
-  // Store data
-  ptL->pfg = (float)totalMaxNum / float(TrainSet.at(0).size());
-  ptL->vCenter.resize( totalMaxNum );
-  ptL->vClass.resize( totalMaxNum );
-  int current = 0;
-  for(unsigned int i = 0; i < TrainSet.at(0).size(); ++i) {
-    for(int c = 0; c < maxClass.size(); ++c){
-      if(TrainSet.at(0).at(i).classNum == maxClass.at(c)){
-	ptL->vCenter[current].x = TrainSet[0][i].center.x;
-	ptL->vCenter[current].y = TrainSet[0][i].center.y;
-	ptL->vClass[current] = TrainSet[0][i].classNum;
-	current++;
-      }
-    }
->>>>>>> origin/master
   }
 
 
