@@ -1,7 +1,5 @@
 #include "util.h"
 
-boost::lagged_fibonacci1279 nCk::gen = boost::lagged_fibonacci1279();
-
 CDataset::CDataset(){
 }
 
@@ -19,38 +17,31 @@ void CDataset::showDataset(){
 }
 
 void CImages::loadImages(std::vector<CDataset> dataSet){
+  img.resize(0);
+
+
   cv::Mat rgb,depth, mask;
   std::vector<cv::Mat> planes;
   std::vector<cv::Mat> allImages;
+  //std::vector<cv::Mat> rgbSplited;
 
-  img.resize(0);
 
   std::cout << dataSet.at(0).depthImageName << std::endl;
   
   for(int i = 0;i < dataSet.size(); ++i){
-    
-    std::cout << dataSet.at(i).imageFilePath
-      + dataSet.at(i).maskImageName << std::endl;
-
     // load Mask image
-    mask = cv::imread(dataSet.at(i).imageFilePath
-+ dataSet.at(i).maskImageName,
+    mask = cv::imread(dataSet.at(0).imageFilePath
++ dataSet.at(0).maskImageName,
 CV_LOAD_IMAGE_ANYCOLOR);
     
     // load RGB image
-    rgb = cv::imread(dataSet.at(i).imageFilePath
-+ dataSet.at(i).rgbImageName,
+    rgb = cv::imread(dataSet.at(0).imageFilePath
++ dataSet.at(0).rgbImageName,
 CV_LOAD_IMAGE_ANYCOLOR);
 
-<<<<<<< HEAD
-    // load Depth image
-    depth = cv::imread(dataSet.at(i).imageFilePath
-+ dataSet.at(i).depthImageName,
-=======
-   // load Depth image
+t    // load Depth image
     depth = cv::imread(dataSet.at(0).imageFilePath
 + dataSet.at(0).depthImageName,
->>>>>>> origin/master
 CV_LOAD_IMAGE_ANYDEPTH);
 
     for(int k = 0;k < rgb.cols; ++k)
@@ -165,18 +156,18 @@ int CConfig::loadConfig(const char* filename)
     std::cout << "root.str is nothing" << std::endl;
   }
 
-  // load image scales
-  std::cout << "kokomade" << std::endl;
-  scales.resize(0);
-  BOOST_FOREACH (const boost::property_tree::ptree::value_type& child,
-pt.get_child("root.scales")) {
-    const float value = boost::lexical_cast<float>(child.second.data());
-    scales.push_back(value);
+//   // load image scales
+//   std::cout << "kokomade" << std::endl;
+//   scales.resize(0);
+//   BOOST_FOREACH (const boost::property_tree::ptree::value_type& child,
+// pt.get_child("root.scales")) {
+//     const float value = boost::lexical_cast<float>(child.second.data());
+//     scales.push_back(value);
     
-    std::cout << value << std::endl;
-  }
-  for (int i;i < scales.size(); ++i)
-    std::cout << i << ": " << scales.at(i) << std::endl;
+//     std::cout << value << std::endl;
+//   }
+//   for (int i;i < scales.size(); ++i)
+//     std::cout << i << ": " << scales.at(i) << std::endl;
   float value_temp = 1;
   scales.clear();
   scales.push_back(value_temp);
@@ -186,15 +177,15 @@ pt.get_child("root.scales")) {
   ratios.push_back(value_temp);
 
   // // load image ratios
-  ratios.resize(0);
-  BOOST_FOREACH (const boost::property_tree::ptree::value_type& child, pt.get_child("root.ratio")) {
-    const float value = boost::lexical_cast<float>(child.second.data());
-    ratios.push_back(value);
+  // ratios.resize(0);
+  // BOOST_FOREACH (const boost::property_tree::ptree::value_type& child, pt.get_child("root.ratio")) {
+  //   const float value = boost::lexical_cast<float>(child.second.data());
+  //   ratios.push_back(value);
     
-    std::cout << value << std::endl;
-  }
-  for (int i;i < ratios.size(); ++i)
-    std::cout << i << ": " << ratios.at(i) << std::endl;
+  //   std::cout << value << std::endl;
+  // }
+  // for (int i;i < ratios.size(); ++i)
+  //   std::cout << i << ": " << ratios.at(i) << std::endl;
 
 // load output path
 if (boost::optional<std::string> str
@@ -340,8 +331,10 @@ if (boost::optional<std::string> str
   return 0; 
 }
 
-void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
+void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet, boost::mt19937 &gen)
 {
+
+  
   dataSet.resize(0);
   std::string traindatafilepath = conf.trainpath + PATH_SEP +  conf.traindatafile;
   int n_folders;
@@ -351,38 +344,47 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
   std::vector<CDataset> tempDataSet;
   std::string trainDataListPath;
   int dataSetNum;
-  CClassDatabase database;
+
   cv::Point tempPoint;
-  nCk nck;
+
+  boost::uniform_real<> dst( 0, 1 );
+  boost::variate_generator<boost::mt19937&, 
+			   boost::uniform_real<> > rand( gen, dst );
+  
+
   
   //read train data folder list
+  //cout << "train data folder list path: " << traindatafilepath << std::endl;
   std::ifstream in(traindatafilepath.c_str());
   if(!in.is_open()){
     std::cout << "train data floder list is not found!" << std::endl;
     exit(1);
   }
-  
-  // read folder number
   in >> n_folders;
-  std::cout << "number of training data folder: "
-	    << n_folders << std::endl;
+  std::cout << "number of training data folder: "<< n_folders << std::endl;
   trainimagefolder.resize(n_folders);
-
-  // read train folder name
   for(int i = 0;i < n_folders; ++i)
     in >> trainimagefolder.at(i);
+  //in.close();
+  //std::cout << "training folder list: " << std::endl;
+  //for(int i = 0;i < n_folders;  ++i)
+  //  std::cout << "\t"  <<trainimagefolder.at(i) << std::endl;
   
+  
+  //std::cout << "kokomadeyana" << std::endl;
   //read train file name and grand truth from file
-  tempDataSet.clear();
+  tempDataSet.resize(0);
   for(int i = 0;i < n_folders; ++i){
     trainDataListPath 
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) 
       + PATH_SEP + "dataList.txt";
     temp.imageFilePath 
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) + PATH_SEP;
-
+      //std::cout << trainDataListPath << std::endl;
     std::ifstream trainDataList(trainDataListPath.c_str());
     trainDataList >> n_files;
+      //std::cout << "number of file: " << n_files << std::endl;
+    
     
     for(int j = 0;j < n_files; ++j){
       //read file names
@@ -396,7 +398,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
       trainDataList >> temp.bBox.width;
       trainDataList >> temp.bBox.height;
       
-      temp.centerPoint.clear();
+      temp.centerPoint.resize(0);
 
       //read center point
       trainDataList >> tempPoint.x;//temp.centerPoint.x;
@@ -407,8 +409,6 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
       //read class name
       trainDataList >> temp.className;
 
-      database.add(temp.className);
-
       //read angle grand truth
       trainDataList >> temp.angle;
 
@@ -417,24 +417,13 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
      
       tempDataSet.push_back(temp);
     }
-    trainDataList.close();
+    //trainDataList.close();
   }
   dataSetNum = tempDataSet.size();
-  int dataOffset = 0;
-  database.show();
-  for(int j = 0;j < database.vNode.size(); j++){
-    std::set<int> chosenData = nck.generate(database.vNode.at(j).instances, conf.imagePerTree);
-    
-    std::set<int>::iterator ite = chosenData.begin();
-    
-    while(ite != chosenData.end()){
-      dataSet.push_back(tempDataSet.at(*ite + dataOffset));
-      ite++;
-    }
-    dataOffset += database.vNode.at(j).instances;
-  }
-
-  in.close();
+   for(int j = 0;j < dataSetNum; ++j)
+      if(rand() * dataSetNum < conf.imagePerTree)
+	dataSet.push_back(tempDataSet.at(j));
+    std::cout << "train data number: " << dataSet.size() << std::endl;
 }
 
 void pBar(int p,int maxNum, int width){

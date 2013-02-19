@@ -9,7 +9,6 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
   int node = 0;
   int p1,p2;
 
-
   // Go through tree until one arrives at a leaf, i.e. pnode[0]>=0)
   while(pnode[0]==-1) {
     // binary test 0 - left, 1 - right
@@ -35,7 +34,7 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
 	for(int k = 0; k < pnode[8]; ++k)
 	  p2 += (int)ptC.at<uchar>(k + pnode[6],j +  pnode[5]);
       }
-
+	
     }else{
       // get pixel values 
       p1 = (int)ptC.at<uchar>(pnode[2], pnode[1]);//*(ptC+pnode[1]+pnode[2]*stepImg);
@@ -65,7 +64,6 @@ CRTree::CRTree(const char* filename) {
   if(in.is_open()) {
     // allocate memory for tree table
     in >> max_depth;
-    std::cout << "max depth: " << max_depth << std::endl;
     num_nodes = (int)pow(2.0,int(max_depth+1))-1;
     // num_nodes x 7 matrix as vector
     treetable = new int[num_nodes * 11];
@@ -74,8 +72,6 @@ CRTree::CRTree(const char* filename) {
     // allocate memory for leafs
     in >> num_leaf;
     leaf = new LeafNode[num_leaf];
-
-    std::cout << "number of leaf: " << num_leaf << std::endl;
 
     // number of center points per patch 
     in >> num_cp;
@@ -91,58 +87,22 @@ CRTree::CRTree(const char* filename) {
     // read tree leafs
     LeafNode* ptLN = &leaf[0];
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
-      in >> dummy; // leaf node number
-      int allClassNum = 0; // class number
-      in >> allClassNum;
-      int containClassNum = 0;
-      in >> containClassNum;
-      ptLN->pfg.resize(allClassNum);
-      ptLN->vCenter.resize(allClassNum);
-
-      for(int i = 0; i < allClassNum; ++i)
-	ptLN->pfg.at(i) = 0.0;
-
-      int cNum;
-      int containPoints;
-      for(int i = 0; i < containClassNum; ++i){
-	in >> cNum;
-	in >> ptLN->pfg.at(cNum);
-	in >> containPoints;
-
-	ptLN->vCenter.at(cNum).resize(containPoints);
-	
-	for(int j = 0; j < containPoints; j++){
-	  in >> ptLN->vCenter.at(cNum).at(j).x;
-
-	  in >> ptLN->vCenter.at(cNum).at(j).y;
-	}      
-      }
-      
-      // for(int m = 0; m < maxNum; m++){
-      // 	in >> ptLN->pfg.at(m);
-      // }
-      // // number of positive patches
-      // in >> dummy;
-      // ptLN->vCenter.resize(dummy);
-      // ptLN->vClass.resize(dummy);
-      // for(int i=0; i<dummy; ++i) {
-      // 	// ptLN->vCenter[i].resize(num_cp);
-      // 	// for(unsigned int k=0; k<num_cp; ++k) {
-      // 	//   in >> ptLN->vCenter[i][k].x;
-      // 	//   in >> ptLN->vCenter[i][k].y;
-      // 	// }
-      // 	in >> ptLN->vClass[i];
-      // 	in >> ptLN->vCenter[i].x;
-      // 	in >> ptLN->vCenter[i].y;
-      // }
-
-      for(int i = 0; i < ptLN->pfg.size(); ++i)
-	std::cout << ptLN->pfg.at(i) << std::endl;
-
-      for(int i = 0; i < ptLN->vCenter.size(); ++i){
-	for(int j = 0; j < ptLN->vCenter.at(i).size(); ++j)
-	  std::cout << ptLN->vCenter.at(i).at(j).x << " ";
-	std::cout << std::endl;
+      in >> dummy;
+      in >> ptLN->pfg;
+			
+      // number of positive patches
+      in >> dummy;
+      ptLN->vCenter.resize(dummy);
+      ptLN->vClass.resize(dummy);
+      for(int i=0; i<dummy; ++i) {
+	// ptLN->vCenter[i].resize(num_cp);
+	// for(unsigned int k=0; k<num_cp; ++k) {
+	//   in >> ptLN->vCenter[i][k].x;
+	//   in >> ptLN->vCenter[i][k].y;
+	// }
+	in >> ptLN->vClass[i];
+	in >> ptLN->vCenter[i].x;
+	in >> ptLN->vCenter[i].y;
       }
     }
 
@@ -151,8 +111,6 @@ CRTree::CRTree(const char* filename) {
   }
 
   in.close();
-
-  //std::cin >> dummy;
 
 }
 
@@ -185,51 +143,21 @@ bool CRTree::saveTree(const char* filename) const {
     }
     out << endl;
 
-    
-
     // save tree leafs
     LeafNode* ptLN = &leaf[0];
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
-      out << l << " ";
-
-      int containClassNum = 0;
-      for(int i = 0; i < ptLN->pfg.size(); ++i){
-	if(ptLN->pfg.at(i) != 0)
-	  containClassNum++;
-      }
-
-      out << ptLN->pfg.size() << " " << containClassNum << " "; // class number
-      
-      // std::vector<int> classNum(defaultClass.size(), 0);
-      // for(int i = 0; i < ptLN->vCenter.size(); ++i)
-      // 	classNum(ptLN->vClass.at(i)) += 1;
-
-      for(int j = 0; j < ptLN->pfg.size(); ++j){
-	if(ptLN->pfg.at(j) != 0){
-	  out << j << " " << ptLN->pfg.at(j) << " " << ptLN->vCenter.at(j).size() << " ";
-	  for(int i = 0; i < ptLN->vCenter.at(j).size(); ++i)
-	    out << ptLN->vCenter.at(j).at(i).x << " " << ptLN->vCenter.at(j).at(i).y
-		<< " ";	  
-	}
-      }
-      
-      out << endl;
-
-      // for(int j = 0; j < containClassNum; j++){
-      // 	out << ptLN->pfg.at(j) << " " << classNum.at(j) << " ";
-	
-	
-      // 	// for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
-      // 	// 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
-      // 	// 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
-      // 	// 	}
-      // 	// }
-
-      // 	for(int i = 0; i < classNum.at(); ++i){
-      // 	  out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
+      out << l << " " << ptLN->pfg << " " << ptLN->vCenter.size() << " ";
+			
+      // for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
+      // 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
+      // 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
       // 	}
       // }
-      // out << endl;
+
+      for(int i = 0; i < ptLN->vCenter.size(); ++i){
+	out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
+      }
+      out << endl;
     }
 
     out.close();
@@ -241,53 +169,26 @@ bool CRTree::saveTree(const char* filename) const {
   return done;
 }
 
-<<<<<<< HEAD
-void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, CConfig conf, boost::mt19937 gen, const std::vector<int> &defaultClass_){
-=======
-void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, const CConfig &conf, boost::mt19937 gen, int nclass_){
->>>>>>> origin/master
+void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, float pnratio, CConfig conf, boost::mt19937 gen, int nclass_){
   
-  // for(int i = 0; i < TrainSet.at(0).size(); ++i){
-  //   std::cout << "this is for debug growtree trainset center " << TrainSet.at(0).at(i).center << std::endl;
-  // }
-
-  // int dummy;
-  // std::cin >> dummy;
-
   boost::uniform_int<> zeroOne( 0, 1 );
   boost::variate_generator<boost::mt19937&, 
 			   boost::uniform_int<> > rand( gen, zeroOne );
   
-  defaultClass = defaultClass_;
-  nclass = defaultClass.size();
+  nclass = nclass_;
 
   containClass.clear();
   containClass.resize(nclass);
-  for(int i = 0; i < TrainSet.at(0).size(); ++i)
+  for(int i = 0; i < TrainSet.at(0).size(); ++i){
     containClass.at(TrainSet.at(0).at(i).classNum)++;
+  }
 
   int remainClass = 0;
-  for(int c = 0; c < nclass; ++c)
-    if(containClass.at(c) != 0)
-      remainClass++;
-  
-  if(depth < max_depth && remainClass > 1) {
-
-<<<<<<< HEAD
-    //if(depth < max_depth && TrainSet[0].size() > 0) {	
-=======
-  containClass.clear();
-  containClass.resize(nclass);
-  for(int i = 0; i < TrainSet.at(0).size(); ++i)
-    containClass.at(TrainSet.at(0).at(i).classNum)++;
-
-  int remainClass = 0;
-  for(int c = 0; c < nclass; ++c)
+                                       for(int c = 0; c < nclass; ++c)
     if(containClass.at(c) != 0)
       remainClass++;
   
   if(depth < max_depth && remainClass > 1) {	
->>>>>>> origin/master
     
     // spilit patches by the binary test
     vector<vector<CPatch> > SetA;
@@ -300,29 +201,14 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     if(depth < max_depth-2 )
       measure_mode = rand();
     
-<<<<<<< HEAD
-    //cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
-
-    cout << "Node num: " << node << endl;
-    for(int i = 0; i < nclass; ++i){
-      std::cout << "class" << i << ": " << containClass.at(i) << endl;
-    }
-
-    //containClass.clear();
-    //containClass.resize(nclass);
-
-    //for(int i = 0; i < TrainSet.at(0).size(); ++i){
-    //containClass.at(TrainSet.at(0).at(i).classNum)++;
-    //}
-
-    //for(int i = 0; i < nclass; ++i)
-    //std::cout << "class" << i << " : " << containClass.at(i) << endl;
-=======
     cout << "MeasureMode " << measure_mode << "depth " << depth << "Pos patches " << TrainSet[0].size() << " Neg Patches " << TrainSet[1].size() << " pnratio " << pnratio  <<endl;
+
+
+
+
 
     for(int i = 0; i < nclass; ++i)
       std::cout << "class" << i << " : " << containClass.at(i) << endl;
->>>>>>> origin/master
     
     // Find optimal test
     if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
@@ -337,18 +223,18 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       double countB = 0;
      
 
-      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
-      // 	cout << "Final_Split A/B " << l << " " << SetA[l].size() << " " << SetB[l].size() << endl; 
-      // 	countA += SetA[l].size(); countB += SetB[l].size();
-      // }
-      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
-      // 	cout << "Final_SplitA: " << 100 * SetA[l].size()/countA << "% "; 
-      // }
-      // cout << endl;
-      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
-      // 	cout << "Final_SplitB: " << 100 *SetB[l].size() / countB << "% "; 
-      // }
-      //cout << endl;
+      for(unsigned int l=0; l<TrainSet.size(); ++l) {
+	cout << "Final_Split A/B " << l << " " << SetA[l].size() << " " << SetB[l].size() << endl; 
+	countA += SetA[l].size(); countB += SetB[l].size();
+      }
+      for(unsigned int l=0; l<TrainSet.size(); ++l) {
+	cout << "Final_SplitA: " << 100 * SetA[l].size()/countA << "% "; 
+      }
+      cout << endl;
+      for(unsigned int l=0; l<TrainSet.size(); ++l) {
+	cout << "Final_SplitB: " << 100 *SetB[l].size() / countB << "% "; 
+      }
+      cout << endl;
 
       containClassA.clear();
       containClassA.resize(nclass);
@@ -366,7 +252,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       // Go left
       // If enough patches are left continue growing else stop
       if(SetA[0].size()+SetA[1].size()>min_samples) {
-	growTree(SetA, 2*node+1, depth+1, pnratio, conf, gen, defaultClass_);
+	growTree(SetA, 2*node+1, depth+1, pnratio, conf, gen, nclass_);
       } else {
 	makeLeaf(SetA, pnratio, 2*node+1);
       }
@@ -374,11 +260,10 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       // Go right
       // If enough patches are left continue growing else stop
       if(SetB[0].size()+SetB[1].size()>min_samples) {
-	growTree(SetB, 2*node+2, depth+1, pnratio, conf, gen, defaultClass_);
+	growTree(SetB, 2*node+2, depth+1, pnratio, conf, gen, nclass_);
       } else {
 	makeLeaf(SetB, pnratio, 2*node+2);
       }
-
 
     } else {
 
@@ -397,151 +282,44 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
 }
 
 // Create leaf node from patches 
-void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node) {
+void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node) {
   // Get pointer
   treetable[node*11] = num_leaf;
   LeafNode* ptL = &leaf[num_leaf];
 
-<<<<<<< HEAD
-
-  // for(int i = 0; i < TrainSet.at(0).size(); ++i){
-  //   cv::namedWindow("test");cv::imshow("test",TrainSet.at(0).at(i).patch.at(0));
-  //   cv::waitKey(0);
-  //   cv::destroyWindow("test");
-
-
-  // }
-
-  //std::vector<int> reachedClass(nclass,0);
-  // std::vector<int> maxflag;
-
-  // for(int i = 0; i < TrainSet.at(0).size(); ++i)
-  //   reachedClass.at(TrainSet.at(0).at(i).classNum) += 1;
-
-  // maxflag.clear();
-
-  // int maxnum = 0;
-  // for(int c = 0; c < nclass; ++c){
-  //   if(reachedClass.at(c) > maxnum){
-  //     maxflag.clear();
-  //     maxflag.push_back(c);
-  //     maxnum = reachedClass.at(c);
-  //   }else if(reachedClass.at(c) == maxnum){
-  //     maxflag.push_back(c);
-  //   }
-  // }
-  patchPerClass.clear();
-
-  // divide reached patch to each class
-  patchPerClass.resize(nclass);
-  for(int c = 0; c < nclass; ++c)
-    patchPerClass.at(c).clear();
-
-  for(int i = 0; i < TrainSet.at(0).size(); ++i){
-    //std::cout << "this is for debug trainset center is " << TrainSet.at(0).at(i).center << std::endl;
-    patchPerClass.at(TrainSet.at(0).at(i).classNum).push_back(TrainSet.at(0).at(i));
-  }
-
-  // for(int i = 0; i < nclass; ++i){
-  //   for(int j = 0; j < patchPerClass.at(i).size(); ++j){
-  //     std::cout << "class: " << i  << " patch: " << j << " center:" << patchPerClass.at(i).at(j).center << std::endl;
-  //   }
-  // }
-
-
-  //int dummy;
-  //std::cin >> dummy;
-
-  // calc total default patch num
-  int totalPatchNum = 0;
-  for(int c = 0; c < nclass; ++c)
-    totalPatchNum += defaultClass.at(c);
-
-  ptL->pfg.resize(nclass);
-  for(int k = 0; k < patchPerClass.size(); ++k){
-    if(patchPerClass.at(k).size() != 0){
-      //int totalnum = reachedClass.at(k);
-    
-      float maxOtherRatio = (float)defaultClass.at(k) 
-	/ (float)(totalPatchNum - defaultClass.at(k));
-  
-      // Store data
-      ptL->pfg.at(k) = (float)patchPerClass.at(k).size() / (maxOtherRatio * (float)(TrainSet.at(0).size() - patchPerClass.at(k).size()) + patchPerClass.at(k).size());
-    }else{
-      ptL->pfg.at(k) = 0;
-    }
-  }
-				  
-  // ptL->vCenter.resize( TrainSet[0].size() );
-  // ptL->vClass.resize( TrainSet[0].size() );
-  // for(unsigned int i = 0; i<TrainSet[0].size(); ++i) {
-  //   ptL->vCenter[i] = TrainSet[0][i].center;
-  //   ptL->vClass[i] = TrainSet[0][i].classNum;
-  // }
-				  
-      
-  ptL->vCenter.resize(nclass);
-  //ptL->vClass.resize(TrainSet.at(0).size());
-  
-  int count = 0;
-
- 
-  for(int i = 0; i < nclass; ++i){
-    ptL->vCenter.at(i).clear();
-
-    for(int j = 0; j < patchPerClass.at(i).size(); ++j)
-      ptL->vCenter.at(i).push_back(patchPerClass.at(i).at(j).center);
-=======
   std::vector<int> numberOfClassPatch(nclass, 0);
 
   // Find most big class
-  for(int i = 0; i < TrainSet.at(0).size(); ++i)
+  for(int i = 0; i < TrainSet.at(0).size(); ++i){
     numberOfClassPatch.at(TrainSet.at(0).at(i).classNum)++;
-  int maxNumber(0);
-  std::vector<int> maxClass(1 , 0);
+  }
+  int maxNumber = 0;
+  int maxClass = 0;
   for(int c = 0; c < nclass; ++c){
     if(numberOfClassPatch.at(c) > maxNumber){
-      maxClass.clear();
-      maxClass.push_back(c);
-      maxNumber =  numberOfClassPatch.at(c);
-    }else if(numberOfClassPatch.at(c) == maxNumber){
-      maxClass.push_back(c);
+      maxNumber = numberOfClassPatch.at(c);
+      maxClass = c;
     }
   }
-
-  int totalMaxNum = 0;
- 
-  for(int i = 0; i < maxClass.size(); ++i)
-    totalMaxNum += maxClass.at(i);
-
-  ptL->vCenter.clear();
-  ptL->vClass.clear();
 
   // Store data
-  ptL->pfg = (float)totalMaxNum / float(TrainSet.at(0).size());
-  ptL->vCenter.resize( totalMaxNum );
-  ptL->vClass.resize( totalMaxNum );
+  ptL->pfg = (float)maxNumber / float(TrainSet.at(0).size());
+  ptL->vCenter.resize( maxNumber );
+  ptL->vClass.resize( maxNumber );
   int current = 0;
   for(unsigned int i = 0; i < TrainSet.at(0).size(); ++i) {
-    for(int c = 0; c < maxClass.size(); ++c){
-      if(TrainSet.at(0).at(i).classNum == maxClass.at(c)){
-	ptL->vCenter[current].x = TrainSet[0][i].center.x;
-	ptL->vCenter[current].y = TrainSet[0][i].center.y;
-	ptL->vClass[current] = TrainSet[0][i].classNum;
-	current++;
-      }
+    if(TrainSet.at(0).at(i).classNum == maxClass){
+      ptL->vCenter[current] = TrainSet[0][i].center;
+      ptL->vClass[current] = TrainSet[0][i].classNum;
+      current++;                                                 
     }
->>>>>>> origin/master
   }
 
-
-
-  std::cout << "happa tukutta" << std::endl;
   // Increase leaf counter
   ++num_leaf;
 }
 
-bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<std::vector<CPatch> > &SetB, const std::vector<std::vector<CPatch> > &TrainSet, int* test, unsigned int iter, unsigned int measure_mode) {
+bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<std::vector<CPatch> > &SetB, std::vector<std::vector<CPatch> > &TrainSet, int* test, unsigned int iter, unsigned int measure_mode) {
 	
   bool found = false;
 
@@ -593,14 +371,6 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
     // compute value for each patch
     evaluateTest(valSet, &tmpTest[0], TrainSet);
 
-    // for(int l = 0; l < valSet.at(0).size(); ++l){
-    //   std::cout << "val = " << valSet.at(0).at(l).val << " index = " << valSet.at(0).at(l).index << std::endl;
-    // }
-
-    // int dummy;
-    // std::cin >> dummy;
-
-
     //std::cout << "evaluation end" << std::endl;
 
     // find min/max values for threshold
@@ -625,27 +395,15 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
 
 	
 
-	// // Split training data into two sets A,B accroding to threshold t 
+	// Split training data into two sets A,B accroding to threshold t 
 	split(tmpA, tmpB, TrainSet, valSet, tr);
-
-	// std::cout << "this is for debug " << std::endl;
-	// std::cout << "setA----------------------------------------------------" << std::endl;
-	// for(int j = 0; j < tmpA.at(0).size(); ++j)
-	//   std::cout << tmpA.at(0).at(j).center << std::endl;
-
-	// std::cout << "setB****************************************************" << std::endl;
-	// for(int j = 0; j < tmpB.at(0).size(); ++j)
-	//   std::cout << tmpB.at(0).at(j).center << std::endl;
-
-	// //int dummy;
-	// std::cin >> dummy;
 
 	// Do not allow empty set split (all patches end up in set A or B)
 	if( tmpA[0].size()+tmpA[1].size()>0 && tmpB[0].size()+tmpB[1].size()>0 ) {
 
 	  // Measure quality of split with measure_mode 0 - classification, 1 - regression
 	  
-	  tmpDist = measureSet(tmpA, tmpB, depth);
+	  tmpDist = measureSet(tmpA, tmpB, measure_mode);
 
 	  // Take binary test with best split
 	  if(tmpDist>bestDist) {
@@ -677,7 +435,7 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
   return found;
 }
 
-void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector<std::vector<CPatch> > &TrainSet) {
+void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int* test, std::vector<std::vector<CPatch> > &TrainSet) {
   
   // for(int m = 0; m < 6; ++m)
   //   std::cout << test[m] << ", ";
@@ -685,18 +443,12 @@ void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int
   
   int p1, p2;
   
-  valSet.clear();
-  valSet.resize(2);
-
   for(unsigned int l = 0; l < TrainSet.size(); ++l) {
     valSet[l].resize(TrainSet[l].size());
     for(unsigned int i=0;i<TrainSet[l].size();++i) {
       // pointer to channel
       cv::Mat ptC = TrainSet[l][i].patch[test[8]];
       if(test[8] == 32){
-	//std::cout << "this is for debug hyahhaaaaaaaaaaaaaaaaaaaa" << std::endl;
-	//int dummy;
-	//std::cin >> dummy;
 	p1 = 0;
 	p2 = 0;
 	for(int j = 0;j < test[2]; ++j){
@@ -715,70 +467,34 @@ void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int
 	p2 = (int)ptC.at<uchar>(test[5], test[4]);
       }
       valSet[l][i].val = p1 - p2;
-      valSet[l][i].index = i;
+      valSet[l][i].index = i;	
     }
-
-    sort( valSet[l].begin(), valSet[l].end() , IntIndex::lessVal);
+    sort( valSet[l].begin(), valSet[l].end() );
   }
 }
 
 void CRTree::split(vector<vector<CPatch> >& SetA, vector<vector<CPatch> >& SetB, const vector<vector<CPatch> >& TrainSet, const vector<vector<IntIndex> >& valSet, int t) {
-  SetA.at(0).clear();
-  SetB.at(0).clear();
-  
-  for(int i = 0; i < valSet.at(0).size(); ++i){
-    if(valSet.at(0).at(i).val < t){
-      SetA.at(0).push_back(TrainSet.at(0).at(valSet.at(0).at(i).index));
-      SetA.at(0).back().center = TrainSet.at(0).at(valSet.at(0).at(i).index).center;
-    }else{
-      SetB.at(0).push_back(TrainSet.at(0).at(valSet.at(0).at(i).index));
-      SetB.at(0).back().center = TrainSet.at(0).at(valSet.at(0).at(i).index).center;
+  for(unsigned int l = 0; l<TrainSet.size(); ++l) {
+    // search largest value such that val<t 
+    vector<IntIndex>::const_iterator it = valSet[l].begin();
+    while(it!=valSet[l].end() && it->val<t) {
+      ++it;
     }
-  }
 
-  //std::cout << TrainSet.at(0).size() << " " << SetA.at(0).size() << " " << SetB.at(0).size() << std::endl;
+    SetA[l].resize(it-valSet[l].begin());
+    SetB[l].resize(TrainSet[l].size()-SetA[l].size());
 
-  //int dummy;
-  //std::cin >> dummy;
-
-  // this is for debug
-  // std::cout << "TrainSet-----------------------------------------------------------------------------------------------------------------" << std::endl;
-  // for(int i = 0; i < TrainSet.at(0).size(); ++i)
-  //   std::cout << TrainSet.at(0).at(i).center << std::endl;
-
-  // std::cout << "SetA-----------------------------------------------------------------------------------------------------------------" << std::endl;
-  // for(int i = 0; i < SetA.at(0).size(); ++i)
-  //   std::cout << SetA.at(0).at(i).center << std::endl;
-
-  // std::cout << "SetB-----------------------------------------------------------------------------------------------------------------" << std::endl;
-  // for(int i = 0; i < SetB.at(0).size(); ++i)
-  //   std::cout << SetB.at(0).at(i).center << std::endl;
-  
-  // int dummy;
-  
-  // std::cin >> dummy;
-
-  // for(unsigned int l = 0; l<TrainSet.size(); ++l) {
-  //   // search largest value such that val<t 
-  //   vector<IntIndex>::const_iterator it = valSet[l].begin();
-  //   while(it!=valSet[l].end() && it->val<t) {
-  //     ++it;
-  //   }
-
-  //   SetA[l].resize(it-valSet[l].begin());
-  //   SetB[l].resize(TrainSet[l].size()-SetA[l].size());
-
-  //   it = valSet[l].begin();
-  //   for(unsigned int i=0; i<SetA[l].size(); ++i, ++it) {
-  //     SetA[l][i] = TrainSet[l][it->index];
-  //   }
+    it = valSet[l].begin();
+    for(unsigned int i=0; i<SetA[l].size(); ++i, ++it) {
+      SetA[l][i] = TrainSet[l][it->index];
+    }
 		
-  //   it = valSet[l].begin()+SetA[l].size();
-  //   for(unsigned int i=0; i<SetB[l].size(); ++i, ++it) {
-  //     SetB[l][i] = TrainSet[l][it->index];
-  //   }
+    it = valSet[l].begin()+SetA[l].size();
+    for(unsigned int i=0; i<SetB[l].size(); ++i, ++it) {
+      SetB[l][i] = TrainSet[l][it->index];
+    }
 
-  // }
+  }
 }
 
 double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatch>& SetB) {
@@ -948,18 +664,12 @@ double CRTree::calcEntropy(const std::vector<CPatch> &set, int maxClass)
 {
   double entropy = 0;
   int maxClassNum = 0;
-  int otherClass = 0;
   
   for(int i = 0; i < set.size(); ++i)
     if(set.at(i).classNum == maxClass)
       maxClassNum++;
 
-  otherClass = set.size() - maxClassNum;
-
   double p = (double)maxClassNum / (double)set.size();
-  entropy += -1 * p * log(p);
-
-  p = (double)otherClass / (double)set.size();
   entropy += -1 * p * log(p);
 
   return entropy;
@@ -978,13 +688,13 @@ void LeafNode::show(int delay, int width, int height) {
     for(unsigned int c = 0; c < iShow.size(); ++c) {
       iShow[c] = cvCreateImage( cvSize(width,height), IPL_DEPTH_8U , 1 );
       cvSetZero( iShow[c] );
-      for(unsigned int i = 0; i<vCenter[c].size(); ++i) {
-	int y = height/2+vCenter[c][i].y;
-	int x = width/2+vCenter[c][i].x;
+      //for(unsigned int i = 0; i<vCenter.size(); ++i) {
+	int y = height/2+vCenter[c].y;
+	int x = width/2+vCenter[c].x;
 
 	if(x>=0 && y>=0 && x<width && y<height)
 	  cvSetReal2D( iShow[c],  y,  x, 255 );
-	}
+	//}
       sprintf(buffer,"Leaf%d",c);
       cvNamedWindow(buffer,1);
       cvShowImage(buffer, iShow[c]);

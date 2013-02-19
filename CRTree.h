@@ -4,6 +4,7 @@
 #include "CPatch.h"
 #include "util.h"
 #include <ctime>
+#include <cmath>
 
 // Auxilary structure
 struct IntIndex {
@@ -70,7 +71,11 @@ class CRTree
   const LeafNode* regression(CPatch &patch) const;
 
   // Training
+<<<<<<< HEAD
   void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen,const std::vector<int> &defaultClass_);
+=======
+  void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, const CConfig &conf, boost::mt19937 gen, int nclass_);
+>>>>>>> origin/master
 
   bool optimizeTest(std::vector<std::vector<CPatch> > &SetA,
 			    std::vector<std::vector<CPatch> > &SetB, 
@@ -80,15 +85,16 @@ class CRTree
 			    unsigned int measure_mode);
   void generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c);
 
-  void makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node);
+  void makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node);
 
   void evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int* test, const std::vector<std::vector<CPatch> > &TrainSet);
   void split(std::vector<std::vector<CPatch> >& SetA, std::vector<std::vector<CPatch> >& SetB, const std::vector<std::vector<CPatch> >& TrainSet, const std::vector<std::vector<IntIndex> >& valSet, int t);
   double distMean(const std::vector<CPatch>& SetA, const std::vector<CPatch>& SetB);
   double InfGain(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB);
   double calcEntropy(const std::vector<CPatch> &set, int maxClass);
-  double measureSet(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB, unsigned int mode) {
-    return InfGain(SetA, SetB);
+  double measureSet(const std::vector<std::vector<CPatch> >& SetA, const std::vector<std::vector<CPatch> >& SetB, unsigned int depth) {
+    double lamda = 1;
+    return InfGain(SetA, SetB);// + (1 - exp((double)depth / lamda)) * distMean(SetA.at(0), SetB.at(0)) * -1;
   };
 
   
@@ -143,7 +149,7 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
   boost::variate_generator<boost::mt19937&,
     boost::uniform_real<> > rand2( gen, dst2 );
 
-  if(0.5 < rand2()){
+  //if(0.5 < rand2()){
     test[0] = rand() % max_w;
     test[1] = rand() % max_h;
     test[4] = rand() % max_w;
@@ -154,7 +160,7 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
     test[3] = 0;
     test[6] = 0;
     test[7] = 0;
-  }else{
+    //}else{
     test[8] = max_c - 1;
 
     test[0] = rand() % (max_w / 2 - 1);
@@ -166,7 +172,7 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
     test[5] = test[1] + test[3] + rand() % (max_h - test[1] - test[3] - 1);
     test[6] = 1 + rand() % (max_w - test[4] - 1);
     test[7] = 1 + rand() % (max_h - test[5] - 1);
-  }
+    //}
 
 }
 
