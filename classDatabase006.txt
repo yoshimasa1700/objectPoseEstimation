@@ -1,4 +1,2 @@
-0 bottle
-1 can
-2 koaramarch
-3 ornament
+0 koaramarch
+1 ornament

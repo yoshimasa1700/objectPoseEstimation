@@ -99,9 +99,12 @@ CRTree::CRTree(const char* filename) {
       ptLN->pfg.resize(allClassNum);
       ptLN->vCenter.resize(allClassNum);
 
+      for(int i = 0; i < allClassNum; ++i)
+	ptLN->pfg.at(i) = 0.0;
+
       int cNum;
       int containPoints;
-      for(int i = 0; i < allClassNum; ++i){
+      for(int i = 0; i < containClassNum; ++i){
 	in >> cNum;
 	in >> ptLN->pfg.at(cNum);
 	in >> containPoints;
@@ -409,15 +412,15 @@ void CRTree::makeLeaf(std::vector<std::vector<CPatch> > &TrainSet, float pnratio
     patchPerClass.at(c).clear();
 
   for(int i = 0; i < TrainSet.at(0).size(); ++i){
-    std::cout << "this is for debug trainset center is " << TrainSet.at(0).at(i).center << std::endl;
+    //std::cout << "this is for debug trainset center is " << TrainSet.at(0).at(i).center << std::endl;
     patchPerClass.at(TrainSet.at(0).at(i).classNum).push_back(TrainSet.at(0).at(i));
   }
 
-  for(int i = 0; i < nclass; ++i){
-    for(int j = 0; j < patchPerClass.at(i).size(); ++j){
-      std::cout << "class: " << i  << " patch: " << j << " center:" << patchPerClass.at(i).at(j).center << std::endl;
-    }
-  }
+  // for(int i = 0; i < nclass; ++i){
+  //   for(int j = 0; j < patchPerClass.at(i).size(); ++j){
+  //     std::cout << "class: " << i  << " patch: " << j << " center:" << patchPerClass.at(i).at(j).center << std::endl;
+  //   }
+  // }
 
 
   //int dummy;
@@ -621,9 +624,9 @@ void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int
       // pointer to channel
       cv::Mat ptC = TrainSet[l][i].patch[test[8]];
       if(test[8] == 32){
-	std::cout << "this is for debug hyahhaaaaaaaaaaaaaaaaaaaa" << std::endl;
-	int dummy;
-	std::cin >> dummy;
+	//std::cout << "this is for debug hyahhaaaaaaaaaaaaaaaaaaaa" << std::endl;
+	//int dummy;
+	//std::cin >> dummy;
 	p1 = 0;
 	p2 = 0;
 	for(int j = 0;j < test[2]; ++j){

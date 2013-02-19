@@ -1,8 +1,8 @@
-4
-bottle/bottle_1
-can/can_1
+2
 koaramarch/koaramarch_1
 ornament/ornament_1
+bottle/bottle_1
+can/can_1
 cup/cup_1
 cup/cup_2
 koaramarch/koaramarch_1

@@ -183,7 +183,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
     //std::cout << "tPosPatch.size()" << tPosPat
     
-    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 30);//totalPatchNum * conf.patchRatio);
+    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
     
     //std::cout << "keisan deketa" << std::endl;
 
@@ -326,7 +326,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
 	  //leafPerClass.at((*itL)->vClass.at(0))++;
  
 	  // voting weight for leaf 
-	  float w = (*itL)->pfg.at(l) / (float)((float)containPoints * result.size() );
+	  float w = (*itL)->pfg.at(l);// / (float)((float)containPoints * result.size() );
 
 	  
 	  //for(int c = 0; c < classNum; ++c){
