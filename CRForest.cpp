@@ -100,6 +100,7 @@ void CRForest::learning(){
 // extract patch from images
 void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const std::vector<CDataset> dataSet,const std::vector<std::vector<cv::Mat> > &image,  CConfig conf){
   
+
   // boost::uniform_real<> dst( 0, 1 );
   // boost::variate_generator<boost::mt19937&, 
   // 			   boost::uniform_real<> > rand( gen, dst );
