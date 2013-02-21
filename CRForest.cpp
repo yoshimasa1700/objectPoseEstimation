@@ -185,28 +185,31 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
     //std::cout << "tPosPatch.size()" << tPosPat
     
+    if(tPosPatch.size() > 60){
 
-    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
+      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
     
-    //std::cout << "keisan deketa" << std::endl;
+      //std::cout << "keisan deketa" << std::endl;
 
-    std::set<int>::iterator ite = chosenPatch.begin();
+      std::set<int>::iterator ite = chosenPatch.begin();
 
-    //cv::namedWindow("test");
-    //cv::imshow("test",image.at(l).at(0));
-    //cv::waitKey(0);
-    //cv::destroyWindow("test");
-
-    
-    //std::cout << "patch torimasu" << std::endl;
-
-    //std::cout << "tPosPatch num is " << tPosPatch.size() << std::endl;
+      //cv::namedWindow("test");
+      //cv::imshow("test",image.at(l).at(0));
+      //cv::waitKey(0);
+      //cv::destroyWindow("test");
 
     
-    while(ite != chosenPatch.end()){
-      //std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
-      posPatch.push_back(tPosPatch.at(*ite));
-      ite++;
+      //std::cout << "patch torimasu" << std::endl;
+
+      //std::cout << "tPosPatch num is " << tPosPatch.size() << std::endl;
+
+    
+      while(ite != chosenPatch.end()){
+	//std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
+	posPatch.push_back(tPosPatch.at(*ite));
+	ite++;
+      }
+
     }
     //std::cout << "kokomade kimashita" << std::endl;
     tPosPatch.clear();
