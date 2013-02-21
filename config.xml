@@ -42,7 +42,7 @@
   <!-- extract patch ratio-->
   <patchratio>0.6</patchratio>
   <!-- Stride -->
-  <stride>3</stride>
+  <stride>2</stride>
   <!-- Offset of tree-->
   <offTree>0</offTree>
   <!-- test data path -->
