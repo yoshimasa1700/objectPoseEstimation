@@ -95,7 +95,7 @@ void CRForest::learning(){
     std::cout << "write tree data" << std::endl;
     classDatabase.write(buffer);
 
-    delete vTrees.at(i);
+    //delete vTrees.at(i);
   } // end tree loop
 }
 
