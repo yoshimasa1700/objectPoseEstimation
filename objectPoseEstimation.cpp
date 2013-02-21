@@ -1,5 +1,6 @@
 #include "CRForest.h"
 #include <opencv2/opencv.hpp>
+#include <boost/timer.hpp>
 //#include "CRTree.h"
 
 #include "util.h"
@@ -150,7 +151,9 @@ void detect(const CRForest &forest, CConfig conf){
     loadImage(dataSet.at(m), image);
     
     //for(int i = 0; i < conf.scales.size(); ++i){
+    boost::timer t;
     forest.detection(dataSet.at(m), image, detectionResult);
+    std::cout << t.elapsed() << " sec" << std::endl;
       //}
   }
   
