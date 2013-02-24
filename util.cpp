@@ -332,6 +332,16 @@ if (boost::optional<std::string> str
     std::cout << "root.str is nothing" << std::endl;
   }
 
+  // load offset of tree name
+  if (boost::optional<int> integer
+      = pt.get_optional<int>("root.learningmode")) {
+    std::cout << integer << std::endl;
+    learningMode = *integer;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+
   return 0; 
 }
 
@@ -467,6 +477,8 @@ void CClassDatabase::write(const char* str){
     out << i << " " << vNode.at(i).name << std::endl;
   }
   out.close();
+
+  std::cout << "out ha shimemashita" << std::endl;
 }
 
 void CClassDatabase::read(const char* str){

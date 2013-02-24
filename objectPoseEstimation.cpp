@@ -129,6 +129,8 @@ void detect(const CRForest &forest, CConfig conf){
   //vector<vector<cv::Mat> >  vDetectedImg(conf.scales.size());
   char buffer[256];
 
+  std::fstream result("detectionResult.txt", std::ios::out);
+
   std::vector<double> detectionResult;
   
   //conf.imagePerTree = 10;//読み込む画像ファイルの大まかな数
@@ -145,15 +147,24 @@ void detect(const CRForest &forest, CConfig conf){
   for(int i = 0; i < dataSet.size(); ++i)
    dataSet.at(i).showDataset();
 
+  result << dataSet.size() << std::endl;
+
   //loadImage(dataSet.at(0), image);
   for(int m = 0; m < dataSet.size(); ++m){
     image.clear();               
     loadImage(dataSet.at(m), image);
+
+    int detectClass;
     
     //for(int i = 0; i < conf.scales.size(); ++i){
     boost::timer t;
-    forest.detection(dataSet.at(m), image, detectionResult);
-    std::cout << t.elapsed() << " sec" << std::endl;
+    forest.detection(dataSet.at(m), image, detectionResult, detectClass);
+    double time = t.elapsed();
+    std::cout << time << " sec" << std::endl;
+
+    int grandTruth = forest.classDatabase.search(dataSet.at(m).className);
+
+    result << "testNum " << m <<" grandTruth " << grandTruth << " " << dataSet.at(m).className << " prediction " << detectClass << " " << forest.classDatabase.vNode.at(detectClass).name << " " << time << std::endl;
       //}
   }
   
@@ -165,6 +176,8 @@ void detect(const CRForest &forest, CConfig conf){
   // std::cout << std::endl;
 
   std::cout << "detection result:" << (detectionResult.at(0) / (detectionResult.at(0) + detectionResult.at(1))) * 100 << "%" << std::endl;
+
+  result.close();
 }
 
 int main(int argc, char* argv[]){

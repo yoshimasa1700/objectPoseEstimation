@@ -1,4 +1,5 @@
 #include "CRForest.h"
+#include <boost/timer.hpp>
 
 void CRForest::learning(){
   char buffer[256];
@@ -22,6 +23,8 @@ void CRForest::learning(){
     //std::cout << "time is " << time(NULL) << std::endl;
     boost::mt19937    gen( i * static_cast<unsigned long>(time(NULL)) );
 
+
+    boost::timer t;
 
     //load train image list and grand truth
     loadTrainFile(conf, dataSets);//, gen);
@@ -95,7 +98,21 @@ void CRForest::learning(){
     std::cout << "write tree data" << std::endl;
     classDatabase.write(buffer);
 
-    //delete vTrees.at(i);
+    double time = t.elapsed();
+
+    std::cout << "tree " << i << " calicuration time is " << time << std::endl;
+
+    sprintf(buffer, "%s%03d_timeResult.txt",conf.treepath.c_str(), i + conf.off_tree);
+    std::fstream lerningResult(buffer, std::ios::out);
+    if(lerningResult.fail()){
+      std::cout << "can't write result" << std::endl;
+    }
+
+    lerningResult << time << std::endl;
+
+    lerningResult.close();
+
+    delete vTrees.at(i);
   } // end tree loop
 }
 
@@ -216,14 +233,8 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     pBar(l,dataSet.size(), 50);
   }
 
-
-
   patches.push_back(posPatch);
   patches.push_back(negPatch);
-
-  // for(int i = 0; i < patches.at(0).size(); ++i){
-  //   std::cout << "patch: " << i << " center: " << patches.at(0).at(i).center << std::endl;
-  // }
 
   std::cout << std::endl;
 }
@@ -266,7 +277,7 @@ void CRForest::loadForest(){
   }
 }
 
-void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<double> &detectionResult) const{
+void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<double> &detectionResult, int &detectClass) const{
   int classNum = classDatabase.vNode.size();
   
   std::vector<cv::Mat> scaledImage;
@@ -373,6 +384,8 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
       maxResultTemp = classification_result.at(i);
     }
   }
+
+  detectClass = maxResult;
   
   //for(int i = 0; i < classNum; ++i){
   if(dataSet.className == classDatabase.vNode.at(maxResult).name){

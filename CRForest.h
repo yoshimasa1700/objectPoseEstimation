@@ -24,7 +24,7 @@ class CRForest {
   void learning();
   
   void detection(const CDataset &dataSet, 
-		 const std::vector<cv::Mat> &image, std::vector<double> &detectionResult) const;
+		 const std::vector<cv::Mat> &image, std::vector<double> &detectionResult, int &detectClass) const;
   
   void extractPatches(std::vector<std::vector<CPatch> > &patches, 
 		      const std::vector<CDataset> dataSet, 

@@ -2,3 +2,6 @@
 1 ornament
 2 bottle
 3 can
+4 pack
+5 pakuncho
+6 cup

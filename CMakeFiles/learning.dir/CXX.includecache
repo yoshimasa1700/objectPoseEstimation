@@ -13,6 +13,8 @@ util.h
 /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp
 CRForest.h
 /Users/masahiko/Programs/objectPoseEstimation/CRForest.h
+boost/timer.hpp
+-
 
 /Users/masahiko/Programs/objectPoseEstimation/CRForest.h
 CRTree.h
@@ -23,6 +25,10 @@ util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 HoG.h
 /Users/masahiko/Programs/objectPoseEstimation/HoG.h
+
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
+CRTree.h
+/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 CPatch.h
@@ -39,6 +45,12 @@ cxcore.h
 -
 vector
 -
+
+/Users/masahiko/Programs/objectPoseEstimation/learning.cpp
+CRForest.h
+/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
+util.h
+/Users/masahiko/Programs/objectPoseEstimation/util.h
 
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 iostream
@@ -12740,6 +12752,14 @@ exception
 boost/exception/exception.hpp
 -
 boost/current_function.hpp
+-
+
+/usr/local/include/boost/timer.hpp
+boost/config.hpp
+-
+ctime
+-
+boost/limits.hpp
 -
 
 /usr/local/include/boost/tr1/detail/config.hpp

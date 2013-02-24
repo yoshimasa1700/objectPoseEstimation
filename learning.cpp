@@ -9,7 +9,7 @@ int main(int argc, char* argv[]){
 
   //read and check argument
   if(argc < 2) {
-    cout << "Usage: ./learning [config.xml]"<< endl;
+    cout << "Usage: ./learning [config.xml] [off_tree] [learningMode]"<< endl;
     conf.loadConfig("config.xml");
   } else
     conf.loadConfig(argv[1]);
@@ -18,6 +18,11 @@ int main(int argc, char* argv[]){
     conf.off_tree = 0;
   else
     conf.off_tree = atoi(argv[2]);
+
+  if(argc > 3)
+    conf.off_tree = 0;
+  else
+    conf.learningMode = atoi(argv[3]);
   
   //create tree directory
   string tpath(conf.treepath);

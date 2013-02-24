@@ -246,7 +246,9 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
   
   // for(int i = 0; i < TrainSet.at(0).size(); ++i){
   //   std::cout << "this is for debug growtree trainset center " << TrainSet.at(0).at(i).center << std::endl;
-  // }
+  // }]]
+
+  config = conf;
 
   // int dummy;
   // std::cin >> dummy;

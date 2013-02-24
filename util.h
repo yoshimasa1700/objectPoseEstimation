@@ -101,6 +101,8 @@ class CConfig
 
   std::string classDatabaseName;
 
+  int learningMode;
+
  private:
   boost::property_tree::ptree pt;
 

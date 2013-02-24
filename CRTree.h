@@ -95,6 +95,7 @@ class CRTree
 
   
   
+
   // IO functions
   bool saveTree(const char* filename) const;
   void showLeaves(int width, int height) const {
@@ -123,6 +124,8 @@ class CRTree
   //leafs as vector
   LeafNode*	leaf;
 
+  CConfig config;
+
   // depth of this tree
   unsigned int depth;
 
@@ -145,18 +148,40 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
   boost::variate_generator<boost::mt19937&,
     boost::uniform_real<> > rand2( gen, dst2 );
 
-  //if(0.5 < rand2()){
-    test[0] = rand() % max_w;
-    test[1] = rand() % max_h;
-    test[4] = rand() % max_w;
-    test[5] = rand() % max_h;
-    test[8] = rand() % (max_c - 1);
+  switch(config.learningMode){
+  case 0:
+    // rgbd
+    if(0.5 < rand2()){
 
-    test[2] = 0;
-    test[3] = 0;
-    test[6] = 0;
-    test[7] = 0;
-    //}else{
+      // rgb
+      test[0] = rand() % max_w;
+      test[1] = rand() % max_h;
+      test[4] = rand() % max_w;
+      test[5] = rand() % max_h;
+      test[8] = rand() % (max_c - 1);
+
+      test[2] = 0;
+      test[3] = 0;
+      test[6] = 0;
+      test[7] = 0;
+    }else{
+
+      // depth
+      test[8] = max_c - 1;
+
+      test[0] = rand() % (max_w / 2 - 1);
+      test[1] = rand() % (max_h / 2 - 1);
+      test[2] = rand() % (max_w / 2 - 1);
+      test[3] = rand() % (max_h / 2 - 1);
+
+      test[4] = test[0] + test[2] + rand() % (max_w - test[0] - test[2] - 1);
+      test[5] = test[1] + test[3] + rand() % (max_h - test[1] - test[3] - 1);
+      test[6] = 1 + rand() % (max_w - test[4] - 1);
+      test[7] = 1 + rand() % (max_h - test[5] - 1);
+    }
+    break;
+  case 1:
+    // depth
     test[8] = max_c - 1;
 
     test[0] = rand() % (max_w / 2 - 1);
@@ -168,7 +193,24 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
     test[5] = test[1] + test[3] + rand() % (max_h - test[1] - test[3] - 1);
     test[6] = 1 + rand() % (max_w - test[4] - 1);
     test[7] = 1 + rand() % (max_h - test[5] - 1);
-    //}
+    break;
+  case 2:
+    // rgb
+    test[0] = rand() % max_w;
+    test[1] = rand() % max_h;
+    test[4] = rand() % max_w;
+    test[5] = rand() % max_h;
+    test[8] = rand() % (max_c - 1);
+
+    test[2] = 0;
+    test[3] = 0;
+    test[6] = 0;
+    test[7] = 0;
+    break;
+  default:
+    std::cout << "error! can't set learning mode!" << std::endl;
+    break;
+  }
 
 }
 
