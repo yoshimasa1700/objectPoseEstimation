@@ -74,7 +74,7 @@ void loadTestFile(CConfig conf, std::vector<CDataset> &dataSet){
   for(int i = 0;i < n_folders; ++i){
     testDataListPath 
       = conf.testPath + PATH_SEP + testimagefolder.at(i) 
-      + PATH_SEP + "testDataList.txt";
+      + PATH_SEP + conf.testdatalist;
     temp.imageFilePath 
       = conf.testPath + PATH_SEP + testimagefolder.at(i) + PATH_SEP;
       //std::cout << trainDataListPath << std::endl;

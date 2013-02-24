@@ -103,6 +103,9 @@ class CConfig
 
   int learningMode;
 
+  std::string traindatalist;
+  std::string testdatalist;
+
  private:
   boost::property_tree::ptree pt;
 

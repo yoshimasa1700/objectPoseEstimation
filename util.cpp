@@ -342,6 +342,26 @@ if (boost::optional<std::string> str
     std::cout << "root.str is nothing" << std::endl;
   }
 
+  // load training image name list
+  if (boost::optional<std::string> str
+      = pt.get_optional<std::string>("root.traindatalistname")) {
+    std::cout << str.get() << std::endl;
+    traindatalist = *str;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+
+  // load testing image name list
+  if (boost::optional<std::string> str
+      = pt.get_optional<std::string>("root.testdatalistname")) {
+    std::cout << str.get() << std::endl;
+    testdatalist = *str;
+  }
+  else {
+    std::cout << "root.str is nothing" << std::endl;
+  }
+
   return 0; 
 }
 
@@ -382,7 +402,9 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
   for(int i = 0;i < n_folders; ++i){
     trainDataListPath 
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) 
-      + PATH_SEP + "dataList.txt";
+      + PATH_SEP + conf.traindatalist;
+
+    std::cout << trainDataListPath << std::endl;
     temp.imageFilePath 
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) + PATH_SEP;
 

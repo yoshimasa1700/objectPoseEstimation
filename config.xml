@@ -30,7 +30,7 @@
   <!-- Path to training images -->
   <trainimgpath>data</trainimgpath>
   <!-- Train data file name -->
-  <traindataname>dataList1.txt</traindataname>
+  <traindataname>trainData.txt</traindataname>
   <!-- Train image per tree-->
   <trainimagepertree>5</trainimagepertree>
   <!-- min sample number-->
@@ -47,9 +47,14 @@
   <offTree>0</offTree>
   <!-- test data path -->
   <testpath>data</testpath>
-  <testdataname>dataList2.txt</testdataname>
+  <testdataname>trainData.txt</testdataname>
+
+
   
   <classdatabasename>classDatabase</classdatabasename>
   <!--learning mode 1:depth 2:rgb 0:rgbd-->
   <learningmode>0</learningmode>
+
+  <traindatalistname>dataList1.txt</traindatalistname>
+  <testdatalistname>dataList2.txt</testdatalistname>
 </root>
