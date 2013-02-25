@@ -8,111 +8,124 @@ void CRForest::learning(){
   // if you want to fix this program multi thread
   // you should change below
   for(int i = 0;i < conf.ntrees; ++i){
-
-    std::vector<CDataset> dataSets(0);
-    std::vector<std::vector<cv::Mat> > images;
-    std::vector<std::vector<cv::Mat> > features;
-    std::vector<std::vector<CPatch> > vPatches;
-
-    // reserve memory
-    //dataSet.reserve(conf.imagePerTree + 10);
-    //images.reserve((conf.imagePerTree + 10) * 3);
-
-    std::cout << "tree number " << i << std::endl;
-    // initialize random seed
-    //std::cout << "time is " << time(NULL) << std::endl;
-    boost::mt19937    gen( i * static_cast<unsigned long>(time(NULL)) );
-
-
-    boost::timer t;
-
-    //load train image list and grand truth
-    loadTrainFile(conf, dataSets);//, gen);
-    std::cout << "dataset loaded" << std::endl;
-
-    for(int k = 0; k < dataSets.size(); ++k)
-       dataSets.at(k).showDataset();
-    
-    // initialize class database
-    classDatabase.clear();
-
-    // create class database
-    for(int p = 0;p < dataSets.size(); ++p){
-      classDatabase.add(dataSets.at(p).className);
-    }
-    classDatabase.show();
-
-    //create tree
-    vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
-    std::cout << "tree created" << std::endl;
-    
-
-    // load images to mamory
-    loadImages(images, dataSets);
-
-    // for(int v = 0; v < images.size(); v++){
-    //   cv::namedWindow("test");cv::imshow("test",images.at(v).at(0));
-    //   cv::waitKey(0);
-    //   cv::destroyWindow("test");
-    // }
-
-    std::cout << "extracting feature" << std::endl;
-
-    features.resize(0);
-   
-    for(int j = 0; j < images.size(); ++j){
-      std::vector<cv::Mat> tempFeature;
-      // extract features
-      extractFeatureChannels(images.at(j).at(0), tempFeature);
-      // add depth image to features
-      tempFeature.push_back(images.at(j).at(1));
-      features.push_back(tempFeature);
-    }
-    std::cout << "feature extructed!" << std::endl;
-
-    // extract patch from image
-    std::cout << "extruction patch from features" << std::endl;
-    extractPatches(vPatches, dataSets, features, conf);
-    std::cout << "patch extracted!" << std::endl;
-
-    std::vector<int> patchClassNum(classDatabase.vNode.size(), 0);
-
-    for(int j = 0; j < vPatches.at(0).size(); ++j){
-      patchClassNum.at(vPatches.at(0).at(j).classNum)++;
-
-    }
-
-    for(int c = 0; c < classDatabase.vNode.size(); ++c)
-      std::cout << patchClassNum.at(c) << std::endl;
-    
-
-    // grow tree
-    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
-
-    // save tree
-    sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
-    std::cout << "tree file name is " << buffer << std::endl;
-    vTrees.at(i)->saveTree(buffer);
-    sprintf(buffer, "%s%03d.txt",conf.classDatabaseName.c_str(), i + conf.off_tree);
-    std::cout << "write tree data" << std::endl;
-    classDatabase.write(buffer);
-
-    double time = t.elapsed();
-
-    std::cout << "tree " << i << " calicuration time is " << time << std::endl;
-
-    sprintf(buffer, "%s%03d_timeResult.txt",conf.treepath.c_str(), i + conf.off_tree);
-    std::fstream lerningResult(buffer, std::ios::out);
-    if(lerningResult.fail()){
-      std::cout << "can't write result" << std::endl;
-    }
-
-    lerningResult << time << std::endl;
-
-    lerningResult.close();
-
-    delete vTrees.at(i);
+    growATree(i);
   } // end tree loop
+}
+
+void CRForest::growATree(const int treeNum){
+  std::vector<CDataset> dataSets(0);
+  std::vector<std::vector<cv::Mat> > images;
+  std::vector<std::vector<cv::Mat> > features;
+  std::vector<std::vector<CPatch> > vPatches;
+
+  char buffer[256];
+
+  // reserve memory
+  //dataSet.reserve(conf.imagePerTree + 10);
+  //images.reserve((conf.imagePerTree + 10) * 3);
+
+  std::cout << "tree number " << treeNum << std::endl;
+  // initialize random seed
+  //std::cout << "time is " << time(NULL) << std::endl;
+  boost::mt19937    gen( treeNum * static_cast<unsigned long>(time(NULL)) );
+
+
+  boost::timer t;
+
+  loadTrainFile(conf, dataSets);//, gen);
+  std::cout << "dataset loaded" << std::endl;
+
+  for(int k = 0; k < dataSets.size(); ++k)
+    dataSets.at(k).showDataset();
+    
+  // initialize class database
+  classDatabase.clear();
+
+  // create class database
+  for(int p = 0;p < dataSets.size(); ++p){
+    classDatabase.add(dataSets.at(p).className);
+  }
+  classDatabase.show();
+
+  //create tree
+  //vTrees.at(treeNum) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
+  
+  CRTree tree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
+  std::cout << "tree created" << std::endl;
+    
+
+  // load images to mamory
+  loadImages(images, dataSets);
+
+  // for(int v = 0; v < images.size(); v++){
+  //   cv::namedWindow("test");cv::imshow("test",images.at(v).at(0));
+  //   cv::waitKey(0);
+  //   cv::destroyWindow("test");
+  // }
+
+  std::cout << "extracting feature" << std::endl;
+
+  features.resize(0);
+   
+  for(int j = 0; j < images.size(); ++j){
+    std::vector<cv::Mat> tempFeature;
+    // extract features
+    extractFeatureChannels(images.at(j).at(0), tempFeature);
+    // add depth image to features
+    tempFeature.push_back(images.at(j).at(1));
+    features.push_back(tempFeature);
+  }
+  std::cout << "feature extructed!" << std::endl;
+
+  // extract patch from image
+  std::cout << "extruction patch from features" << std::endl;
+  extractPatches(vPatches, dataSets, features, conf);
+  std::cout << "patch extracted!" << std::endl;
+
+  std::vector<int> patchClassNum(classDatabase.vNode.size(), 0);
+
+  for(int j = 0; j < vPatches.at(0).size(); ++j){
+    patchClassNum.at(vPatches.at(0).at(j).classNum)++;
+
+  }
+
+  for(int c = 0; c < classDatabase.vNode.size(); ++c)
+    std::cout << patchClassNum.at(c) << std::endl;
+    
+
+  // grow tree
+  //vTrees.at(treeNum)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
+  tree.growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
+  
+  // save tree
+  sprintf(buffer, "%s%03d.txt",
+	  conf.treepath.c_str(), treeNum + conf.off_tree);
+  std::cout << "tree file name is " << buffer << std::endl;
+  //vTrees.at(treeNum)->saveTree(buffer);
+  tree.saveTree(buffer);
+
+  // save class database
+  sprintf(buffer, "%s%s%03d.txt",
+	  conf.treepath.c_str(),
+	  conf.classDatabaseName.c_str(), treeNum + conf.off_tree);
+  std::cout << "write tree data" << std::endl;
+  classDatabase.write(buffer);
+
+  double time = t.elapsed();
+
+  std::cout << "tree " << treeNum << " calicuration time is " << time << std::endl;
+
+  sprintf(buffer, "%s%03d_timeResult.txt",conf.treepath.c_str(), treeNum + conf.off_tree);
+  std::fstream lerningResult(buffer, std::ios::out);
+  if(lerningResult.fail()){
+    std::cout << "can't write result" << std::endl;
+  }
+
+  lerningResult << time << std::endl;
+
+  lerningResult.close();
+
+  //delete vTrees.at(treeNum);
 }
 
 // extract patch from images
@@ -237,6 +250,8 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 
   std::cout << std::endl;
 }
+
+
 
 void CRForest::extractAllPatches(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const{
 
