@@ -1,0 +1,17 @@
+7
+koaramarch/koaramarch_1
+ornament/ornament_1
+bottle/bottle_1
+can/can_1
+pack/pack_1
+pakuncho/pakuncho_1
+cup/cup_1
+painomi/painomi_1
+cup/cup_2
+koaramarch/koaramarch_1
+koaramarch/koaramarch_2
+ornament/ornament_1
+ornament/ornament_2
+pack/pack_2
+painomi/painomi_2
+pakuncho/pakuncho_2
