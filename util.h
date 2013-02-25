@@ -148,6 +148,10 @@ class CClassDatabase{
 
   void show() const;
 
+  void clear(){
+    vNode.clear();
+  };
+
   std::vector<databaseNode> vNode;
 };
 

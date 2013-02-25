@@ -28,22 +28,25 @@ void CRForest::learning(){
 
     //load train image list and grand truth
     loadTrainFile(conf, dataSets);//, gen);
+    std::cout << "dataset loaded" << std::endl;
 
     for(int k = 0; k < dataSets.size(); ++k)
        dataSets.at(k).showDataset();
+    
+    // initialize class database
+    classDatabase.clear();
 
+    // create class database
     for(int p = 0;p < dataSets.size(); ++p){
-      //makedataSets.at(p).showDataset();
       classDatabase.add(dataSets.at(p).className);
     }
     classDatabase.show();
-    classDatabase.write("test.dat");
-
-    //std::cout << classDatabase.search("bottle") << std::endl;
 
     //create tree
     vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
+    std::cout << "tree created" << std::endl;
     
+
     // load images to mamory
     loadImages(images, dataSets);
 
@@ -53,34 +56,30 @@ void CRForest::learning(){
     //   cv::destroyWindow("test");
     // }
 
-    // reserve memory
-    // vPatches.at(i).reserve((int)((conf.imagePerTree + 10) * 3 * 
-    // 				 (images.at(i).img.at(0).at(0).cols - conf.p_width) * 
-    // 				 (images.at(i).img.at(0).at(0).ros - conf.p_height) / conf.stride));
-
     std::cout << "extracting feature" << std::endl;
 
     features.resize(0);
    
     for(int j = 0; j < images.size(); ++j){
       std::vector<cv::Mat> tempFeature;
+      // extract features
       extractFeatureChannels(images.at(j).at(0), tempFeature);
+      // add depth image to features
       tempFeature.push_back(images.at(j).at(1));
       features.push_back(tempFeature);
     }
-    std::cout << "allocate memory!" << std::endl;
+    std::cout << "feature extructed!" << std::endl;
 
     // extract patch from image
+    std::cout << "extruction patch from features" << std::endl;
     extractPatches(vPatches, dataSets, features, conf);
     std::cout << "patch extracted!" << std::endl;
-    std::cout << vPatches.at(0).size() << " positive patches extracted" << std::endl;
-    std::cout << vPatches.at(1).size() << " negative patches extracted" << std::endl;
 
     std::vector<int> patchClassNum(classDatabase.vNode.size(), 0);
 
     for(int j = 0; j < vPatches.at(0).size(); ++j){
       patchClassNum.at(vPatches.at(0).at(j).classNum)++;
-      //std::cout << vPatches.at(0).at(j).classNum << std::endl;
+
     }
 
     for(int c = 0; c < classDatabase.vNode.size(); ++c)

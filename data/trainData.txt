@@ -1,6 +1,5 @@
-16
+2
 koaramarch/koaramarch_1
-koaramarch/koaramarch_2
 ornament/ornament_1
 ornament/ornament_2
 bottle/bottle_1
@@ -15,4 +14,4 @@ pakuncho/pakuncho_1
 pakuncho/pakuncho_2
 cup/cup_1
 cup/cup_2
-
+koaramarch/koaramarch_2
