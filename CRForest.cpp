@@ -7,94 +7,95 @@ void CRForest::learning(){
   // if you want to fix this program multi thread
   // you should change below
   for(int i = 0;i < conf.ntrees; ++i){
-
-    std::vector<CDataset> dataSets(0);
-    std::vector<std::vector<cv::Mat> > images;
-    std::vector<std::vector<cv::Mat> > features;
-    std::vector<std::vector<CPatch> > vPatches;
-
-    // reserve memory
-    //dataSet.reserve(conf.imagePerTree + 10);
-    //images.reserve((conf.imagePerTree + 10) * 3);
-
-    std::cout << "tree number " << i << std::endl;
-    // initialize random seed
-    //std::cout << "time is " << time(NULL) << std::endl;
-    boost::mt19937    gen( i * static_cast<unsigned long>(time(NULL)) );
-
-
-    //load train image list and grand truth
-    loadTrainFile(conf, dataSets);//, gen);
-
-    for(int k = 0; k < dataSets.size(); ++k)
-       dataSets.at(k).showDataset();
-
-    for(int p = 0;p < dataSets.size(); ++p){
-      //makedataSets.at(p).showDataset();
-      classDatabase.add(dataSets.at(p).className);
-    }
-    classDatabase.show();
-    classDatabase.write("test.dat");
-
-    //std::cout << classDatabase.search("bottle") << std::endl;
-
-    //create tree
-    vTrees.at(i) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
-    
-    // load images to mamory
-    loadImages(images, dataSets);
-
-    // for(int v = 0; v < images.size(); v++){
-    //   cv::namedWindow("test");cv::imshow("test",images.at(v).at(0));
-    //   cv::waitKey(0);
-    //   cv::destroyWindow("test");
-    // }
-
-    // reserve memory
-    // vPatches.at(i).reserve((int)((conf.imagePerTree + 10) * 3 * 
-    // 				 (images.at(i).img.at(0).at(0).cols - conf.p_width) * 
-    // 				 (images.at(i).img.at(0).at(0).ros - conf.p_height) / conf.stride));
-
-    std::cout << "extracting feature" << std::endl;
-
-    features.resize(0);
-   
-    for(int j = 0; j < images.size(); ++j){
-      std::vector<cv::Mat> tempFeature;
-      extractFeatureChannels(images.at(j).at(0), tempFeature);
-      tempFeature.push_back(images.at(j).at(1));
-      features.push_back(tempFeature);
-    }
-    std::cout << "allocate memory!" << std::endl;
-
-    // extract patch from image
-    extractPatches(vPatches, dataSets, features, conf);
-    std::cout << "patch extracted!" << std::endl;
-    std::cout << vPatches.at(0).size() << " positive patches extracted" << std::endl;
-    std::cout << vPatches.at(1).size() << " negative patches extracted" << std::endl;
-
-    std::vector<int> patchClassNum(classDatabase.vNode.size(), 0);
-
-    for(int j = 0; j < vPatches.at(0).size(); ++j){
-      patchClassNum.at(vPatches.at(0).at(j).classNum)++;
-      //std::cout << vPatches.at(0).at(j).classNum << std::endl;
-    }
-
-    for(int c = 0; c < classDatabase.vNode.size(); ++c)
-      std::cout << patchClassNum.at(c) << std::endl;
-    
-
-    // grow tree
-    vTrees.at(i)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
-
-    // save tree
-    sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(), i + conf.off_tree);
-    vTrees.at(i)->saveTree(buffer);
-    sprintf(buffer, "%s%03d.txt",conf.classDatabaseName.c_str(), i + conf.off_tree);
-    classDatabase.write(buffer);
-
-    delete vTrees.at(i);
+    growATree(i);
   } // end tree loop
+}
+
+void CRForest::growATree(const int treeNum){
+
+  std::vector<CDataset> dataSets(0);
+  std::vector<std::vector<cv::Mat> > images;
+  std::vector<std::vector<cv::Mat> > features;
+  std::vector<std::vector<CPatch> > vPatches;
+
+  char buffer[256];
+
+  // reserve memory
+  //dataSet.reserve(conf.imagePerTree + 10);
+  //images.reserve((conf.imagePerTree + 10) * 3);
+
+  std::cout << "tree number " << treeNum << std::endl;
+  // initialize random seed
+  //std::cout << "time is " << time(NULL) << std::endl;
+  boost::mt19937    gen( treeNum * static_cast<unsigned long>(time(NULL)) );
+
+
+  //load train image list and grand truth
+  loadTrainFile(conf, dataSets);//, gen);
+
+  for(int k = 0; k < dataSets.size(); ++k)
+    dataSets.at(k).showDataset();
+
+  for(int p = 0;p < dataSets.size(); ++p){
+    //makedataSets.at(p).showDataset();
+    classDatabase.add(dataSets.at(p).className);
+  }
+  classDatabase.show();
+  //classDatabase.write("test.dat");
+
+  //std::cout << classDatabase.search("bottle") << std::endl;
+
+  //create tree
+  vTrees.at(treeNum) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
+    
+  // load images to mamory
+  loadImages(images, dataSets);
+
+  // for debug show load images
+  // for(int v = 0; v < images.size(); v++){
+  //   cv::namedWindow("test");cv::imshow("test",images.at(v).at(0));
+  //   cv::waitKey(0);
+  //   cv::destroyWindow("test");
+  // }
+
+  // extruct feature
+  std::cout << "extracting feature" << std::endl;
+  features.resize(0);
+   
+  for(int j = 0; j < images.size(); ++j){
+    std::vector<cv::Mat> tempFeature;
+    extractFeatureChannels(images.at(j).at(0), tempFeature);
+    tempFeature.push_back(images.at(j).at(1));
+    features.push_back(tempFeature);
+  }
+  std::cout << "features extructed" << std::endl;
+
+  // extract patch from image
+  extractPatches(vPatches, dataSets, features, conf);
+  std::cout << "patch extracted!" << std::endl;
+
+  // create patch class database
+  std::vector<int> patchClassNum(classDatabase.vNode.size(), 0);
+  for(int j = 0; j < vPatches.at(0).size(); ++j){
+    patchClassNum.at(vPatches.at(0).at(j).classNum)++;
+    //std::cout << vPatches.at(0).at(j).classNum << std::endl;
+  }
+  for(int c = 0; c < classDatabase.vNode.size(); ++c)
+    std::cout << patchClassNum.at(c) << std::endl;
+
+  // grow tree
+  vTrees.at(treeNum)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
+
+  // save tree
+  sprintf(buffer, "%s%03d.txt",
+	  conf.treepath.c_str(), treeNum + conf.off_tree);
+  vTrees.at(treeNum)->saveTree(buffer);
+  sprintf(buffer, "%s%s%03d.txt",
+	  conf.treepath.c_str(), 
+	  conf.classDatabaseName.c_str(), treeNum + conf.off_tree);
+  classDatabase.write(buffer);
+
+  delete vTrees.at(treeNum);
 }
 
 // extract patch from images
@@ -181,17 +182,20 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
     //std::cout << "tPosPatch.size()" << tPosPat
     
-    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
+    if(tPosPatch.size() > 60){
     
-    //std::cout << "keisan deketa" << std::endl;
+      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
+    
+      //std::cout << "keisan deketa" << std::endl;
 
-    std::set<int>::iterator ite = chosenPatch.begin();
+      std::set<int>::iterator ite = chosenPatch.begin();
     
     
-    while(ite != chosenPatch.end()){
-      //std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
-      posPatch.push_back(tPosPatch.at(*ite));
-      ite++;
+      while(ite != chosenPatch.end()){
+	//std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
+	posPatch.push_back(tPosPatch.at(*ite));
+	ite++;
+      }
     }
     tPosPatch.clear();
     pBar(l,dataSet.size(), 50);

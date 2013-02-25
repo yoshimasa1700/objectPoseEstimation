@@ -22,6 +22,8 @@ class CRForest {
   }
   
   void learning();
+
+  void growATree(const int treeNum);
   
   void detection(const CDataset &dataSet, 
 		 const std::vector<cv::Mat> &image, std::vector<double> &detectionResult) const;
