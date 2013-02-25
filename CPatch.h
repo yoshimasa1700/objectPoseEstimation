@@ -13,6 +13,10 @@ class CPatch
     }
   
   CPatch(){}
+  ~CPatch(){
+    //for(int i = 0; i < patch.size(); ++i)
+    //  patch.at(i).release();
+  }
 
   void setPatch(int x, int y, int w, int h, cv::Mat image){
     //patch = image(cv::Rect(x, y, w, h));

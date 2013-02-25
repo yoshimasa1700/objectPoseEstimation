@@ -19,8 +19,8 @@ int main(int argc, char* argv[]){
   else
     conf.off_tree = atoi(argv[2]);
 
-  if(argc > 3)
-    conf.off_tree = 0;
+  if(argc < 4)
+    conf.learningMode = 0;
   else
     conf.learningMode = atoi(argv[3]);
   

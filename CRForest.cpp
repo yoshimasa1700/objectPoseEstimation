@@ -1,3 +1,4 @@
+
 #include "CRForest.h"
 #include <boost/timer.hpp>
 
@@ -17,7 +18,7 @@ void CRForest::growATree(const int treeNum){
   std::vector<std::vector<cv::Mat> > images;
   std::vector<std::vector<cv::Mat> > features;
   std::vector<std::vector<CPatch> > vPatches;
-
+  
   char buffer[256];
 
   // reserve memory
@@ -125,6 +126,40 @@ void CRForest::growATree(const int treeNum){
 
   lerningResult.close();
 
+  // std::vector<CDataset> dataSets(0);
+  // std::vector<std::vector<cv::Mat> > images;
+  // std::vector<std::vector<cv::Mat> > features;
+  // std::vector<std::vector<CPatch> > vPatches;
+
+  dataSets.clear();
+
+  std::cout << "images" << images.size() << std::endl;
+  std::cout << "features" << features.size() << std::endl;
+  std::cout << "vPatches" << vPatches.size() << std::endl;
+
+  //for(int i = 0; images.size(); ++i)
+  //images.at(i).clear();
+  //
+
+  std::cout << "kirei ni shimashita" << std::endl;
+
+  // for(int i = 0; vPatches.size(); ++i){
+  //   if(vPatches.at(i).size() != 0){
+  //     //for(int j = 0; vPatches.at(i).size(); ++j)
+  //     //	vPatches.at(i).at(j).patch.release();
+  //     vPatches.at(i).clear();
+  //   }
+  // }
+  vPatches.clear();
+  
+  //for(int i = 0; features.size(); ++i)
+    //  features.at(i).clear();
+  features.clear();
+  images.clear();
+
+
+  
+
   //delete vTrees.at(treeNum);
 }
 
@@ -212,7 +247,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //int totalPatchNum = (int)(((double)(image.at(l).at(0).cols - conf.p_width) / (double)conf.stride) * ((double)(image.at(l).at(0).rows - conf.p_height) / (double)conf.stride));
 
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
-    //std::cout << "tPosPatch.size()" << tPosPat
+    //std::cout << "tPosPatch.size()" << tPosat
     
     if(tPosPatch.size() > 60){
 
@@ -286,7 +321,7 @@ void CRForest::loadForest(){
   for(int i = 0; i < vTrees.size(); ++i){
     sprintf(buffer, "%s%03d.txt",conf.treepath.c_str(),i);
     vTrees[i] = new CRTree(buffer);
-    sprintf(buffer, "%s%03d.txt", conf.classDatabaseName.c_str(), i);
+    sprintf(buffer, "%s%s%03d.txt", conf.treepath.c_str(), conf.classDatabaseName.c_str(), i);
     classDatabase.read(buffer);
   }
 }
@@ -417,6 +452,11 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   //   std::cout << leafPerClass.at(c) << " ";
   //   std::cout << (float)classification_result.at(c) /  (float)patchPerClass.at(c) << std::endl;
   // }
+
+  // std::vector<CPatch> patches;
+  // std::vector<cv::Mat> features;
+  patches.clear();
+  features.clear();
 }
 
 // Regression 

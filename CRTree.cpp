@@ -53,6 +53,8 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
 
   // return leaf
   return &leaf[pnode[0]];
+
+  
 }
 
 // Read tree from file

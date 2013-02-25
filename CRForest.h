@@ -17,7 +17,8 @@ class CRForest {
   ~CRForest() {
     int numberOfTrees = vTrees.size();
     for(int i = 0;i < numberOfTrees;++i){
-      delete vTrees.at(i);
+      if(vTrees.at(i) != NULL)
+	delete vTrees.at(i);
     }
   }
   
