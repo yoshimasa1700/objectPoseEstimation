@@ -61,6 +61,7 @@ class CRTree
       std::cout << "yobareta!" << std::endl;
       delete [] treetable;
       delete [] leaf;
+      std::cout << "released crtree" << std::endl;
     }
   
   // Set/Get functions
