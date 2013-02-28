@@ -55,6 +55,6 @@
   <!--learning mode 1:depth 2:rgb 0:rgbd-->
   <learningmode>0</learningmode>
 
-  <traindatalistname>dataList2.txt</traindatalistname>
-  <testdatalistname>dataList1.txt</testdatalistname>
+  <traindatalistname>dataListInstL1.txt</traindatalistname>
+  <testdatalistname>dataListInstL2.txt</testdatalistname>
 </root>
