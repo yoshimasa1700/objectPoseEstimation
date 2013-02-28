@@ -304,7 +304,7 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
     //for(int i = 0; i < nclass; ++i)
     
     // Find optimal test
-    if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode) ) {
+    if( optimizeTest(SetA, SetB, TrainSet, test, 100, measure_mode, depth) ) {
 
       // Store binary test for current node
       int* ptT = &treetable[node*11];
@@ -477,7 +477,7 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
   ++num_leaf;
 }
 
-bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<std::vector<CPatch> > &SetB, const std::vector<std::vector<CPatch> > &TrainSet, int* test, unsigned int iter, unsigned int measure_mode) {
+bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<std::vector<CPatch> > &SetB, const std::vector<std::vector<CPatch> > &TrainSet, int* test, unsigned int iter, unsigned int measure_mode, int depth) {
 	
   bool found = false;
 
@@ -519,32 +519,33 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
       generateTest(&tmpTest[0], 
 		   TrainSet.at(0).at(0).patchRoi.width, 
 		   TrainSet.at(0).at(0).patchRoi.height, 
-		   TrainSet.at(0).at(0).patch.size());
-    
+		   TrainSet.at(0).at(0).patch.size(),
+		   depth);
+      
       //for(int q = 0; q < 9; ++q)
       //cout << tmpTest[q] << " ";
       //cout << endl;
+      
+      
+      // compute value for each patch
+      evaluateTest(valSet, &tmpTest[0], TrainSet);
+      
+      // for(int l = 0; l < valSet.at(0).size(); ++l){
+      //   std::cout << "val = " << valSet.at(0).at(l).val << " index = " << valSet.at(0).at(l).index << std::endl;
+      // }
+      
+      // int dummy;
+      // std::cin >> dummy;
+      
 
-
-    // compute value for each patch
-    evaluateTest(valSet, &tmpTest[0], TrainSet);
-
-    // for(int l = 0; l < valSet.at(0).size(); ++l){
-    //   std::cout << "val = " << valSet.at(0).at(l).val << " index = " << valSet.at(0).at(l).index << std::endl;
-    // }
-
-    // int dummy;
-    // std::cin >> dummy;
-
-
-    //std::cout << "evaluation end" << std::endl;
-
-    // find min/max values for threshold
-    int vmin = INT_MAX;
-    int vmax = INT_MIN;
-    for(unsigned int l = 0; l<TrainSet.size(); ++l) {
-      if(valSet[l].size()>0) {
-	if(vmin>valSet[l].front().val)  vmin = valSet[l].front().val;
+      //std::cout << "evaluation end" << std::endl;
+      
+      // find min/max values for threshold
+      int vmin = INT_MAX;
+      int vmax = INT_MIN;
+      for(unsigned int l = 0; l<TrainSet.size(); ++l) {
+	if(valSet[l].size()>0) {
+	  if(vmin>valSet[l].front().val)  vmin = valSet[l].front().val;
 	if(vmax<valSet[l].back().val )  vmax = valSet[l].back().val;
       }
     }

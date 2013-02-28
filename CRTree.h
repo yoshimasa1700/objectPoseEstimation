@@ -74,12 +74,14 @@ class CRTree
   void growTree(std::vector<std::vector<CPatch> > &TrData, int node, int depth, float pnratio, CConfig conf, boost::mt19937 gen,const std::vector<int> &defaultClass_);
 
   bool optimizeTest(std::vector<std::vector<CPatch> > &SetA,
-			    std::vector<std::vector<CPatch> > &SetB, 
-			    const std::vector<std::vector<CPatch> > &TrainSet, 
-			    int* test, 
-			    unsigned int iter, 
-			    unsigned int measure_mode);
-  void generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c);
+		    std::vector<std::vector<CPatch> > &SetB, 
+		    const std::vector<std::vector<CPatch> > &TrainSet, 
+		    int* test, 
+		    unsigned int iter, 
+		    unsigned int measure_mode,
+		    int depth
+		    );
+  void generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c, int depth);
 
   void makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float pnratio, int node);
 
@@ -137,7 +139,8 @@ class CRTree
   std::vector<std::vector<CPatch> > patchPerClass;
 };
 
-inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c) {
+inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max_h, unsigned int max_c, int depth) {
+  double lamda = (double) config.max_depth;
   boost::mt19937    gen2(static_cast<unsigned long>(time(NULL)) );
   
   boost::uniform_int<> dst( 0, INT_MAX );
@@ -151,7 +154,7 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
   switch(config.learningMode){
   case 0:
     // rgbd
-    if(0.5 < rand2()){
+    if((1 - exp((double)depth / lamda)) < rand2()){
 
       // rgb
       test[0] = rand() % max_w;

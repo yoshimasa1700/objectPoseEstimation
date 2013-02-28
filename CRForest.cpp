@@ -1,4 +1,3 @@
-
 #include "CRForest.h"
 #include <boost/timer.hpp>
 
