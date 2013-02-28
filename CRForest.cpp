@@ -149,12 +149,12 @@ void CRForest::growATree(const int treeNum){
   //     vPatches.at(i).clear();
   //   }
   // }
-  vPatches.clear();
+  //vPatches.clear();
   
   //for(int i = 0; features.size(); ++i)
     //  features.at(i).clear();
-  features.clear();
-  images.clear();
+  //features.clear();
+  //images.clear();
 
 
   
