@@ -22,6 +22,8 @@
 class CDataset {
  public:
   CDataset();
+  ~CDataset(){};
+
   std::string rgbImageName, depthImageName, maskImageName, className, imageFilePath;
   cv::Rect bBox;
   std::vector<cv::Point> centerPoint;
@@ -35,6 +37,7 @@ class CConfig
 {
  public:
   CConfig();
+  ~CConfig(){};
 
   int loadConfig(const char* filename);
   

@@ -248,9 +248,9 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
     //std::cout << "tPosPatch.size()" << tPosat
     
-    if(tPosPatch.size() > 60){
+    if(tPosPatch.size() > 30){
 
-      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
+      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 30);//totalPatchNum * conf.patchRatio);
     
       //std::cout << "keisan deketa" << std::endl;
 
