@@ -514,38 +514,38 @@ bool CRTree::optimizeTest(std::vector<std::vector<CPatch> > &SetA, std::vector<s
     
     // generate binary test without threshold
       
-      //std::cout << TrainSet.at(0).at(0).patch.size() << std::endl;
+    //std::cout << TrainSet.at(0).at(0).patch.size() << std::endl;
       
-      generateTest(&tmpTest[0], 
-		   TrainSet.at(0).at(0).patchRoi.width, 
-		   TrainSet.at(0).at(0).patchRoi.height, 
-		   TrainSet.at(0).at(0).patch.size(),
-		   depth);
+    generateTest(&tmpTest[0], 
+		 TrainSet.at(0).at(0).patchRoi.width, 
+		 TrainSet.at(0).at(0).patchRoi.height, 
+		 TrainSet.at(0).at(0).patch.size(),
+		 depth);
       
-      //for(int q = 0; q < 9; ++q)
-      //cout << tmpTest[q] << " ";
-      //cout << endl;
+    //for(int q = 0; q < 9; ++q)
+    //cout << tmpTest[q] << " ";
+    //cout << endl;
       
       
-      // compute value for each patch
-      evaluateTest(valSet, &tmpTest[0], TrainSet);
+    // compute value for each patch
+    evaluateTest(valSet, &tmpTest[0], TrainSet);
       
-      // for(int l = 0; l < valSet.at(0).size(); ++l){
-      //   std::cout << "val = " << valSet.at(0).at(l).val << " index = " << valSet.at(0).at(l).index << std::endl;
-      // }
+    // for(int l = 0; l < valSet.at(0).size(); ++l){
+    //   std::cout << "val = " << valSet.at(0).at(l).val << " index = " << valSet.at(0).at(l).index << std::endl;
+    // }
       
-      // int dummy;
-      // std::cin >> dummy;
+    // int dummy;
+    // std::cin >> dummy;
       
 
-      //std::cout << "evaluation end" << std::endl;
+    //std::cout << "evaluation end" << std::endl;
       
-      // find min/max values for threshold
-      int vmin = INT_MAX;
-      int vmax = INT_MIN;
-      for(unsigned int l = 0; l<TrainSet.size(); ++l) {
-	if(valSet[l].size()>0) {
-	  if(vmin>valSet[l].front().val)  vmin = valSet[l].front().val;
+    // find min/max values for threshold
+    int vmin = INT_MAX;
+    int vmax = INT_MIN;
+    for(unsigned int l = 0; l<TrainSet.size(); ++l) {
+      if(valSet[l].size()>0) {
+	if(vmin>valSet[l].front().val)  vmin = valSet[l].front().val;
 	if(vmax<valSet[l].back().val )  vmax = valSet[l].back().val;
       }
     }
@@ -728,7 +728,7 @@ double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatc
     //for(unsigned int c = 0; c<nclass; ++c) {
     meanAx[SetA.at(i).classNum] += SetA.at(i).center.x;
     meanAy[SetA.at(i).classNum] += SetA.at(i).center.y;
-      //}
+    //}
   }
 
   //for(unsigned int c = 0; c<num_cp; ++c) {
@@ -736,7 +736,7 @@ double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatc
     meanAx[c] /= (double)SetA.size();
     meanAy[c] /= (double)SetA.size();
   }
-    //}
+  //}
 
   vector<double> distA(nclass,0);
   //for(std::vector<CPatch>::const_iterator it = SetA.begin(); it != SetA.end(); ++it) {
@@ -746,7 +746,7 @@ double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatc
     distA[SetA.at(i).classNum] += tmp*tmp;
     tmp = SetA.at(i).center.y - meanAy[SetA.at(i).classNum];
     distA[SetA.at(i).classNum] += tmp*tmp;
-      //}
+    //}
   }
 
   std::vector<double> meanBx(nclass,0);
@@ -756,12 +756,12 @@ double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatc
     //for(unsigned int c = 0; c<num_cp; ++c) {
     meanBx[SetB.at(i).classNum] += SetB.at(i).center.x;
     meanBy[SetB.at(i).classNum] += SetB.at(i).center.y;
-      //}
+    //}
   }
 
   for(int c = 0; c < nclass; c++){
 
-  //for(unsigned int c = 0; c<num_cp; ++c) {
+    //for(unsigned int c = 0; c<num_cp; ++c) {
     meanBx[c] /= (double)SetB.size();
     meanBy[c] /= (double)SetB.size();
     //}
@@ -774,7 +774,7 @@ double CRTree::distMean(const std::vector<CPatch>& SetA, const std::vector<CPatc
     distB[(*it).classNum] += tmp*tmp;
     tmp = (*it).center.y - meanBy[(*it).classNum];
     distB[(*it).classNum] += tmp*tmp;
-      //}
+    //}
   }
 
   double minDist = DBL_MAX;
@@ -921,7 +921,7 @@ void LeafNode::show(int delay, int width, int height) {
 
 	if(x>=0 && y>=0 && x<width && y<height)
 	  cvSetReal2D( iShow[c],  y,  x, 255 );
-	}
+      }
       sprintf(buffer,"Leaf%d",c);
       cvNamedWindow(buffer,1);
       cvShowImage(buffer, iShow[c]);

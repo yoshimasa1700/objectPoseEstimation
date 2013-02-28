@@ -14,8 +14,8 @@ class CPatch
   
   CPatch(){}
   ~CPatch(){
-    //for(int i = 0; i < patch.size(); ++i)
-    //  patch.at(i).release();
+    for(int i = 0; i < patch.size(); ++i)
+      patch.at(i).release();
   }
 
   void setPatch(int x, int y, int w, int h, cv::Mat image){

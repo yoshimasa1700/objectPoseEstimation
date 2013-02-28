@@ -2,8 +2,6 @@
 #include <boost/timer.hpp>
 
 void CRForest::learning(){
-  char buffer[256];
-
   // grow each tree
   // if you want to fix this program multi thread
   // you should change below
@@ -140,7 +138,7 @@ void CRForest::growATree(const int treeNum){
   //images.at(i).clear();
   //
 
-  std::cout << "kirei ni shimashita" << std::endl;
+  //std::cout << "kirei ni shimashita" << std::endl;
 
   // for(int i = 0; vPatches.size(); ++i){
   //   if(vPatches.at(i).size() != 0){
