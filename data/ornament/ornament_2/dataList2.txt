@@ -1,4 +1,5 @@
-30ornament_2_1_2_crop.png ornament_2_1_2_depthcrop.png ornament_2_1_2_maskcrop.png 0 0 62 68 31 34 ornament 6
+30
+ornament_2_1_2_crop.png ornament_2_1_2_depthcrop.png ornament_2_1_2_maskcrop.png 0 0 62 68 31 34 ornament 6
 ornament_2_1_4_crop.png ornament_2_1_4_depthcrop.png ornament_2_1_4_maskcrop.png 0 0 62 68 31 34 ornament 18
 ornament_2_1_6_crop.png ornament_2_1_6_depthcrop.png ornament_2_1_6_maskcrop.png 0 0 62 68 31 34 ornament 30
 ornament_2_1_8_crop.png ornament_2_1_8_depthcrop.png ornament_2_1_8_maskcrop.png 0 0 62 68 31 34 ornament 42

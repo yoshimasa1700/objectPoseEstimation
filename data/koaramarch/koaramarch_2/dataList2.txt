@@ -1,4 +1,5 @@
-30koaramarch_2_1_2_crop.png koaramarch_2_1_2_depthcrop.png koaramarch_2_1_2_maskcrop.png 0 0 80 155 40 77 koaramarch 6
+30
+koaramarch_2_1_2_crop.png koaramarch_2_1_2_depthcrop.png koaramarch_2_1_2_maskcrop.png 0 0 80 155 40 77 koaramarch 6
 koaramarch_2_1_4_crop.png koaramarch_2_1_4_depthcrop.png koaramarch_2_1_4_maskcrop.png 0 0 80 155 40 77 koaramarch 18
 koaramarch_2_1_6_crop.png koaramarch_2_1_6_depthcrop.png koaramarch_2_1_6_maskcrop.png 0 0 80 155 40 77 koaramarch 30
 koaramarch_2_1_8_crop.png koaramarch_2_1_8_depthcrop.png koaramarch_2_1_8_maskcrop.png 0 0 80 155 40 77 koaramarch 42
