@@ -154,7 +154,7 @@ inline void CRTree::generateTest(int* test, unsigned int max_w, unsigned int max
   switch(config.learningMode){
   case 0:
     // rgbd
-    if((1 - exp((double)depth / lamda)) < rand2()){
+    if((1 - exp(-1 * (double)depth / lamda)) > rand2()){
 
       // rgb
       test[0] = rand() % max_w;
