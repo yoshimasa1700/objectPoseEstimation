@@ -15,6 +15,7 @@ void CRForest::growATree(const int treeNum){
   std::vector<std::vector<cv::Mat> > images;
   std::vector<std::vector<cv::Mat> > features;
   std::vector<std::vector<CPatch> > vPatches;
+  std::vector<cv::Mat> tempFeature;
   
   char buffer[256];
 
@@ -66,7 +67,7 @@ void CRForest::growATree(const int treeNum){
   features.resize(0);
    
   for(int j = 0; j < images.size(); ++j){
-    std::vector<cv::Mat> tempFeature;
+    tempFeature.clear();
     // extract features
     extractFeatureChannels(images.at(j).at(0), tempFeature);
     // add depth image to features
@@ -130,8 +131,13 @@ void CRForest::growATree(const int treeNum){
 
   dataSets.clear();
 
+  images.clear();
   std::cout << "images" << images.size() << std::endl;
+  
+  features.clear();
   std::cout << "features" << features.size() << std::endl;
+
+  vPatches.clear();
   std::cout << "vPatches" << vPatches.size() << std::endl;
 
   //for(int i = 0; images.size(); ++i)

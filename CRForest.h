@@ -58,6 +58,7 @@ class CRForest {
 };
 
 inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg) const{
+  vImg.clear();
   vImg.resize(32);
   for(int i = 0; i < 32; ++i)
     vImg.at(i) = cv::Mat(img.rows, img.cols, CV_8UC1);

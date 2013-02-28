@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/masahiko/Programs/objectPoseEstimation/CPatch.cpp
-CPatch.h
-/Users/masahiko/Programs/objectPoseEstimation/CPatch.h
-
 /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
 util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
@@ -30,10 +26,6 @@ util.h
 HoG.h
 /Users/masahiko/Programs/objectPoseEstimation/HoG.h
 
-/Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
-CRTree.h
-/Users/masahiko/Programs/objectPoseEstimation/CRTree.h
-
 /Users/masahiko/Programs/objectPoseEstimation/CRTree.h
 CPatch.h
 /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
@@ -49,16 +41,6 @@ cxcore.h
 -
 vector
 -
-
-/Users/masahiko/Programs/objectPoseEstimation/objectPoseEstimation.cpp
-CRForest.h
-/Users/masahiko/Programs/objectPoseEstimation/CRForest.h
-opencv2/opencv.hpp
--
-boost/timer.hpp
--
-util.h
-/Users/masahiko/Programs/objectPoseEstimation/util.h
 
 /Users/masahiko/Programs/objectPoseEstimation/util.h
 iostream
