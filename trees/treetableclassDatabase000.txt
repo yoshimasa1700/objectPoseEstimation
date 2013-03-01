@@ -1,2 +1,15 @@
 0 bottle1
 1 bottle2
+2 can2
+3 can3
+4 can4
+5 cup1
+6 cup2
+7 koaramarch
+8 koaramarch2
+9 ornament1
+10 pack1
+11 pack2
+12 pakuncho1
+13 pakuncho2
+14 pakuncho3

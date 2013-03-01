@@ -64,8 +64,9 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
   for(int i = 0; i < 32; ++i)
     vImg.at(i) = new cv::Mat(img->rows, img->cols, CV_8UC1);
 
-  
+  std::cout << "kokomade" << std::endl;
 
+  
   cv::cvtColor(*img, *(vImg.at(0)), CV_BGR2GRAY);
 
   cv::Mat I_x(img->rows, img->cols, CV_16SC1);

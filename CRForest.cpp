@@ -52,7 +52,7 @@ void CRForest::growATree(const int treeNum){
   CRTree *tree = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
   std::cout << "tree created" << std::endl;
     
-
+  
   // load images to mamory
   loadImages(images, dataSets);
 
@@ -61,8 +61,14 @@ void CRForest::growATree(const int treeNum){
   features.resize(0);
    
   for(int j = 0; j < images.size(); ++j){
+    std::cout << "extruct " << j << std::endl;
     tempFeature.clear();
-    // extract features
+
+    // cv::namedWindow("test");
+    // cv::imshow("test",*(images.at(j).at(0)));
+    // cv::waitKey(0);
+    // cv::destroyWindow("test");
+    //extract features
     extractFeatureChannels(images.at(j).at(0), tempFeature);
     // add depth image to features
     tempFeature.push_back(images.at(j).at(1));
@@ -71,8 +77,10 @@ void CRForest::growATree(const int treeNum){
   
   std::cout << "feature extructed!" << std::endl;
 
-  for(int i = 0; i < images.size(); ++i)
+  for(int i = 0; i < images.size(); ++i){
+    std::cout << "releasing image number " << i << std::endl;
     delete images.at(i).at(0);
+  }
 
   //images.clear();
   std::cout << "images" << images.size() << std::endl;
@@ -142,7 +150,7 @@ void CRForest::growATree(const int treeNum){
     if(features.at(i).size() != 0){
       for(int j = 0; j < features.at(i).size(); ++j){
   	//if(features.at(i).size != NULL)
-  	//std::cout << "feature keshiteru" << std::endl;
+  	std::cout << "feature keshiteru " << i << " "<< j << std::endl;
   	delete features.at(i).at(j);
       }
     }
@@ -250,7 +258,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
       //cv::namedWindow("test");
       //cv::imshow("test",image.at(l).at(0));
       //cv::waitKey(0);
-      //cv::destroyWindow("test");
+      //cv::destroyWindow("test");w
 
     
       //std::cout << "patch torimasu" << std::endl;
