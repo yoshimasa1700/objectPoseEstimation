@@ -6,41 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/masahiko/Program/objectPoseEstimation/CPatch.h
+/home/masahiko/Program/objectPoseEstimation/util.cpp
 util.h
 /home/masahiko/Program/objectPoseEstimation/util.h
-
-/home/masahiko/Program/objectPoseEstimation/CRForest.cpp
-CRForest.h
-/home/masahiko/Program/objectPoseEstimation/CRForest.h
-boost/timer.hpp
--
-
-/home/masahiko/Program/objectPoseEstimation/CRForest.h
-CRTree.h
-/home/masahiko/Program/objectPoseEstimation/CRTree.h
-CPatch.h
-/home/masahiko/Program/objectPoseEstimation/CPatch.h
-util.h
-/home/masahiko/Program/objectPoseEstimation/util.h
-HoG.h
-/home/masahiko/Program/objectPoseEstimation/HoG.h
-
-/home/masahiko/Program/objectPoseEstimation/CRTree.h
-CPatch.h
-/home/masahiko/Program/objectPoseEstimation/CPatch.h
-util.h
-/home/masahiko/Program/objectPoseEstimation/util.h
-ctime
--
-cmath
--
-
-/home/masahiko/Program/objectPoseEstimation/HoG.h
-cxcore.h
--
-vector
--
 
 /home/masahiko/Program/objectPoseEstimation/util.h
 iostream
@@ -65,12 +33,6 @@ boost/lexical_cast.hpp
 -
 boost/random.hpp
 -
-
-/usr/local/include/opencv/cxcore.h
-opencv2/core/core_c.h
-/usr/local/include/opencv/opencv2/core/core_c.h
-opencv2/core/core.hpp
-/usr/local/include/opencv/opencv2/core/core.hpp
 
 /usr/local/include/opencv2/calib3d/calib3d.hpp
 opencv2/core/core.hpp

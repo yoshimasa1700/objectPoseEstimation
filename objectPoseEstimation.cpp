@@ -174,10 +174,7 @@ void detect(const CRForest &forest, CConfig conf){
       //}
   }
   
-  //std::cout << dataSet.className << std::endl;
-  //std::cout << "detection result" << std::endl;
-  // for(int i = 0; i < classNum; ++i){
-  //  std::cout << forest.classDatabase.vNode.at(i).name << " : " << detectionResult.at(i) << std::endl;
+  //std::cout << dataSet.className << std::endl; //std::cout << "detection result" << std::endl; // for(int i = 0; i < classNum; ++i){//  std::cout << forest.classDatabase.vNode.at(i).name << " : " << detectionResult.at(i) << std::endl;
   // }
   // std::cout << std::endl;
 

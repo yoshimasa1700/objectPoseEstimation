@@ -3,11 +3,11 @@
   <!-- Path to trees -->
   <treepath>trees/treetable</treepath>
   <!-- Number of trees -->
-  <ntree>10</ntree>
+  <ntree>20</ntree>
   <!-- Patch width -->
-  <pwidth>16</pwidth>
+  <pwidth>64</pwidth>
   <!-- Patch height -->
-  <pheight>16</pheight>
+  <pheight>64</pheight>
   <!-- Path to images-->
   <!--<imgpath>example/testimage</imgpath>-->
   <!-- Image name list -->
@@ -32,7 +32,7 @@
   <!-- Train data file name -->
   <traindataname>trainData.txt</traindataname>
   <!-- Train image per tree-->
-  <trainimagepertree>1</trainimagepertree>
+  <trainimagepertree>10</trainimagepertree>
   <!-- min sample number-->
   <minsample>20</minsample>
   <!-- max depth of tree-->
@@ -42,12 +42,12 @@
   <!-- extract patch ratio-->
   <patchratio>0.6</patchratio>
   <!-- Stride -->
-  <stride>5</stride>
+  <stride>1</stride>
   <!-- Offset of tree-->
   <offTree>0</offTree>
   <!-- test data path -->
   <testpath>data</testpath>
-  <testdataname>testData.txt</testdataname>
+  <testdataname>trainData.txt</testdataname>
 
 
   

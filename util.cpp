@@ -547,6 +547,7 @@ void CClassDatabase::show() const{
 
 int CClassDatabase::search(std::string str) const{
   for(int i = 0; i < vNode.size(); i++){
+    //std::cout << i << " " << str << " " << vNode.at(i).name << std::endl;
     if(str == vNode.at(i).name)return i;
   }
   return -1;

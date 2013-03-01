@@ -130,7 +130,6 @@ void CRForest::growATree(const int treeNum){
   // cv::vector<cv::vector<cv::Mat> > images;
   // cv::vector<cv::vector<cv::Mat> > features;
   // std::vector<std::vector<CPatch> > vPatches;
-
   dataSets.clear();
 
   //vPatches.clear();
@@ -294,7 +293,11 @@ void CRForest::extractAllPatches(const CDataset &dataSet, const cv::vector<cv::M
 	temp.x = j;
 	temp.y = k;
 	
+	//std::cout << dataSet.className << std::endl;
+
 	int classNum = classDatabase.search(dataSet.className);
+
+	//std::cout << "class num is " << classNum << std::endl;
 	//classDatabase.show();
 	if(classNum == -1){
 	  std::cout << "This tree not contain this class data" << std::endl;
@@ -350,6 +353,8 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
     
   // add depth image to features
   features.push_back(image.at(1));
+
+  delete image.at(0);
 
   // extract patches from features
   extractAllPatches(dataSet, features, patches);
@@ -446,6 +451,10 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 
   // std::vector<CPatch> patches;
   // cv::vector<cv::Mat> features;
+
+  for(int i = 0; i < features.size(); ++i)
+    delete features.at(i);
+  
   patches.clear();
   features.clear();
 }
