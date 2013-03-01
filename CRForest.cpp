@@ -490,10 +490,10 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
 		       + dataSet.at(i).depthImageName,
 			CV_LOAD_IMAGE_ANYDEPTH).clone();
 
-    cv::namedWindow("test");
-    cv::imshow("test",*rgb);
-    cv::waitKey(0);
-    cv::destroyWindow("test");
+    //cv::namedWindow("test");
+    //cv::imshow("test",*rgb);
+    //cv::waitKey(0);
+    //cv::destroyWindow("test");
 
 
 
@@ -519,7 +519,9 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
     allImages.push_back(depth);
     img.push_back(allImages);
 
-    delete mask;
+    
   }
+
+  delete mask;  
 }
 
