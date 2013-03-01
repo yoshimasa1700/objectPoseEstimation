@@ -19,7 +19,7 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
     // pointer to channel
     //uchar* ptC = ptFCh[pnode[5]];
 	  
-    cv::Mat ptC = patch.patch.at(pnode[9]);
+    cv::Mat ptC = (*(patch.patch.at(pnode[9])))(patch.patchRoi);
 	  
     //std::cout << ptC << std::endl;
 
@@ -629,7 +629,7 @@ void CRTree::evaluateTest(std::vector<std::vector<IntIndex> >& valSet, const int
     valSet[l].resize(TrainSet[l].size());
     for(unsigned int i=0;i<TrainSet[l].size();++i) {
       // pointer to channel
-      cv::Mat ptC = TrainSet[l][i].patch[test[8]];
+      cv::Mat ptC = (*(TrainSet[l][i].patch[test[8]]))(TrainSet[l][i].patchRoi);
       if(test[8] == 32){
 	//std::cout << "this is for debug hyahhaaaaaaaaaaaaaaaaaaaa" << std::endl;
 	//int dummy;
