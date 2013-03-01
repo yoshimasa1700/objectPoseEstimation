@@ -27,25 +27,25 @@ class CRForest {
   void growATree(const int treeNum);
   
   void detection(const CDataset &dataSet, 
-		 const std::vector<cv::Mat> &image, std::vector<double> &detectionResult, int &detectClass) const;
+		 const cv::vector<cv::Mat> &image, std::vector<double> &detectionResult, int &detectClass) const;
   
   void extractPatches(std::vector<std::vector<CPatch> > &patches, 
 		      const std::vector<CDataset> dataSet, 
-		      const std::vector<std::vector<cv::Mat> > &image, 
+		      const cv::vector<cv::vector<cv::Mat> > &image, 
 		      /*boost::mt19937 gen, */CConfig conf);
 
   void loadForest();
   void extractAllPatches(const CDataset &dataSet, 
-			 const std::vector<cv::Mat> &image, 
+			 const cv::vector<cv::Mat> &image, 
 			 std::vector<CPatch> &patches) const;
   // Regression 
   void regression(std::vector<const LeafNode*>& result, 
 		  CPatch &patch) const;
-  void loadImages(std::vector<std::vector<cv::Mat> > &img, 
+  void loadImages(cv::vector<cv::vector<cv::Mat> > &img, 
 		  std::vector<CDataset> dataSet);
 
   void extractFeatureChannels(const cv::Mat& img, 
-			      std::vector<cv::Mat>& vImg) const;
+			      cv::vector<cv::Mat>& vImg) const;
   void minFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
   void maxFilter(cv::Mat& src, cv::Mat& des, int fWind) const;
 
@@ -57,7 +57,7 @@ class CRForest {
   
 };
 
-inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv::Mat>& vImg) const{
+inline void CRForest::extractFeatureChannels(const cv::Mat& img, cv::vector<cv::Mat>& vImg) const{
   vImg.clear();
   vImg.resize(32);
   for(int i = 0; i < 32; ++i)
@@ -102,7 +102,7 @@ inline void CRForest::extractFeatureChannels(const cv::Mat& img, std::vector<cv:
 
   cv::Mat img_Lab;
   cv::cvtColor(img, img_Lab, CV_RGB2Lab);
-  std::vector<cv::Mat> tempVImg(3);
+  cv::vector<cv::Mat> tempVImg(3);
 
   cv::split(img_Lab, tempVImg);
 

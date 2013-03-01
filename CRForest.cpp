@@ -12,10 +12,10 @@ void CRForest::learning(){
 
 void CRForest::growATree(const int treeNum){
   std::vector<CDataset> dataSets(0);
-  std::vector<std::vector<cv::Mat> > images;
-  std::vector<std::vector<cv::Mat> > features;
+  cv::vector<cv::vector<cv::Mat> > images;
+  cv::vector<cv::vector<cv::Mat> > features;
   std::vector<std::vector<CPatch> > vPatches;
-  std::vector<cv::Mat> tempFeature;
+  cv::vector<cv::Mat> tempFeature;
   
   char buffer[256];
 
@@ -125,19 +125,19 @@ void CRForest::growATree(const int treeNum){
   lerningResult.close();
 
   // std::vector<CDataset> dataSets(0);
-  // std::vector<std::vector<cv::Mat> > images;
-  // std::vector<std::vector<cv::Mat> > features;
+  // cv::vector<cv::vector<cv::Mat> > images;
+  // cv::vector<cv::vector<cv::Mat> > features;
   // std::vector<std::vector<CPatch> > vPatches;
 
   dataSets.clear();
 
-  images.clear();
+  //images.clear();
   std::cout << "images" << images.size() << std::endl;
   
-  features.clear();
+  //features.clear();
   std::cout << "features" << features.size() << std::endl;
 
-  vPatches.clear();
+  //vPatches.clear();
   std::cout << "vPatches" << vPatches.size() << std::endl;
 
   //for(int i = 0; images.size(); ++i)
@@ -167,7 +167,7 @@ void CRForest::growATree(const int treeNum){
 }
 
 // extract patch from images
-void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const std::vector<CDataset> dataSet,const std::vector<std::vector<cv::Mat> > &image,  CConfig conf){
+void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const std::vector<CDataset> dataSet,const cv::vector<cv::vector<cv::Mat> > &image,  CConfig conf){
   
 
   // boost::uniform_real<> dst( 0, 1 );
@@ -291,7 +291,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 
 
 
-void CRForest::extractAllPatches(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<CPatch> &patches) const{
+void CRForest::extractAllPatches(const CDataset &dataSet, const cv::vector<cv::Mat> &image, std::vector<CPatch> &patches) const{
 
   cv::Rect temp;
   CPatch tPatch;
@@ -329,12 +329,12 @@ void CRForest::loadForest(){
   }
 }
 
-void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &image, std::vector<double> &detectionResult, int &detectClass) const{
+void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat> &image, std::vector<double> &detectionResult, int &detectClass) const{
   int classNum = classDatabase.vNode.size();
   
-  std::vector<cv::Mat> scaledImage;
+  cv::vector<cv::Mat> scaledImage;
   std::vector<CPatch> patches;
-  std::vector<cv::Mat> features;
+  cv::vector<cv::Mat> features;
   std::vector<const LeafNode*> result;
   std::vector<int> classSum(classNum,0);
   std::vector<double> classification_result(classNum, 0);
@@ -457,7 +457,7 @@ void CRForest::detection(const CDataset &dataSet, const std::vector<cv::Mat> &im
   // }
 
   // std::vector<CPatch> patches;
-  // std::vector<cv::Mat> features;
+  // cv::vector<cv::Mat> features;
   patches.clear();
   features.clear();
 }
@@ -471,13 +471,13 @@ void CRForest::regression(std::vector<const LeafNode*>& result, CPatch &patch) c
   }
 }
 
-void CRForest::loadImages(std::vector<std::vector<cv::Mat> > &img, std::vector<CDataset> dataSet){
+void CRForest::loadImages(cv::vector<cv::vector<cv::Mat> > &img, std::vector<CDataset> dataSet){
   img.resize(0);
 
   cv::Mat rgb,depth, mask;
-  std::vector<cv::Mat> planes;
-  std::vector<cv::Mat> allImages;
-  //std::vector<cv::Mat> rgbSplited;
+  cv::vector<cv::Mat> planes;
+  cv::vector<cv::Mat> allImages;
+  //cv::vector<cv::Mat> rgbSplited;
 
 
   std::cout << dataSet.at(0).depthImageName << std::endl;
