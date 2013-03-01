@@ -68,21 +68,11 @@ void CRForest::growATree(const int treeNum){
     tempFeature.push_back(images.at(j).at(1));
     features.push_back(tempFeature);
   }
-
-  for(int v = 0; v < images.size(); v++){
-    cv::namedWindow("test");
-    cv::imshow("test",*images.at(v).at(0));
-    cv::waitKey(0);
-    cv::destroyWindow("test");
-  }
   
   std::cout << "feature extructed!" << std::endl;
 
-  for(int i = 0; i < images.size(); ++i){
-    for(int j = 0; j < images.at(i).size(); ++j)
-      if(images.at(i).at(j) != NULL)
-	delete images.at(i).at(j);
-  }
+  for(int i = 0; i < images.size(); ++i)
+    delete images.at(i).at(0);
 
   //images.clear();
   std::cout << "images" << images.size() << std::endl;
@@ -149,16 +139,16 @@ void CRForest::growATree(const int treeNum){
   
   
 
-  // for(int i = 0; i < features.size(); ++i){
-  //   if(features.at(i).size() != 0){
-  //     for(int j = 0; j < features.at(i).size(); ++j){
-  // 	//if(features.at(i).size != NULL)
-  // 	std::cout << "feature keshiteru" << std::endl;
-  // 	delete features.at(i).at(j);
-  //     }
-  //   }
-  // }
-  //features.clear();
+  for(int i = 0; i < features.size(); ++i){
+    if(features.at(i).size() != 0){
+      for(int j = 0; j < features.at(i).size(); ++j){
+  	//if(features.at(i).size != NULL)
+  	//std::cout << "feature keshiteru" << std::endl;
+  	delete features.at(i).at(j);
+      }
+    }
+  }
+  features.clear();
   std::cout << "features" << features.size() << std::endl;
 
   //delete vTrees.at(treeNum);
@@ -228,7 +218,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  // std::cout << dataSet.at(l).centerPoint << std::endl;
 
 	  
-
+	  
 	  tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
 	  //std::cout << pixNum << std::endl;
 	  if (pixNum > 0){
