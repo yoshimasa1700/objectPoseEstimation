@@ -35,23 +35,23 @@ HoG::HoG() {
 }
 
 
-void HoG::extractOBin(const cv::Mat& Iorient,const cv::Mat& Imagn, std::vector<cv::Mat>& out, int off) {
+void HoG::extractOBin(const cv::Mat* Iorient,const cv::Mat* Imagn, std::vector<cv::Mat*>& out, int off) {
   double* desc = new double[bins];
 
   
   // reset output image (border=0) and get pointers
   for(int k=off; k<bins+off; ++k) 
-    out[k] = cv::Mat::zeros(out[k].rows, out[k].cols, CV_8U);
+    *(out[k]) = cv::Mat::zeros(out[k]->rows, out[k]->cols, CV_8U);
   
-  for(int y = 0; y < Iorient.rows - g_w; y++) {
-    for(int x = 0; x < Iorient.cols - g_w; x++){
+  for(int y = 0; y < Iorient->rows - g_w; y++) {
+    for(int x = 0; x < Iorient->cols - g_w; x++){
       // calc hog bin
       calcHoGBin(Iorient, Imagn, out, x, y);
     }
   }   
 }
 
-void HoG::calcHoGBin(const cv::Mat& IOri, const cv::Mat& IMag, std::vector<cv::Mat>& out, int offX, int offY){
+void HoG::calcHoGBin(const cv::Mat* IOri, const cv::Mat* IMag, std::vector<cv::Mat*>& out, int offX, int offY){
   int yy, xx;
 
   int i = 0;
@@ -60,9 +60,9 @@ void HoG::calcHoGBin(const cv::Mat& IOri, const cv::Mat& IMag, std::vector<cv::M
       yy = y + offY;
       xx = x + offX;
 
-      float v = (float)IOri.at<uchar>(yy, xx) / binsize;
+      float v = (float)IOri->at<uchar>(yy, xx) / binsize;
       //std::cout << "v is " << v << std::endl;
-      float w = (float)IMag.at<uchar>(yy, xx) * ptGauss[i];//Gauss.at<float>(y, x);
+      float w = (float)IMag->at<uchar>(yy, xx) * ptGauss[i];//Gauss.at<float>(y, x);
       //std::cout << "w is " << w << std::endl;
       int bin1 = int(v);
       int bin2;
@@ -72,8 +72,8 @@ void HoG::calcHoGBin(const cv::Mat& IOri, const cv::Mat& IMag, std::vector<cv::M
 	delta = - delta;
       }else
 	bin2 = bin1 < bins - 1 ? bin1 + 1 : 0;
-      out.at(bin1 + 7).at<float>(yy, xx) += (1 - delta) * w;
-      out.at(bin2 + 7).at<float>(yy, xx) += delta * w;
+      out.at(bin1 + 7)->at<float>(yy, xx) += (1 - delta) * w;
+      out.at(bin2 + 7)->at<float>(yy, xx) += delta * w;
     }
   }
 

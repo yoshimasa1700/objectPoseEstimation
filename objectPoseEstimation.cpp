@@ -7,33 +7,37 @@
 
 using namespace std;
 
-void loadImage(const CDataset &dataSet, std::vector<cv::Mat> &image){
-  cv::Mat rgb,depth, mask;
+void loadImage(const CDataset &dataSet, std::vector<cv::Mat*> &image){
+  cv::Mat* rgb, *depth, *mask;
   
+  rgb = new cv::Mat();
+  depth = new cv::Mat();
+  mask = new cv::Mat();
+
   //std::vector<cv::Mat> rgbSplited;
 
-  mask = cv::imread(dataSet.imageFilePath
+  *mask = cv::imread(dataSet.imageFilePath
 		    + dataSet.maskImageName,
-		    CV_LOAD_IMAGE_ANYCOLOR);
+		     CV_LOAD_IMAGE_ANYCOLOR).clone();
   
   // load RGB image
-  rgb = cv::imread(dataSet.imageFilePath
+  *rgb = cv::imread(dataSet.imageFilePath
 		   + dataSet.rgbImageName,
-		   CV_LOAD_IMAGE_ANYCOLOR);
+		    CV_LOAD_IMAGE_ANYCOLOR).clone();
 
   // load Depth image
-  depth = cv::imread(dataSet.imageFilePath
+  *depth = cv::imread(dataSet.imageFilePath
 		     + dataSet.depthImageName,
-		     CV_LOAD_IMAGE_ANYDEPTH);
+		      CV_LOAD_IMAGE_ANYDEPTH).clone();
 
   // masking image
-  for(int k = 0;k < rgb.cols; ++k)
-    for(int l = 0;l < rgb.rows; ++l){
-      if(!(bool)mask.at<char>(l, k))
-	depth.at<short>(l, k) = 0;
+  for(int k = 0;k < rgb->cols; ++k)
+    for(int l = 0;l < rgb->rows; ++l){
+      if(!(bool)mask->at<char>(l, k))
+	depth->at<short>(l, k) = 0;
       for(int j = 0;j < 3; ++j)
-	if(!(bool)mask.at<char>(l, k))
-	  rgb.at<cv::Vec3b>(l, k)[j] = 0;
+	if(!(bool)mask->at<char>(l, k))
+	  rgb->at<cv::Vec3b>(l, k)[j] = 0;
     }
 
   //rgbSplited.resize(rgb.channels());
@@ -43,6 +47,8 @@ void loadImage(const CDataset &dataSet, std::vector<cv::Mat> &image){
   //for(int i = 0; i < rgbSplited.size(); ++i)
   image.push_back(rgb);//rgbSplited.at(i));
   image.push_back(depth);
+
+  delete mask;
 }
 
 void loadTestFile(CConfig conf, std::vector<CDataset> &dataSet){
@@ -124,7 +130,7 @@ void loadTestFile(CConfig conf, std::vector<CDataset> &dataSet){
 
 void detect(const CRForest &forest, CConfig conf){
   std::vector<CDataset> dataSet;
-  vector<cv::Mat> image;
+  vector<cv::Mat*> image;
   //vector<CImages> scaledImages;
   //vector<vector<cv::Mat> >  vDetectedImg(conf.scales.size());
   char buffer[256];

@@ -13,8 +13,8 @@ class HoG {
 public:
   HoG();
 
-  void extractOBin(const cv::Mat& Iorient,const cv::Mat& Imagn, std::vector<cv::Mat>& out, int off);
-  void calcHoGBin(const cv::Mat& IOri, const cv::Mat& IMag, std::vector<cv::Mat>& out, int offX, int offY);
+  void extractOBin(const cv::Mat* Iorient,const cv::Mat* Imagn, std::vector<cv::Mat*>& out, int off);
+  void calcHoGBin(const cv::Mat* IOri, const cv::Mat* IMag, std::vector<cv::Mat*>& out, int offX, int offY);
 private:
 
   void calcHoGBin(uchar* ptOrient, uchar* ptMagn, int step, double* desc);
