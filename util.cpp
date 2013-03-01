@@ -368,6 +368,7 @@ if (boost::optional<std::string> str
 void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
 {
   dataSet.resize(0);
+  
   std::string traindatafilepath = conf.trainpath + PATH_SEP +  conf.traindatafile;
   int n_folders;
   int n_files;
@@ -380,12 +381,15 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
   cv::Point tempPoint;
   nCk nck;
   
+  
   //read train data folder list
   std::ifstream in(traindatafilepath.c_str());
   if(!in.is_open()){
     std::cout << "train data floder list is not found!" << std::endl;
     exit(1);
   }
+
+  std::cout << "kokomade " << std::endl;
   
   // read folder number
   in >> n_folders;
@@ -396,7 +400,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
   // read train folder name
   for(int i = 0;i < n_folders; ++i)
     in >> trainimagefolder.at(i);
-  
+  in.close();
   //read train file name and grand truth from file
   tempDataSet.clear();
   for(int i = 0;i < n_folders; ++i){
@@ -461,7 +465,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
     dataOffset += database.vNode.at(j).instances;
   }
 
-  in.close();
+  //in.close();
 }
 
 void pBar(int p,int maxNum, int width){
