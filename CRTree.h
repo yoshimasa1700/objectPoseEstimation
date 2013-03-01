@@ -18,6 +18,7 @@ class LeafNode
 {
  public:
   LeafNode(){};
+  ~LeafNode(){};
 
   void show(int delay, int width, int height);
   void print() 

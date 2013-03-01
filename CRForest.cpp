@@ -133,8 +133,8 @@ void CRForest::growATree(const int treeNum){
 
   dataSets.clear();
 
-  vPatches.clear();
-  std::cout << "vPatches" << vPatches.size() << std::endl;
+  //vPatches.clear();
+  //std::cout << "vPatches" << vPatches.size() << std::endl;
 
   for(int i = 0; i < images.size(); ++i){
     for(int j = 0; j < images.at(i).size(); ++j)
@@ -152,15 +152,6 @@ void CRForest::growATree(const int treeNum){
   }
   features.clear();
   std::cout << "features" << features.size() << std::endl;
-
-  for(int i = 0; i < features.size(); ++i){
-    for(int j = 0; j < features.at(i).size(); ++j)
-      if(tempFeatures.at(i).at(j) != NULL)
-  	delete tempFeatures.at(i).at(j);
-  }
-  features.clear();
-  std::cout << "features" << features.size() << std::endl;
-
 
   //delete vTrees.at(treeNum);
 }

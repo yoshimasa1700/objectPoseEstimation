@@ -14,7 +14,7 @@ class CPatch
   
   CPatch(){}
   ~CPatch(){
-    std::cout << "patch destructor" << std::endl;
+    //std::cout << "patch destructor" << std::endl;
     //for(int i = 0; i < patch.size(); ++i)
     //patch.at(i).release();
   }
