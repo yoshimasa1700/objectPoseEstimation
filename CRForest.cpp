@@ -49,7 +49,7 @@ void CRForest::growATree(const int treeNum){
   //create tree
   //vTrees.at(treeNum) = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
   
-  CRTree tree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
+  CRTree *tree = new CRTree(conf.min_sample, conf.max_depth, dataSets.at(0).centerPoint.size(),gen);
   std::cout << "tree created" << std::endl;
     
 
@@ -94,14 +94,14 @@ void CRForest::growATree(const int treeNum){
 
   // grow tree
   //vTrees.at(treeNum)->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
-  tree.growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
+  tree->growTree(vPatches, 0,0, (float)(vPatches.at(0).size()) / ((float)(vPatches.at(0).size()) + (float)(vPatches.at(1).size())), conf, gen, patchClassNum);
   
   // save tree
   sprintf(buffer, "%s%03d.txt",
 	  conf.treepath.c_str(), treeNum + conf.off_tree);
   std::cout << "tree file name is " << buffer << std::endl;
   //vTrees.at(treeNum)->saveTree(buffer);
-  tree.saveTree(buffer);
+  tree->saveTree(buffer);
 
   // save class database
   sprintf(buffer, "%s%s%03d.txt",
@@ -124,12 +124,17 @@ void CRForest::growATree(const int treeNum){
 
   lerningResult.close();
 
+  delete tree;
+
   // std::vector<CDataset> dataSets(0);
   // cv::vector<cv::vector<cv::Mat> > images;
   // cv::vector<cv::vector<cv::Mat> > features;
   // std::vector<std::vector<CPatch> > vPatches;
 
   dataSets.clear();
+
+  vPatches.clear();
+  std::cout << "vPatches" << vPatches.size() << std::endl;
 
   for(int i = 0; i < images.size(); ++i){
     for(int j = 0; j < images.at(i).size(); ++j)
@@ -142,13 +147,20 @@ void CRForest::growATree(const int treeNum){
 
   for(int i = 0; i < features.size(); ++i){
     for(int j = 0; j < features.at(i).size(); ++j)
-      delete features.at(i).at(j);
+      if(features.at(i).at(j) != NULL)
+  	delete features.at(i).at(j);
   }
   features.clear();
   std::cout << "features" << features.size() << std::endl;
 
-  vPatches.clear();
-  std::cout << "vPatches" << vPatches.size() << std::endl;
+  for(int i = 0; i < features.size(); ++i){
+    for(int j = 0; j < features.at(i).size(); ++j)
+      if(tempFeatures.at(i).at(j) != NULL)
+  	delete tempFeatures.at(i).at(j);
+  }
+  features.clear();
+  std::cout << "features" << features.size() << std::endl;
+
 
   //delete vTrees.at(treeNum);
 }

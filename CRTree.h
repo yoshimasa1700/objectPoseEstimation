@@ -58,9 +58,12 @@ class CRTree
   //destructor
   ~CRTree()
     {
-      std::cout << "yobareta!" << std::endl;
-      delete [] treetable;
-      delete [] leaf;
+      std::cout << "destroy crtree" << std::endl; 
+      //if(treetable != NULL)
+      	delete [] treetable;
+      std::cout << "treetable!" << std::endl;
+      //if(leaf != NULL)
+      	delete [] leaf;
       std::cout << "released crtree" << std::endl;
     }
   

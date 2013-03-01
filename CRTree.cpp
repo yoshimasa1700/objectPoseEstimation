@@ -471,7 +471,7 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
   }
 
 
-
+  patchPerClass.clear();
   std::cout << "happa tukutta" << std::endl;
   // Increase leaf counter
   ++num_leaf;
