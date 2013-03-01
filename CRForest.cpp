@@ -467,9 +467,9 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
   //cv::vector<cv::Mat> rgbSplited;
 
 
-  //rgb = new cv::Mat();
-  //depth = new cv::Mat();
-  //mask = new cv::Mat();
+  rgb = new cv::Mat();
+  depth = new cv::Mat();
+  mask = new cv::Mat();
 
   std::cout << dataSet.at(0).depthImageName << std::endl;
   
@@ -489,6 +489,13 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
     *depth = cv::imread(dataSet.at(i).imageFilePath
 		       + dataSet.at(i).depthImageName,
 			CV_LOAD_IMAGE_ANYDEPTH).clone();
+
+    cv::namedWindow("test");
+    cv::imshow("test",*rgb);
+    cv::waitKey(0);
+    cv::destroyWindow("test");
+
+
 
     //std::cout << depth << std::endl;
     
