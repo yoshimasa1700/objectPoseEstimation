@@ -14,9 +14,7 @@ class CPatch
   
   CPatch(){}
   ~CPatch(){
-    //std::cout << "patch destructor" << std::endl;
-    //for(int i = 0; i < patch.size(); ++i)
-    //patch.at(i).release();
+    patch.clear();
   }
 
   void setPatch(int x, int y, int w, int h, cv::Mat image){
@@ -33,7 +31,7 @@ class CPatch
     //image(roi);
     //vCenter = center;
     for(int i = 0; i < image.size(); ++i)
-      patch.push_back((*image.at(i))(cv::Rect(roi)));
+      patch.push_back(image.at(i));
     //std::cout << patch.size() << std::endl;
     //p_image.push_back(&(image->at(i)));
     cv::Point tempPoint;
@@ -42,7 +40,7 @@ class CPatch
   }
   cv::Rect patchRoi;
   cv::Point center;
-  cv::vector<cv::Mat> patch;
+  cv::vector<cv::Mat*> patch;
   int classNum;
   //std::vector<cv::Mat *> p_image;
 
