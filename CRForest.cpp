@@ -34,8 +34,8 @@ void CRForest::growATree(const int treeNum){
   loadTrainFile(conf, dataSets);//, gen);
   std::cout << "dataset loaded" << std::endl;
 
-  for(int k = 0; k < dataSets.size(); ++k)
-    dataSets.at(k).showDataset();
+  //for(int k = 0; k < dataSets.size(); ++k)
+  //  dataSets.at(k).showDataset();
     
   // initialize class database
   classDatabase.clear();
@@ -497,14 +497,13 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
     // load Mask image
     
     *mask = cv::imread(dataSet.at(i).imageFilePath
-		      + dataSet.at(i).maskImageName,
-		       CV_LOAD_IMAGE_ANYCOLOR).clone();
-    
+		       + dataSet.at(i).maskImageName,3).clone();
+
     // load RGB image
     *rgb = cv::imread(dataSet.at(i).imageFilePath
-		     + dataSet.at(i).rgbImageName,
-		      CV_LOAD_IMAGE_ANYCOLOR).clone();
+		      + dataSet.at(i).rgbImageName,3).clone();
 
+    std::cout << dataSet.at(i).rgbImageName << " " << rgb->channels() << std::endl;
     // load Depth image
     *depth = cv::imread(dataSet.at(i).imageFilePath
 		       + dataSet.at(i).depthImageName,

@@ -1,4 +1,4 @@
-13
+11
 bottle/bottle_1
 bottle/bottle_2
 can/can_3
@@ -8,7 +8,6 @@ cup/cup_2
 koaramarch/koaramarch_1
 koaramarch/koaramarch_2
 ornament/ornament_1
-pack/pack_1
 pack/pack_2
 pakuncho/pakuncho_1
 painomi/painomi_1
@@ -20,3 +19,4 @@ ornament/ornament_3
 can/can_2
 pakuncho/pakuncho_3
 pakuncho/pakuncho_2
+pack/pack_1

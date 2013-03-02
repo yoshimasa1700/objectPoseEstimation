@@ -40,8 +40,18 @@ void HoG::extractOBin(const cv::Mat* Iorient,const cv::Mat* Imagn, std::vector<c
 
   
   // reset output image (border=0) and get pointers
-  for(int k=off; k<bins+off; ++k) 
-    *(out[k]) = cv::Mat::zeros(out[k]->rows, out[k]->cols, CV_8U);
+    
+
+  for(int k=off; k<bins+off; ++k){
+    int r = out[k]->rows;
+    int c = out[k]->cols;
+    *(out[k]) = cv::Mat::zeros(r,c, CV_8U);
+  }
+
+  // cv::namedWindow("test");
+  // cv::imshow("test",*Iorient);
+  // cv::waitKey(0);
+  // cv::destroyWindow("test");
   
   for(int y = 0; y < Iorient->rows - g_w; y++) {
     for(int x = 0; x < Iorient->cols - g_w; x++){
@@ -72,8 +82,8 @@ void HoG::calcHoGBin(const cv::Mat* IOri, const cv::Mat* IMag, std::vector<cv::M
 	delta = - delta;
       }else
 	bin2 = bin1 < bins - 1 ? bin1 + 1 : 0;
-      out.at(bin1 + 7)->at<float>(yy, xx) += (1 - delta) * w;
-      out.at(bin2 + 7)->at<float>(yy, xx) += delta * w;
+      out.at(bin1 + 7)->at<uchar>(yy, xx) += (1 - delta) * w;
+      out.at(bin2 + 7)->at<uchar>(yy, xx) += delta * w;
     }
   }
 

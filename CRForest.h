@@ -64,35 +64,46 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
   for(int i = 0; i < 32; ++i)
     vImg.at(i) = new cv::Mat(img->rows, img->cols, CV_8UC1);
 
-  std::cout << "kokomade" << std::endl;
 
+  std::cout << img->channels() << std::endl;
   
   cv::cvtColor(*img, *(vImg.at(0)), CV_BGR2GRAY);
+
 
   cv::Mat I_x(img->rows, img->cols, CV_16SC1);
   cv::Mat I_y(img->rows, img->cols, CV_16SC1);
 
+   
   cv::Sobel(*(vImg.at(0)), I_x, CV_16S, 1, 0);
   cv::Sobel(*(vImg.at(0)), I_y, CV_16S, 0, 1);
 
   cv::convertScaleAbs(I_x, *(vImg[3]), 0.25);
   cv::convertScaleAbs(I_y, *(vImg[4]), 0.25);
   
+  std::cout << "vimg[3]" << std::endl;
+  
+   /* cv::namedWindow("test"); */
+   /* cv::imshow("test",*(vImg[3])); */
+   /* cv::waitKey(0); */
+   /* cv::destroyWindow("test"); */
+
   // Orientation of gradients
   for(int  y = 0; y < img->rows; y++)
     for(int  x = 0; x < img->cols; x++) {
       // Avoid division by zero
-      float tx = I_x.at<float>(y, x) + (float)copysign(0.000001f, I_x.at<float>(y, x));
+      float tx = (float)I_x.at<short>(y, x) + (float)copysign(0.000001f, I_x.at<short>(y, x));
       // Scaling [-pi/2 pi/2] -> [0 80*pi]
-      vImg.at(1)->at<uchar>(y, x) = (uchar)(( atan((float)I_y.at<float>(y, x) / tx) + 3.14159265f / 2.0f ) * 80);
-
-      vImg.at(2)->at<uchar>(y, x) = (uchar)sqrt(I_x.at<float>(y, x)*I_x.at<float>(y, x) + I_y.at<float>(y, x) * I_y.at<float>(y, x));
+      vImg.at(1)->at<uchar>(y, x) = (uchar)(( atan((float)I_y.at<short>(y, x) / tx) + 3.14159265f / 2.0f ) * 80);
+      //std::cout << "scaling" << std::endl;
+      vImg.at(2)->at<uchar>(y, x) = (uchar)sqrt((float)I_x.at<short>(y, x)* (float)I_x.at<short>(y, x) + (float)I_y.at<short>(y, x) * (float)I_y.at<short>(y, x));
     }
-
+  
+  std::cout << "kokomade" << std::endl;
+  
   // Magunitude of gradients
   for(int y = 0; y < img->rows; y++)
       for(int x = 0; x < img->cols; x++ ) {
-	vImg.at(2)->at<uchar>(y, x) = (uchar)sqrt(I_x.at<float>(y, x)*I_x.at<float>(y, x) + I_y.at<float>(y, x) * I_y.at<float>(y, x));
+	vImg.at(2)->at<uchar>(y, x) = (uchar)sqrt(I_x.at<short>(y, x)*I_x.at<short>(y, x) + I_y.at<short>(y, x) * I_y.at<short>(y, x));
       }
 
   hog.extractOBin(vImg[1], vImg[2], vImg, 7);
@@ -157,7 +168,7 @@ inline void CRForest::minFilter(cv::Mat* src, cv::Mat* des, int fWind) const{
       
     roi = cv::Rect(x + d, 0, 1, src->rows);
     cv::Mat roiDesTemp((*des), roi);
-    vTemp.copyTo(roiDesTemp);
+    vTemp.copyTo((*des)(roi));// = vTemp.clone();//copyTo((*des)(roi));
   } // for image width
 }
 
@@ -165,6 +176,12 @@ inline void CRForest::maxFilter(cv::Mat* src, cv::Mat* des, int fWind) const{
   int d = (fWind - 1) / 2;
   cv::Rect roi;
   cv::Mat desTemp(src->rows, src->cols, CV_8U), vTemp;
+
+
+  /* cv::namedWindow("test"); */
+  /* cv::imshow("test",*des); */
+  /* cv::waitKey(0); */
+  /* cv::destroyWindow("test"); */
 
     for(int y = 0; y < src->rows - fWind; ++y){ //for image height
       if(y < fWind)
@@ -176,7 +193,7 @@ inline void CRForest::maxFilter(cv::Mat* src, cv::Mat* des, int fWind) const{
       
       roi = cv::Rect(0, y + d, src->cols, 1);
       cv::Mat roiDesTemp(desTemp, roi);
-      vTemp.copyTo(roiDesTemp);
+      vTemp.copyTo(desTemp(roi));
     }// For image height
 
   for(int x = 0; x < src->cols - fWind; ++x){ // for image width
@@ -189,8 +206,10 @@ inline void CRForest::maxFilter(cv::Mat* src, cv::Mat* des, int fWind) const{
       
     roi = cv::Rect(x + d, 0, 1, src->rows);
     cv::Mat roiDesTemp(*des, roi);
-    vTemp.copyTo(roiDesTemp);
+    vTemp.copyTo((*des)(roi));// = vTemp.clone();//copyTo((*des)(roi));
   } // for image width
+
+  
 }
 
 #endif

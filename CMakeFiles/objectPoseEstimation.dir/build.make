@@ -34,6 +34,9 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/masahiko/Program/objectPoseEstimation
 
@@ -206,23 +209,24 @@ objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/CPatch.cpp.o
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/build.make
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_calib3d.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_contrib.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_core.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_features2d.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_flann.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_gpu.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_highgui.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_imgproc.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_legacy.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_ml.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_nonfree.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_objdetect.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_photo.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_stitching.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_ts.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_video.so
-objectPoseEstimation-1.0.0: /usr/local/lib/libopencv_videostab.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_calib3d.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_contrib.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_core.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_features2d.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_flann.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_gpu.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_highgui.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_imgproc.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_legacy.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_ml.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_nonfree.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_objdetect.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_ocl.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_photo.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_stitching.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_ts.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_video.so
+objectPoseEstimation-1.0.0: /usr/lib/libopencv_videostab.so
 objectPoseEstimation-1.0.0: CMakeFiles/objectPoseEstimation.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable objectPoseEstimation"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/objectPoseEstimation.dir/link.txt --verbose=$(VERBOSE)

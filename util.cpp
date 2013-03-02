@@ -400,6 +400,8 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
   // read train folder name
   for(int i = 0;i < n_folders; ++i)
     in >> trainimagefolder.at(i);
+
+  std::cout << "train image foloder num is " << trainimagefolder.size() << std::endl;
   in.close();
   //read train file name and grand truth from file
   tempDataSet.clear();
