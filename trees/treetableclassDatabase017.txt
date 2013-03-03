@@ -1,11 +1,3 @@
-0 bottle1
-1 bottle2
-2 can3
-3 can4
-4 cup1
-5 cup2
-6 koaramarch
-7 koaramarch2
-8 ornament1
-9 pack2
-10 pakuncho1
+0 bottle
+1 koaramarch
+2 cup

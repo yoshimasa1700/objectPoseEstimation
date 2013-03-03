@@ -1,5 +1,5 @@
-#include "CRForest.h"
 #include <boost/timer.hpp>
+#include "CRForest.h"
 
 void CRForest::learning(){
   // grow each tree
@@ -28,7 +28,6 @@ void CRForest::growATree(const int treeNum){
   //std::cout << "time is " << time(NULL) << std::endl;
   boost::mt19937    gen( treeNum * static_cast<unsigned long>(time(NULL)) );
 
-
   boost::timer t;
 
   loadTrainFile(conf, dataSets);//, gen);
@@ -41,9 +40,8 @@ void CRForest::growATree(const int treeNum){
   classDatabase.clear();
 
   // create class database
-  for(int p = 0;p < dataSets.size(); ++p){
+  for(int p = 0;p < dataSets.size(); ++p)
     classDatabase.add(dataSets.at(p).className);
-  }
   classDatabase.show();
 
   //create tree
@@ -61,13 +59,14 @@ void CRForest::growATree(const int treeNum){
   features.resize(0);
    
   for(int j = 0; j < images.size(); ++j){
-    std::cout << "extruct " << j << std::endl;
+    //std::cout << "extruct " << j << std::endl;
     tempFeature.clear();
 
     // cv::namedWindow("test");
     // cv::imshow("test",*(images.at(j).at(0)));
     // cv::waitKey(0);
     // cv::destroyWindow("test");
+
     //extract features
     extractFeatureChannels(images.at(j).at(0), tempFeature);
     // add depth image to features
@@ -78,26 +77,25 @@ void CRForest::growATree(const int treeNum){
   std::cout << "feature extructed!" << std::endl;
 
   for(int i = 0; i < images.size(); ++i){
-    std::cout << "releasing image number " << i << std::endl;
+    //std::cout << "releasing image number " << i << std::endl;
     delete images.at(i).at(0);
   }
 
   //images.clear();
-  std::cout << "images" << images.size() << std::endl;
+  //std::cout << "images" << images.size() << std::endl;
 
   // extract patch from image
-  std::cout << "extruction patch from features" << std::endl;
+  //std::cout << "extruction patch from features" << std::endl;
   extractPatches(vPatches, dataSets, features, conf);
-  std::cout << "patch extracted!" << std::endl;
+  //std::cout << "patch extracted!" << std::endl;
 
   std::vector<int> patchClassNum(classDatabase.vNode.size(), 0);
 
-  for(int j = 0; j < vPatches.at(0).size(); ++j){
+  for(int j = 0; j < vPatches.at(0).size(); ++j)
     patchClassNum.at(vPatches.at(0).at(j).classNum)++;
-  }
 
-  for(int c = 0; c < classDatabase.vNode.size(); ++c)
-    std::cout << patchClassNum.at(c) << std::endl;
+  //for(int c = 0; c < classDatabase.vNode.size(); ++c)
+  //std::cout << patchClassNum.at(c) << std::endl;
     
 
   // grow tree
@@ -150,7 +148,7 @@ void CRForest::growATree(const int treeNum){
     if(features.at(i).size() != 0){
       for(int j = 0; j < features.at(i).size(); ++j){
   	//if(features.at(i).size != NULL)
-  	std::cout << "feature keshiteru " << i << " "<< j << std::endl;
+  	//std::cout << "feature keshiteru " << i << " "<< j << std::endl;
   	delete features.at(i).at(j);
       }
     }
@@ -227,6 +225,14 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  
 	  
 	  tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
+	  //for(int q = 0; q < tPosPatch.size(); ++q){
+	  // cv::namedWindow("test");
+	  // cv::imshow("test",(*(tPatch.patch.at(0)))(tPatch.patchRoi));
+	  // cv::waitKey(0);
+	  // cv::destroyWindow("test");
+
+	  //std::cout << pixNum << std::endl;
+	    //}
 	  //std::cout << pixNum << std::endl;
 	  if (pixNum > 0){
 	    //if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
@@ -245,11 +251,19 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //int totalPatchNum = (int)(((double)(image.at(l).at(0).cols - conf.p_width) / (double)conf.stride) * ((double)(image.at(l).at(0).rows - conf.p_height) / (double)conf.stride));
 
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
-    //std::cout << "tPosPatch.size()" << tPosat
-    
-    if(tPosPatch.size() > 30){
+    std::cout << tPosPatch.size() << std::endl;
 
-      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 30);//totalPatchNum * conf.patchRatio);
+    // for(int q = 0; q < tPosPatch.size(); ++q){
+    //   cv::namedWindow("test");
+    //   cv::imshow("test",(*(tPosPatch.at(q).patch.at(0)))(tPosPatch.at(q).patchRoi));
+    //   cv::waitKey(0);
+    //   cv::destroyWindow("test");
+    // }
+
+    
+    if(tPosPatch.size() > 60){
+
+      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
     
       //std::cout << "keisan deketa" << std::endl;
 
@@ -272,6 +286,8 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	ite++;
       }
 
+    }else{
+      std::cout << "can't extruct enough patch" << std::endl;
     }
     //std::cout << "kokomade kimashita" << std::endl;
     tPosPatch.clear();
@@ -391,9 +407,20 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 
       for(int i = 0; i < classNum; ++i)
 	containPoints += (*itL)->vCenter.at(i).size();
+
+      int maxClass = 0;
+
+      int maxClassNum = 0;
+
+      for(int q = 0; q < classNum; ++q){
+	if(maxClassNum < (*itL)->vCenter.at(q).size()){
+	  maxClassNum = (*itL)->vCenter.at(q).size();
+	  maxClass = q;
+	}
+      }
       
       for(int l = 0; l < classNum; ++l){
-	if((*itL)->pfg.at(l) != 0){
+	//if((*itL)->pfg.at(l) != 0){
 	  // vote for all points stored in the leaf
 	  //for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
 	  //  classSum.at((*itL)->vClass.at(k))++;
@@ -407,14 +434,14 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 	  //leafPerClass.at((*itL)->vClass.at(0))++;
  
 	  // voting weight for leaf 
-	  float w = (*itL)->pfg.at(l);// / (float)((float)containPoints * result.size() );
+	  float w = (*itL)->pfg.at(maxClass);// * (*itL)->vCenter.at(l).size();// / (float)((float)containPoints * result.size() );
 
 	  
 	  //for(int c = 0; c < classNum; ++c){
-	  classification_result.at(l) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
+	  classification_result.at(maxClass) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
 	      //}
 	  // } // end if
-	}
+	  //}
       }
     } // for every leaf
   } // for every patch
@@ -523,8 +550,8 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
     for(int k = 0;k < rgb->cols; ++k)
       for(int l = 0;l < rgb->rows; ++l){
     	//std::cout << depth.at<ushort>(l, k) << " " << std::endl;
-    	if(!(bool)mask->at<char>(l, k))
-    	  depth->at<ushort>(l, k) = 0;
+    	//if(!(bool)mask->at<char>(l, k))
+    	  //depth->at<ushort>(l, k) = 0;
     	// for(int j = 0;j < 3; ++j)
     	//   if(!(bool)mask.at<char>(l, k))
     	//     rgb.at<cv::Vec3b>(l, k)[j] = 0;

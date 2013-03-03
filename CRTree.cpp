@@ -214,32 +214,13 @@ bool CRTree::saveTree(const char* filename) const {
 		<< " ";	  
 	}
       }
-      
       out << endl;
-
-      // for(int j = 0; j < containClassNum; j++){
-      // 	out << ptLN->pfg.at(j) << " " << classNum.at(j) << " ";
-	
-	
-      // 	// for(unsigned int i=0; i<ptLN->vCenter.size(); ++i) {
-      // 	// 	for(unsigned int k=0; k<ptLN->vCenter[i].size(); ++k) {
-      // 	// 	  out << ptLN->vCenter[i][k].x << " " << ptLN->vCenter[i][k].y << " ";
-      // 	// 	}
-      // 	// }
-
-      // 	for(int i = 0; i < classNum.at(); ++i){
-      // 	  out << ptLN->vClass.at(i) << " " << ptLN->vCenter.at(i).x << " " << ptLN->vCenter.at(i).y << " "; 
-      // 	}
-      // }
-      // out << endl;
     }
 
     out.close();
 
     done = true;
   }
-
-
   return done;
 }
 
@@ -258,6 +239,8 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
   boost::uniform_int<> zeroOne( 0, 1 );
   boost::variate_generator<boost::mt19937&, 
 			   boost::uniform_int<> > rand( gen, zeroOne );
+
+  int totalClassNum = 0;
   
   defaultClass = defaultClass_;
   nclass = defaultClass.size();
@@ -271,8 +254,20 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
   for(int c = 0; c < nclass; ++c)
     if(containClass.at(c) != 0)
       remainClass++;
+
+  int maxClassNum = 0;
+
+  for(int i = 0; i < containClass.size(); ++i){
+    totalClassNum += containClass.at(i);
+    if(maxClassNum < containClass.at(i)){
+      maxClassNum = containClass.at(i);
+    }
+  }
+
+  float classRatio = (float)maxClassNum / (float)totalClassNum;
+  std::cout << classRatio << std::endl;
   
-  if(depth < max_depth && remainClass > 1) {
+  if(depth < max_depth && remainClass > 1 && classRatio < 0.9) {
 
     //if(depth < max_depth && TrainSet[0].size() > 0) {	
     
@@ -314,20 +309,6 @@ void CRTree::growTree(vector<vector<CPatch> > &TrainSet, int node , int depth, f
       
       double countA = 0;
       double countB = 0;
-     
-
-      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
-      // 	cout << "Final_Split A/B " << l << " " << SetA[l].size() << " " << SetB[l].size() << endl; 
-      // 	countA += SetA[l].size(); countB += SetB[l].size();
-      // }
-      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
-      // 	cout << "Final_SplitA: " << 100 * SetA[l].size()/countA << "% "; 
-      // }
-      // cout << endl;
-      // for(unsigned int l=0; l<TrainSet.size(); ++l) {
-      // 	cout << "Final_SplitB: " << 100 *SetB[l].size() / countB << "% "; 
-      // }
-      //cout << endl;
 
       containClassA.clear();
       containClassA.resize(nclass);

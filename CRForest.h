@@ -65,7 +65,7 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
     vImg.at(i) = new cv::Mat(img->rows, img->cols, CV_8UC1);
 
 
-  std::cout << img->channels() << std::endl;
+  //std::cout << img->channels() << std::endl;
   
   cv::cvtColor(*img, *(vImg.at(0)), CV_BGR2GRAY);
 
@@ -80,7 +80,7 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
   cv::convertScaleAbs(I_x, *(vImg[3]), 0.25);
   cv::convertScaleAbs(I_y, *(vImg[4]), 0.25);
   
-  std::cout << "vimg[3]" << std::endl;
+  //std::cout << "vimg[3]" << std::endl;
   
    /* cv::namedWindow("test"); */
    /* cv::imshow("test",*(vImg[3])); */
@@ -98,7 +98,7 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
       vImg.at(2)->at<uchar>(y, x) = (uchar)sqrt((float)I_x.at<short>(y, x)* (float)I_x.at<short>(y, x) + (float)I_y.at<short>(y, x) * (float)I_y.at<short>(y, x));
     }
   
-  std::cout << "kokomade" << std::endl;
+  //std::cout << "kokomade" << std::endl;
   
   // Magunitude of gradients
   for(int y = 0; y < img->rows; y++)

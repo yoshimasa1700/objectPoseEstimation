@@ -59,13 +59,13 @@ class CRTree
   //destructor
   ~CRTree()
     {
-      std::cout << "destroy crtree" << std::endl; 
+      //std::cout << "destroy crtree" << std::endl; 
       //if(treetable != NULL)
-      	delete [] treetable;
-      std::cout << "treetable!" << std::endl;
+      delete [] treetable;
+      //std::cout << "treetable!" << std::endl;
       //if(leaf != NULL)
-      	delete [] leaf;
-      std::cout << "released crtree" << std::endl;
+      delete [] leaf;
+      //std::cout << "released crtree" << std::endl;
     }
   
   // Set/Get functions
