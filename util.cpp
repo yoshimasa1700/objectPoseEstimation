@@ -18,69 +18,6 @@ void CDataset::showDataset(){
   std::cout << "angle grand truth:" << angle << std::endl; 
 }
 
-void CImages::loadImages(std::vector<CDataset> dataSet){
-  cv::Mat rgb,depth, mask;
-  std::vector<cv::Mat> planes;
-  std::vector<cv::Mat> allImages;
-
-  img.resize(0);
-
-  std::cout << dataSet.at(0).depthImageName << std::endl;
-  
-  for(int i = 0;i < dataSet.size(); ++i){
-    
-    std::cout << dataSet.at(i).imageFilePath
-      + dataSet.at(i).maskImageName << std::endl;
-
-    // load Mask image
-    mask = cv::imread(dataSet.at(i).imageFilePath
-+ dataSet.at(i).maskImageName,
-CV_LOAD_IMAGE_ANYCOLOR);
-    
-    // load RGB image
-    rgb = cv::imread(dataSet.at(i).imageFilePath
-+ dataSet.at(i).rgbImageName,
-CV_LOAD_IMAGE_ANYCOLOR);
-
-    // load Depth image
-    depth = cv::imread(dataSet.at(i).imageFilePath
-+ dataSet.at(i).depthImageName,
-
-CV_LOAD_IMAGE_ANYDEPTH);
-
-    for(int k = 0;k < rgb.cols; ++k)
-      for(int l = 0;l < rgb.rows; ++l){
-	if(!(bool)mask.at<char>(l, k))
-	  depth.at<short>(l, k) = 0;
-	for(int j = 0;j < 3; ++j)
-	  if(!(bool)mask.at<char>(l, k))
-	    rgb.at<cv::Vec3b>(l, k)[j] = 0;
-      }
-
-    //rgbSplited.resize(rgb.channels());
-    
-    //cv::split(rgb, rgbSplited);
-    
-    allImages.clear();
-    allImages.push_back(rgb);
-    allImages.push_back(depth);
-    img.push_back(allImages);
-  }
-}
-
-std::vector<cv::Mat> convertScale(const std::vector<cv::Mat> &inputImg, double scale){
-  cv::Mat destImage;
-  std::vector<cv::Mat> outImageSet;
-
-  outImageSet.clear();
-  for(int j = 0; j < inputImg.size(); ++j){
-    cv::resize(inputImg.at(j), destImage, cv::Size(), scale, scale, cv::INTER_LINEAR);
-    outImageSet.push_back(destImage);
-  }
-  
-  return outImageSet;
-}
-
 CConfig::CConfig()
 {
 }
@@ -389,7 +326,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
     exit(1);
   }
 
-  std::cout << "kokomade " << std::endl;
+  //std::cout << "kokomade " << std::endl;
   
   // read folder number
   in >> n_folders;
@@ -415,6 +352,11 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
       = conf.trainpath + PATH_SEP + trainimagefolder.at(i) + PATH_SEP;
 
     std::ifstream trainDataList(trainDataListPath.c_str());
+    if(!trainDataList.is_open()){
+      std::cout << "can't read " << trainDataListPath << std::endl;
+      exit(0);
+    }
+
     trainDataList >> n_files;
     
     for(int j = 0;j < n_files; ++j){
@@ -439,7 +381,7 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
       
       //read class name
       trainDataList >> temp.className;
-
+      
       database.add(temp.className);
 
       //read angle grand truth

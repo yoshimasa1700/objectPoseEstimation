@@ -3,7 +3,7 @@
   <!-- Path to trees -->
   <treepath>trees/treetable</treepath>
   <!-- Number of trees -->
-  <ntree>1</ntree>
+  <ntree>100</ntree>
   <!-- Patch width -->
   <pwidth>32</pwidth>
   <!-- Patch height -->
@@ -28,7 +28,7 @@
   <!-- Scale factor for output image-->
   <sfactor>20</sfactor>
   <!-- Path to training images -->
-  <trainimgpath>data</trainimgpath>
+  <trainimgpath>dataset</trainimgpath>
   <!-- Train data file name -->
   <traindataname>trainData.txt</traindataname>
   <!-- Train image per tree-->
@@ -46,15 +46,11 @@
   <!-- Offset of tree-->
   <offTree>0</offTree>
   <!-- test data path -->
-  <testpath>data</testpath>
+  <testpath>dataset</testpath>
   <testdataname>trainData.txt</testdataname>
-
-
-  
   <classdatabasename>classDatabase</classdatabasename>
   <!--learning mode 1:depth 2:rgb 0:rgbd-->
   <learningmode>0</learningmode>
-
   <traindatalistname>dataList1.txt</traindatalistname>
   <testdatalistname>dataList2.txt</testdatalistname>
 </root>

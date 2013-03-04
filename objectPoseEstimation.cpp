@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void loadImage(const CDataset &dataSet, std::vector<cv::Mat*> &image){
+void loadImage(CDataset &dataSet, std::vector<cv::Mat*> &image){
   cv::Mat* rgb, *depth, *mask;
   
   rgb = new cv::Mat();
@@ -30,15 +30,21 @@ void loadImage(const CDataset &dataSet, std::vector<cv::Mat*> &image){
 		     + dataSet.depthImageName,
 		      CV_LOAD_IMAGE_ANYDEPTH).clone();
 
+  cv::Point tempPoint;
+  tempPoint.x = (*rgb).cols / 2;
+  tempPoint.y = (*rgb).rows / 2;
+  
+  dataSet.centerPoint.push_back(tempPoint);
+
   // masking image
-  for(int k = 0;k < rgb->cols; ++k)
-    for(int l = 0;l < rgb->rows; ++l){
-      if(!(bool)mask->at<char>(l, k))
-	depth->at<short>(l, k) = 0;
-      for(int j = 0;j < 3; ++j)
-	if(!(bool)mask->at<char>(l, k))
-	  rgb->at<cv::Vec3b>(l, k)[j] = 0;
-    }
+  // for(int k = 0;k < rgb->cols; ++k)
+  //   for(int l = 0;l < rgb->rows; ++l){
+  //     if(!(bool)mask->at<char>(l, k))
+  // 	depth->at<short>(l, k) = 0;
+  //     for(int j = 0;j < 3; ++j)
+  // 	if(!(bool)mask->at<char>(l, k))
+  // 	  rgb->at<cv::Vec3b>(l, k)[j] = 0;
+  //   }
 
   //rgbSplited.resize(rgb.channels());
   
@@ -95,18 +101,18 @@ void loadTestFile(CConfig conf, std::vector<CDataset> &dataSet){
 	testDataList >> temp.maskImageName;
 
 	//read bounding box
-	testDataList >> temp.bBox.x;
-	testDataList >> temp.bBox.y;
-	testDataList >> temp.bBox.width;
-	testDataList >> temp.bBox.height;
+	// testDataList >> temp.bBox.x;
+	// testDataList >> temp.bBox.y;
+	// testDataList >> temp.bBox.width;
+	// testDataList >> temp.bBox.height;
       
 	temp.centerPoint.resize(0);
 
 	//read center point
-	testDataList >> tempPoint.x;//temp.centerPoint.x;
-	testDataList >> tempPoint.y;
+	//testDataList >> tempPoint.x;//temp.centerPoint.x;
+	//testDataList >> tempPoint.y;
 
-	temp.centerPoint.push_back(tempPoint);
+	//temp.centerPoint.push_back(tempPoint);
       
 	//read class name
 	testDataList >> temp.className;

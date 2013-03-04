@@ -38,22 +38,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/2.8.10.2/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/2.8.10.2/bin/cmake -E remove -f
+RM = /usr/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.10.2/bin/ccmake
-
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/masahiko/Programs/objectPoseEstimation
+CMAKE_SOURCE_DIR = /home/masahiko/Program/objectPoseEstimation
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/masahiko/Programs/objectPoseEstimation
+CMAKE_BINARY_DIR = /home/masahiko/Program/objectPoseEstimation
 
 #=============================================================================
 # Target rules for target CMakeFiles/learning.dir
@@ -62,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/masahiko/Programs/objectPoseEstimation
 CMakeFiles/learning.dir/all:
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/depend
 	$(MAKE) -f CMakeFiles/learning.dir/build.make CMakeFiles/learning.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles  1 2 3 4 5 6
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles  1 2 3 4 5
 	@echo "Built target learning"
 .PHONY : CMakeFiles/learning.dir/all
 
@@ -72,9 +69,9 @@ all: CMakeFiles/learning.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/learning.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/masahiko/Program/objectPoseEstimation/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/learning.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/masahiko/Program/objectPoseEstimation/CMakeFiles 0
 .PHONY : CMakeFiles/learning.dir/rule
 
 # Convenience name for target.
@@ -97,7 +94,7 @@ clean: CMakeFiles/learning.dir/clean
 CMakeFiles/objectPoseEstimation.dir/all:
 	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/depend
 	$(MAKE) -f CMakeFiles/objectPoseEstimation.dir/build.make CMakeFiles/objectPoseEstimation.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles  7 8 9 10 11 12
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles  6 7 8 9 10
 	@echo "Built target objectPoseEstimation"
 .PHONY : CMakeFiles/objectPoseEstimation.dir/all
 
@@ -107,9 +104,9 @@ all: CMakeFiles/objectPoseEstimation.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/objectPoseEstimation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/masahiko/Program/objectPoseEstimation/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/objectPoseEstimation.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/masahiko/Program/objectPoseEstimation/CMakeFiles 0
 .PHONY : CMakeFiles/objectPoseEstimation.dir/rule
 
 # Convenience name for target.

@@ -43,7 +43,7 @@ class CRForest {
   void regression(std::vector<const LeafNode*>& result, 
 		  CPatch &patch) const;
   void loadImages(cv::vector<cv::vector<cv::Mat*> > &img, 
-		  std::vector<CDataset> dataSet);
+		  std::vector<CDataset> &dataSet);
 
   void extractFeatureChannels(const cv::Mat* img, 
 			      cv::vector<cv::Mat*>& vImg) const;

@@ -54,6 +54,8 @@ void CRForest::growATree(const int treeNum){
   // load images to mamory
   loadImages(images, dataSets);
 
+  std::cout << dataSets.at(0).centerPoint.size() << std::endl;
+
   std::cout << "extracting feature" << std::endl;
 
   features.resize(0);
@@ -252,7 +254,8 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  //}
 	  //}
       }//x
-    }//y  
+    }//y
+    pBar(l,dataSet.size(), 50);
   }//allimages 
     //int totalPatchNum = (int)(((double)(image.at(l).at(0).cols - conf.p_width) / (double)conf.stride) * ((double)(image.at(l).at(0).rows - conf.p_height) / (double)conf.stride));
 
@@ -298,7 +301,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   }
     //std::cout << "kokomade kimashita" << std::endl;
     //tPosPatch.clear();
-    //pBar(l,dataSet.size(), 50);
+    //
   patches.push_back(posPatch);
   patches.push_back(negPatch);
 
@@ -508,18 +511,13 @@ void CRForest::regression(std::vector<const LeafNode*>& result, CPatch &patch) c
   }
 }
 
-void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<CDataset> dataSet){
+void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<CDataset> &dataSet){
   img.resize(0);
 
   cv::Mat* rgb,*depth, *mask;
   cv::vector<cv::Mat*> planes;
   cv::vector<cv::Mat*> allImages;
   //cv::vector<cv::Mat> rgbSplited;
-
-
-  
-
-  std::cout << dataSet.at(0).depthImageName << std::endl;
   
   for(int i = 0;i < dataSet.size(); ++i){
     rgb = new cv::Mat();
@@ -535,7 +533,7 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
     *rgb = cv::imread(dataSet.at(i).imageFilePath
 		      + dataSet.at(i).rgbImageName,3).clone();
 
-    std::cout << dataSet.at(i).rgbImageName << " " << rgb->channels() << std::endl;
+    //std::cout << dataSet.at(i).rgbImageName << " " << rgb->channels() << std::endl;
     // load Depth image
     *depth = cv::imread(dataSet.at(i).imageFilePath
 		       + dataSet.at(i).depthImageName,
