@@ -424,18 +424,18 @@ void loadTrainFile(CConfig conf, std::vector<CDataset> &dataSet)
       trainDataList >> temp.maskImageName;
 
       //read bounding box
-      trainDataList >> temp.bBox.x;
-      trainDataList >> temp.bBox.y;
-      trainDataList >> temp.bBox.width;
-      trainDataList >> temp.bBox.height;
+      //trainDataList >> temp.bBox.x;
+      //trainDataList >> temp.bBox.y;
+      //trainDataList >> temp.bBox.width;
+      //trainDataList >> temp.bBox.height;
       
       temp.centerPoint.clear();
 
       //read center point
-      trainDataList >> tempPoint.x;//temp.centerPoint.x;
-      trainDataList >> tempPoint.y;
+      //trainDataList >> tempPoint.x;//temp.centerPoint.x;
+      //trainDataList >> tempPoint.y;
 
-      temp.centerPoint.push_back(tempPoint);
+      //temp.centerPoint.push_back(tempPoint);
       
       //read class name
       trainDataList >> temp.className;
