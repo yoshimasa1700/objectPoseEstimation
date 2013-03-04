@@ -188,7 +188,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   std::cout << "extracting patch from image" << std::endl;
   std::cout << image.at(0).size() << std::endl;
   for(int l = 0;l < image.size(); ++l){
-    tPosPatch.clear();
+    //tPosPatch.clear();
     for(int j = 0; j < image.at(l).at(0)->cols - conf.p_width; j += conf.stride){
       for(int k = 0; k < image.at(l).at(0)->rows - conf.p_height; k += conf.stride){
 	//if(rand() < conf.patchRatio){
@@ -246,12 +246,13 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  } // if
 	  //}
 	  //}
-      }
-    }   
+      }//x
+    }//y  
+  }//allimages 
     //int totalPatchNum = (int)(((double)(image.at(l).at(0).cols - conf.p_width) / (double)conf.stride) * ((double)(image.at(l).at(0).rows - conf.p_height) / (double)conf.stride));
 
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
-    std::cout << tPosPatch.size() << std::endl;
+    //std::cout << tPosPatch.size() << std::endl;
 
     // for(int q = 0; q < tPosPatch.size(); ++q){
     //   cv::namedWindow("test");
@@ -261,38 +262,37 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     // }
 
     
-    if(tPosPatch.size() > 60){
+  if(tPosPatch.size() > 100){
 
-      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 60);//totalPatchNum * conf.patchRatio);
+    std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 100);//totalPatchNum * conf.patchRatio);
     
-      //std::cout << "keisan deketa" << std::endl;
+    //std::cout << "keisan deketa" << std::endl;
 
-      std::set<int>::iterator ite = chosenPatch.begin();
+    std::set<int>::iterator ite = chosenPatch.begin();
 
-      //cv::namedWindow("test");
-      //cv::imshow("test",image.at(l).at(0));
-      //cv::waitKey(0);
-      //cv::destroyWindow("test");w
-
-    
-      //std::cout << "patch torimasu" << std::endl;
-
-      //std::cout << "tPosPatch num is " << tPosPatch.size() << std::endl;
+    //cv::namedWindow("test");
+    //cv::imshow("test",image.at(l).at(0));
+    //cv::waitKey(0);
+    //cv::destroyWindow("test");w
 
     
-      while(ite != chosenPatch.end()){
-	//std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
-	posPatch.push_back(tPosPatch.at(*ite));
-	ite++;
-      }
+    //std::cout << "patch torimasu" << std::endl;
 
-    }else{
-      std::cout << "can't extruct enough patch" << std::endl;
+    //std::cout << "tPosPatch num is " << tPosPatch.size() << std::endl;
+
+    
+    while(ite != chosenPatch.end()){
+      //std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
+      posPatch.push_back(tPosPatch.at(*ite));
+      ite++;
     }
-    //std::cout << "kokomade kimashita" << std::endl;
-    tPosPatch.clear();
-    pBar(l,dataSet.size(), 50);
+
+  }else{
+    std::cout << "can't extruct enough patch" << std::endl;
   }
+  //std::cout << "kokomade kimashita" << std::endl;
+  tPosPatch.clear();
+  //pBar(l,dataSet.size(), 50);
 
   patches.push_back(posPatch);
   patches.push_back(negPatch);
@@ -419,7 +419,7 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 	}
       }
       
-      for(int l = 0; l < classNum; ++l){
+      //for(int l = 0; l < classNum; ++l){
 	//if((*itL)->pfg.at(l) != 0){
 	  // vote for all points stored in the leaf
 	  //for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
@@ -434,15 +434,15 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 	  //leafPerClass.at((*itL)->vClass.at(0))++;
  
 	  // voting weight for leaf 
-	  float w = (*itL)->pfg.at(maxClass);// * (*itL)->vCenter.at(l).size();// / (float)((float)containPoints * result.size() );
+	  float w = (*itL)->pfg.at(maxClass) * (*itL)->vCenter.at(maxClass).size();// / (float)((float)containPoints * result.size() );
 
 	  
 	  //for(int c = 0; c < classNum; ++c){
-	  classification_result.at(maxClass) += (double) w;// * ((double)classSum.at(c) / (double)(*itL)->vClass.size());
+	  classification_result.at(maxClass) += (double) w; //* ((double)classSum.at(c) / (double)(*itL)->vClass.size());
 	      //}
 	  // } // end if
 	  //}
-      }
+	  //}
     } // for every leaf
   } // for every patch
 
