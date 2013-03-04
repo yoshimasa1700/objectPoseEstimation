@@ -170,9 +170,11 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
   CPatch tPatch;
 
   std::vector<CPatch> tPosPatch, posPatch, negPatch;
-  
+  std::vector<std::vector<CPatch> > patchPerClass(classDatabase.vNode.size());
   int pixNum;
   nCk nck;
+
+  int classNum = 0;
 
   temp.width  = conf.p_width;
   temp.height = conf.p_height;
@@ -210,7 +212,10 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	    }
 	  }
 
-	  int classNum = classDatabase.search(dataSet.at(l).className);
+	  classNum = classDatabase.search(dataSet.at(l).className);
+	  
+	  
+
 	  //std::cout << classNum << std::endl;
 
 	  if(classNum == -1){
@@ -237,7 +242,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  if (pixNum > 0){
 	    //if(pixNum > 500 * conf.p_height * conf.p_width * 0.2)
 	      tPosPatch.push_back(tPatch);
-	      
+	      patchPerClass.at(classNum).push_back(tPatch);
 	      // std::cout << "this is for debug patch center point is :" << std::endl;
 	      // std::cout << tPatch.center << std::endl;
 
@@ -248,7 +253,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  //}
       }//x
     }//y  
-    //}//allimages 
+  }//allimages 
     //int totalPatchNum = (int)(((double)(image.at(l).at(0).cols - conf.p_width) / (double)conf.stride) * ((double)(image.at(l).at(0).rows - conf.p_height) / (double)conf.stride));
 
     //std::cout << "total patch num is " << totalPatchNum << std::endl;
@@ -261,10 +266,10 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     //   cv::destroyWindow("test");
     // }
 
-    
-    if(tPosPatch.size() > 100){
+  for(int i = 0; i < patchPerClass.size(); ++i){
+    if(patchPerClass.at(i).size() > conf.patchRatio){
 
-      std::set<int> chosenPatch = nck.generate(tPosPatch.size(), 100);//totalPatchNum * conf.patchRatio);
+      std::set<int> chosenPatch = nck.generate(patchPerClass.at(i).size(), conf.patchRatio);//totalPatchNum * conf.patchRatio);
     
       //std::cout << "keisan deketa" << std::endl;
 
@@ -283,17 +288,17 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
     
       while(ite != chosenPatch.end()){
 	//std::cout << "this is for debug ite is " << tPosPatch.at(*ite).center << std::endl;
-	posPatch.push_back(tPosPatch.at(*ite));
+	posPatch.push_back(patchPerClass.at(i).at(*ite));
 	ite++;
       }
 
     }else{
       std::cout << "can't extruct enough patch" << std::endl;
     }
-    //std::cout << "kokomade kimashita" << std::endl;
-    tPosPatch.clear();
-    pBar(l,dataSet.size(), 50);
   }
+    //std::cout << "kokomade kimashita" << std::endl;
+    //tPosPatch.clear();
+    //pBar(l,dataSet.size(), 50);
   patches.push_back(posPatch);
   patches.push_back(negPatch);
 
