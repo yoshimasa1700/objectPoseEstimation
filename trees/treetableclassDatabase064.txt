@@ -1,3 +1,7 @@
 0 bottle
-1 koaramarch
+1 can
 2 cup
+3 koaramarch
+4 pack
+5 painomi
+6 pakuncho

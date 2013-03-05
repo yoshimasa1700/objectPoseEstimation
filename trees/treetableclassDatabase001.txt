@@ -1,5 +1,5 @@
 0 bottle
-1 koaramarch
-2 cup
-3 can
+1 can
+2 koaramarch
+3 pack
 4 pakuncho

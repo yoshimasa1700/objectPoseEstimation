@@ -427,7 +427,7 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 	}
       }
       
-      //for(int l = 0; l < classNum; ++l){
+      for(int l = 0; l < classNum; ++l){
 	//if((*itL)->pfg.at(l) != 0){
 	  // vote for all points stored in the leaf
 	  //for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
@@ -442,13 +442,13 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 	  //leafPerClass.at((*itL)->vClass.at(0))++;
  
 	  // voting weight for leaf 
-	  float w = (*itL)->pfg.at(maxClass) * (*itL)->vCenter.at(maxClass).size();// / (float)((float)containPoints * result.size() );
+	float w = (*itL)->pfg.at(l);// * (*itL)->vCenter.at(maxClass).size();// / (float)((float)containPoints * result.size() );
 
 	  
 	  //for(int c = 0; c < classNum; ++c){
-	  classification_result.at(maxClass) += (double) w; //* ((double)classSum.at(c) / (double)(*itL)->vClass.size());
-	      //}
-	  // } // end if
+	classification_result.at(maxClass) += (double) w; //* ((double)classSum.at(c) / (double)(*itL)->vClass.size());
+      }
+      // } // end if
 	  //}
 	  //}
     } // for every leaf
