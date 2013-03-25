@@ -10,14 +10,15 @@ pack/pack_2
 pakuncho/pakuncho_1
 pakuncho/pakuncho_2
 
+
 painomi/painomi_1
 painomi/painomi_2
-ornament/ornament_1
-ornament/ornament_2
-ornament/ornament_3
 can/can_3
 can/can_4
 koaramarch/koaramarch_3
 pakuncho/pakuncho_3
 cup/cup_1
 cup/cup_2
+ornament/ornament_1
+ornament/ornament_2
+ornament/ornament_3

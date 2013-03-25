@@ -231,7 +231,7 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 
 	  
 	  
-	  tPatch.setPatch(temp, image.at(l), dataSet.at(l).centerPoint, classNum);
+	  tPatch.setPatch(temp, image.at(l), dataSet.at(l), classNum);
 	  //for(int q = 0; q < tPosPatch.size(); ++q){
 	  // cv::namedWindow("test");
 	  // cv::imshow("test",(*(tPatch.patch.at(0)))(tPatch.patchRoi));
