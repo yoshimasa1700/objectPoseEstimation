@@ -229,8 +229,6 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  // std::cout << temp << std::endl;
 	  // std::cout << dataSet.at(l).centerPoint << std::endl;
 
-	  
-	  
 	  tPatch.setPatch(temp, image.at(l), dataSet.at(l), classNum);
 	  //for(int q = 0; q < tPosPatch.size(); ++q){
 	  // cv::namedWindow("test");
@@ -336,7 +334,9 @@ void CRForest::extractAllPatches(const CDataset &dataSet, const cv::vector<cv::M
 	  //exit(-1);
 	}
 	
-	tPatch.setPatch(temp, image, dataSet.centerPoint, classNum);
+	tPatch.setPatch(temp, image, dataSet, classNum);
+
+	tPatch.setPosition(j,k);
 	patches.push_back(tPatch);
     }
   }
@@ -353,8 +353,12 @@ void CRForest::loadForest(){
 }
 
 void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &image, std::vector<double> &detectionResult, int &detectClass) const{
+
+
+
+
+  //contain class number
   int classNum = classDatabase.vNode.size();
-  
   cv::vector<cv::Mat> scaledImage;
   std::vector<CPatch> patches;
   cv::vector<cv::Mat*> features;
@@ -366,26 +370,18 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
   std::vector<int> leafPerClass(classNum, 0);
   std::vector<int> patchPerClass(classNum, 0);
 
+  // create output image
+  cv::Mat outputImage = cv::Mat::zeros(image.at(0)->rows,image.at(0)->cols,CV_8UC3);
+
+  // set offset of patch
   int xoffset = conf.p_width / 2;
   int yoffset = conf.p_height / 2;
-
-  // show load image
-  // cv::namedWindow("test");
-  // cv::imshow("test",image.at(0));
-  // cv::waitKey(0);
-  // cv::destroyWindow("test");
-
-  // for every scale but this time off
-  //for(int i = 0; i < conf.scales.size(); ++i){
-  //scaledImage = convertScale(image, conf.scales.at(i));
     
   // extract feature from test image
   features.clear();
   extractFeatureChannels(image.at(0), features);
-    
   // add depth image to features
   features.push_back(image.at(1));
-
   delete image.at(0);
 
   // extract patches from features
@@ -396,6 +392,8 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
   // regression for every patch
   for(int j = 0; j < patches.size(); ++j){
     result.clear();
+
+    int maxClass = 0;
     this->regression(result, patches.at(j));
     //std::cout << "kokomade" << std::endl;
     // vote for all trees (leafs) 
@@ -416,7 +414,7 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
       for(int i = 0; i < classNum; ++i)
 	containPoints += (*itL)->vCenter.at(i).size();
 
-      int maxClass = 0;
+
 
       int maxClassNum = 0;
 
@@ -428,19 +426,6 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
       }
       
       for(int l = 0; l < classNum; ++l){
-	//if((*itL)->pfg.at(l) != 0){
-	  // vote for all points stored in the leaf
-	  //for(int k = 0; k < (*itL)->vCenter.size(); ++k){  
-	  //  classSum.at((*itL)->vClass.at(k))++;
-	    
-	  //}
-
-	  
-	  //for(int c = 0; c < classDatabase.vNode.size(); c++)
-	  // patchPerClass.at(c) += classSum.at(c);
-
-	  //leafPerClass.at((*itL)->vClass.at(0))++;
- 
 	  // voting weight for leaf 
 	float w = (*itL)->pfg.at(l);// * (*itL)->vCenter.at(maxClass).size();// / (float)((float)containPoints * result.size() );
 
@@ -448,13 +433,38 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
 	  //for(int c = 0; c < classNum; ++c){
 	classification_result.at(maxClass) += (double) w; //* ((double)classSum.at(c) / (double)(*itL)->vClass.size());
       }
-      // } // end if
-	  //}
-	  //}
+
+
+//      for(int u = 0;u < 1;++u)//(*itL)->vCenter.size();u++)
+//        {
+//          for(int v = 0; v < (*itL)->vCenter.at(u).size();v++){
+//              int posy = patches.at(j).position.y + (*itL)->vCenter.at(u).at(v).y;
+//              int posx = patches.at(j).position.x + (*itL)->vCenter.at(u).at(v).x;
+
+//              //std::cout << "posy = " << posy << ", posx = " << posx << std::endl;
+
+//              if(posy > 0 && posx > 0 &&
+//                 posy <= image.at(1)->rows && posx <= image.at(1)->cols){
+
+//                  cv::Vec<ushort,3> &p = outputImage.at<cv::Vec<ushort,3> >(posy,posx);
+//                  p[1] = 200;
+//                  p[2] = 200;
+//                }
+//            }
+//        }
+
     } // for every leaf
+
+    patches.at(j).detectedClass = maxClass;
+    //cv::circle(outputImage,patches.at(j).position,5,cv::Scalar(0,0,200));
+
   } // for every patch
 
-    //} // for every scale
+
+
+  std::cout << "detection result outputed" << std::endl;
+
+  //cv::imwrite(dataSet.imageFilePath + "_result.png",outputImage);
 
   std::cout << dataSet.className << std::endl;
   std::cout << "result" << std::endl;
@@ -474,6 +484,19 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
   }
 
   detectClass = maxResult;
+
+  for(int pN = 0; pN < patches.size(); ++pN){
+      if(patches.at(pN).detectedClass == detectClass){
+      cv::Vec<ushort,3> &p = outputImage.at<cv::Vec<ushort,3> >(patches.at(pN).position.y + yoffset, patches.at(pN).position.x + xoffset);
+      p[0] = 200;
+        }
+    }
+
+
+  cv::namedWindow("test");
+  cv::imshow("test",outputImage);
+  cv::waitKey(0);
+  cv::destroyWindow("test");
   
   //for(int i = 0; i < classNum; ++i){
   if(dataSet.className == classDatabase.vNode.at(maxResult).name){
@@ -495,11 +518,21 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
   // std::vector<CPatch> patches;
   // cv::vector<cv::Mat> features;
 
-  for(int i = 0; i < features.size(); ++i)
-    delete features.at(i);
+
+
+
+  for(int i = 0; i < features.size(); ++i){
+      //astd::cout << i << std::endl;
+      delete features.at(i);
+    }
+
+  std::cout << "detection end!" << std::endl;
   
-  patches.clear();
+  //patches.clear();
   features.clear();
+
+
+  std::cout << "detection end!" << std::endl;
 }
 
 // Regression 
