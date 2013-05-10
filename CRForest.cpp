@@ -229,8 +229,6 @@ void CRForest::extractPatches(std::vector<std::vector<CPatch> > &patches,const s
 	  // std::cout << temp << std::endl;
 	  // std::cout << dataSet.at(l).centerPoint << std::endl;
 
-	  
-	  
 	  tPatch.setPatch(temp, image.at(l), dataSet.at(l), classNum);
 	  //for(int q = 0; q < tPosPatch.size(); ++q){
 	  // cv::namedWindow("test");
@@ -336,7 +334,7 @@ void CRForest::extractAllPatches(const CDataset &dataSet, const cv::vector<cv::M
 	  //exit(-1);
 	}
 	
-	tPatch.setPatch(temp, image, dataSet.centerPoint, classNum);
+	tPatch.setPatch(temp, image, dataSet, classNum);
 	patches.push_back(tPatch);
     }
   }
@@ -353,8 +351,9 @@ void CRForest::loadForest(){
 }
 
 void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &image, std::vector<double> &detectionResult, int &detectClass) const{
-  int classNum = classDatabase.vNode.size();
   
+  //contain class number
+  int classNum = classDatabase.vNode.size();
   cv::vector<cv::Mat> scaledImage;
   std::vector<CPatch> patches;
   cv::vector<cv::Mat*> features;
