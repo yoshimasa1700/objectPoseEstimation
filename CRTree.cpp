@@ -9,7 +9,6 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
   int node = 0;
   int p1,p2;
 
-
   // Go through tree until one arrives at a leaf, i.e. pnode[0]>=0)
   while(pnode[0]==-1) {
     // binary test 0 - left, 1 - right
@@ -186,8 +185,6 @@ bool CRTree::saveTree(const char* filename) const {
       out << endl;
     }
     out << endl;
-
-    
 
     // save tree leafs
     LeafNode* ptLN = &leaf[0];
@@ -439,7 +436,6 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
 				  
       
   ptL->vCenter.resize(nclass);
-  //ptL->vClass.resize(TrainSet.at(0).size());
   
   int count = 0;
 

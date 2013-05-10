@@ -39,12 +39,22 @@ class CPatch
     center.y =  dataset.centerPoint.at(0).y - roi.y - (roi.height/2);
 
     angle = dataset.angle;
+    detectedClass = -1;
   }
+
+  void setPosition(int x, int y){
+    position.x = x;
+    position.y = y;
+  }
+
+
   cv::Rect patchRoi;
+  cv::Point position;
   cv::Point center;
   cv::vector<cv::Mat*> patch;
   int classNum;
   double angle;
+  int detectedClass;
   //std::vector<cv::Mat *> p_image;
 
   //HoG hog;

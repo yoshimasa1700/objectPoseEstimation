@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Install script for directory: /Users/masahiko/Programs/objectPoseEstimation
+=======
+# Install script for directory: /Users/masahiko/Programs/objectPoseEstimation_with_qt
+>>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -33,7 +37,13 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
+<<<<<<< HEAD
 FILE(WRITE "/Users/masahiko/Programs/objectPoseEstimation/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
   FILE(APPEND "/Users/masahiko/Programs/objectPoseEstimation/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+=======
+FILE(WRITE "/Users/masahiko/Programs/objectPoseEstimation_with_qt/${CMAKE_INSTALL_MANIFEST}" "")
+FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
+  FILE(APPEND "/Users/masahiko/Programs/objectPoseEstimation_with_qt/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+>>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
 ENDFOREACH(file)
