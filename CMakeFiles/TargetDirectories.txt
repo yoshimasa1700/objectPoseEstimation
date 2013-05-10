@@ -1,2 +1,0 @@
-/Users/masahiko/Programs/objectPoseEstimation_with_qt/CMakeFiles/learning.dir
-/Users/masahiko/Programs/objectPoseEstimation_with_qt/CMakeFiles/objectPoseEstimation.dir

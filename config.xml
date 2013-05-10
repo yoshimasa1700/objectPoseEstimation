@@ -3,11 +3,7 @@
   <!-- Path to trees -->
   <treepath>trees/treetable</treepath>
   <!-- Number of trees -->
-<<<<<<< HEAD
-  <ntree>4</ntree>
-=======
   <ntree>20</ntree>
->>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
   <!-- Patch width -->
   <pwidth>48</pwidth>
   <!-- Patch height -->

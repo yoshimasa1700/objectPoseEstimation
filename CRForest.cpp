@@ -354,10 +354,6 @@ void CRForest::loadForest(){
 }
 
 void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &image, std::vector<double> &detectionResult, int &detectClass) const{
-
-
-
-
   //contain class number
   int classNum = classDatabase.vNode.size();
   cv::vector<cv::Mat> scaledImage;
