@@ -9,7 +9,6 @@ const LeafNode* CRTree::regression(CPatch &patch) const {
   int node = 0;
   int p1,p2;
 
-
   // Go through tree until one arrives at a leaf, i.e. pnode[0]>=0)
   while(pnode[0]==-1) {
     // binary test 0 - left, 1 - right
@@ -187,8 +186,6 @@ bool CRTree::saveTree(const char* filename) const {
     }
     out << endl;
 
-    
-
     // save tree leafs
     LeafNode* ptLN = &leaf[0];
     for(unsigned int l=0; l<num_leaf; ++l, ++ptLN) {
@@ -211,7 +208,7 @@ bool CRTree::saveTree(const char* filename) const {
 	  out << j << " " << ptLN->pfg.at(j) << " " << ptLN->vCenter.at(j).size() << " ";
 	  for(int i = 0; i < ptLN->vCenter.at(j).size(); ++i)
 	    out << ptLN->vCenter.at(j).at(i).x << " " << ptLN->vCenter.at(j).at(i).y
-		<< " ";	  
+		<< " ";
 	}
       }
       out << endl;
@@ -429,7 +426,7 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
       ptL->pfg.at(k) = 0;
     }
   }
-				  
+
   // ptL->vCenter.resize( TrainSet[0].size() );
   // ptL->vClass.resize( TrainSet[0].size() );
   // for(unsigned int i = 0; i<TrainSet[0].size(); ++i) {
@@ -439,7 +436,6 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
 				  
       
   ptL->vCenter.resize(nclass);
-  //ptL->vClass.resize(TrainSet.at(0).size());
   
   int count = 0;
 
@@ -451,9 +447,8 @@ void CRTree::makeLeaf(const std::vector<std::vector<CPatch> > &TrainSet, float p
       ptL->vCenter.at(i).push_back(patchPerClass.at(i).at(j).center);
   }
 
-
   patchPerClass.clear();
-  std::cout << "happa tukutta" << std::endl;
+  //std::cout << "happa tukutta" << std::endl;
   // Increase leaf counter
   ++num_leaf;
 }

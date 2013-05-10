@@ -9,9 +9,13 @@ pack/pack_1
 pack/pack_2
 pakuncho/pakuncho_1
 pakuncho/pakuncho_2
+<<<<<<< HEAD
 ornament/ornament_1
 ornament/ornament_2
 ornament/ornament_3
+=======
+
+>>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
 
 painomi/painomi_1
 painomi/painomi_2
@@ -21,3 +25,6 @@ koaramarch/koaramarch_3
 pakuncho/pakuncho_3
 cup/cup_1
 cup/cup_2
+ornament/ornament_1
+ornament/ornament_2
+ornament/ornament_3

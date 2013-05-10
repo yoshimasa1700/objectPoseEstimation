@@ -21,7 +21,7 @@ class CPatch
     //patch = image(cv::Rect(x, y, w, h));
   }
 
-  void setPatch(cv::Rect roi,const cv::vector<cv::Mat*> &image, std::vector<cv::Point> centerPoint, int cn){
+  void setPatch(cv::Rect roi,const cv::vector<cv::Mat*> &image, CDataset dataset, int cn){
     patch.clear();
     //vCenter.clear();
     //xstd::cout << image->size() << std::endl;
@@ -35,13 +35,26 @@ class CPatch
     //std::cout << patch.size() << std::endl;
     //p_image.push_back(&(image->at(i)));
     cv::Point tempPoint;
-    center.x =  centerPoint.at(0).x - roi.x - (roi.width/2);
-    center.y =  centerPoint.at(0).y - roi.y - (roi.height/2);
+    center.x =  dataset.centerPoint.at(0).x - roi.x - (roi.width/2);
+    center.y =  dataset.centerPoint.at(0).y - roi.y - (roi.height/2);
+
+    angle = dataset.angle;
+    detectedClass = -1;
   }
+
+  void setPosition(int x, int y){
+    position.x = x;
+    position.y = y;
+  }
+
+
   cv::Rect patchRoi;
+  cv::Point position;
   cv::Point center;
   cv::vector<cv::Mat*> patch;
   int classNum;
+  double angle;
+  int detectedClass;
   //std::vector<cv::Mat *> p_image;
 
   //HoG hog;
