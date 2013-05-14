@@ -7,6 +7,7 @@ CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: CRForest.h
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: CRTree.h
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: HoG.h
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -1406,6 +1407,8 @@ CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/boost/uti
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -1438,6 +1441,7 @@ CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: CPatch.h
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: CRTree.cpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: CRTree.h
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -2836,6 +2840,8 @@ CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/boost/utili
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -2900,6 +2906,7 @@ CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: CRTree.h
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: HoG.h
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: objectPoseEstimation.cpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -4299,6 +4306,8 @@ CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/inclu
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -4329,6 +4338,7 @@ CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o: /usr/local/inclu
 
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: util.cpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -5727,6 +5737,8 @@ CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/boost/utility
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/objectPoseEstimation.dir/util.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp

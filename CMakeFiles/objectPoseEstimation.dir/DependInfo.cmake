@@ -4,6 +4,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
+<<<<<<< HEAD
   "/Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp" "/Users/masahiko/Programs/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o"
   "/Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp" "/Users/masahiko/Programs/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o"
   "/Users/masahiko/Programs/objectPoseEstimation/HoG.cpp" "/Users/masahiko/Programs/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o"
@@ -11,6 +12,15 @@ SET(CMAKE_DEPENDS_CHECK_CXX
   "/Users/masahiko/Programs/objectPoseEstimation/util.cpp" "/Users/masahiko/Programs/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/util.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "Clang")
+=======
+  "/home/masahiko/Program/objectPoseEstimation/CRForest.cpp" "/home/masahiko/Program/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/CRForest.cpp.o"
+  "/home/masahiko/Program/objectPoseEstimation/CRTree.cpp" "/home/masahiko/Program/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/CRTree.cpp.o"
+  "/home/masahiko/Program/objectPoseEstimation/HoG.cpp" "/home/masahiko/Program/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/HoG.cpp.o"
+  "/home/masahiko/Program/objectPoseEstimation/objectPoseEstimation.cpp" "/home/masahiko/Program/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/objectPoseEstimation.cpp.o"
+  "/home/masahiko/Program/objectPoseEstimation/util.cpp" "/home/masahiko/Program/objectPoseEstimation/CMakeFiles/objectPoseEstimation.dir/util.cpp.o"
+  )
+SET(CMAKE_CXX_COMPILER_ID "GNU")
+>>>>>>> origin/master
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES

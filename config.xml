@@ -28,7 +28,7 @@
   <!-- Scale factor for output image-->
   <sfactor>20</sfactor>
   <!-- Path to training images -->
-  <trainimgpath>dataset</trainimgpath>
+  <trainimgpath>../dataset/rgbd-dataset</trainimgpath>
   <!-- Train data file name -->
   <traindataname>trainData.txt</traindataname>
   <!-- Train image per tree-->
@@ -42,15 +42,15 @@
   <!-- extract patch ratio-->
   <patchratio>200</patchratio>
   <!-- Stride -->
-  <stride>5</stride>
+  <stride>1</stride>
   <!-- Offset of tree-->
   <offTree>0</offTree>
   <!-- test data path -->
-  <testpath>dataset</testpath>
+  <testpath>../dataset/rgb-dataset</testpath>
   <testdataname>trainData.txt</testdataname>
   <classdatabasename>classDatabase</classdatabasename>
   <!--learning mode 1:depth 2:rgb 0:rgbd-->
   <learningmode>0</learningmode>
-  <traindatalistname>dataList1.txt</traindatalistname>
-  <testdatalistname>dataList2.txt</testdatalistname>
+  <traindatalistname>dataListInst1.txt</traindatalistname>
+  <testdatalistname>dataListInst2.txt</testdatalistname>
 </root>

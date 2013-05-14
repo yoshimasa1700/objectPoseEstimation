@@ -64,9 +64,14 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
   for(int i = 0; i < 32; ++i)
     vImg.at(i) = new cv::Mat(img->rows, img->cols, CV_8UC1);
 
+  std::cout << img->channels() << std::endl;
+  if(img->channels() < 3){
+    cv::namedWindow("test");
+    cv::imshow("test", *img);
+    cv::waitKey(0);
+    cv::destroyWindow("test");
+  }
 
-  //std::cout << img->channels() << std::endl;
-  
   cv::cvtColor(*img, *(vImg.at(0)), CV_BGR2GRAY);
 
 
@@ -85,7 +90,7 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
    /* cv::namedWindow("test"); */
    /* cv::imshow("test",*(vImg[3])); */
    /* cv::waitKey(0); */
-   /* cv::destroyWindow("test"); */
+   //cv::destroyWindow("test");
 
   // Orientation of gradients
   for(int  y = 0; y < img->rows; y++)
@@ -116,6 +121,7 @@ inline void CRForest::extractFeatureChannels(const cv::Mat* img, cv::vector<cv::
   cv::convertScaleAbs(I_y, *(vImg[6]), 0.25);
 
   cv::Mat img_Lab;
+
   cv::cvtColor(*img, img_Lab, CV_RGB2Lab);
   cv::vector<cv::Mat> tempVImg(3);
 

@@ -6,6 +6,7 @@
 
 #IncludeRegexTransform: 
 
+<<<<<<< HEAD
 /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
 util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
@@ -31,18 +32,79 @@ CPatch.h
 /Users/masahiko/Programs/objectPoseEstimation/CPatch.h
 util.h
 /Users/masahiko/Programs/objectPoseEstimation/util.h
+=======
+/home/masahiko/Program/objectPoseEstimation/CPatch.h
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+
+/home/masahiko/Program/objectPoseEstimation/CRForest.cpp
+boost/timer.hpp
+-
+CRForest.h
+/home/masahiko/Program/objectPoseEstimation/CRForest.h
+
+/home/masahiko/Program/objectPoseEstimation/CRForest.h
+CRTree.h
+/home/masahiko/Program/objectPoseEstimation/CRTree.h
+CPatch.h
+/home/masahiko/Program/objectPoseEstimation/CPatch.h
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+HoG.h
+/home/masahiko/Program/objectPoseEstimation/HoG.h
+
+/home/masahiko/Program/objectPoseEstimation/CRTree.cpp
+CRTree.h
+/home/masahiko/Program/objectPoseEstimation/CRTree.h
+
+/home/masahiko/Program/objectPoseEstimation/CRTree.h
+CPatch.h
+/home/masahiko/Program/objectPoseEstimation/CPatch.h
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+>>>>>>> origin/master
 ctime
 -
 cmath
 -
 
+<<<<<<< HEAD
 /Users/masahiko/Programs/objectPoseEstimation/HoG.h
+=======
+/home/masahiko/Program/objectPoseEstimation/HoG.cpp
+vector
+-
+iostream
+-
+HoG.h
+/home/masahiko/Program/objectPoseEstimation/HoG.h
+
+/home/masahiko/Program/objectPoseEstimation/HoG.h
+>>>>>>> origin/master
 opencv2/opencv.hpp
 -
 vector
 -
 
+<<<<<<< HEAD
 /Users/masahiko/Programs/objectPoseEstimation/util.h
+=======
+/home/masahiko/Program/objectPoseEstimation/objectPoseEstimation.cpp
+CRForest.h
+/home/masahiko/Program/objectPoseEstimation/CRForest.h
+opencv2/opencv.hpp
+-
+boost/timer.hpp
+-
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+
+/home/masahiko/Program/objectPoseEstimation/util.cpp
+util.h
+/home/masahiko/Program/objectPoseEstimation/util.h
+
+/home/masahiko/Program/objectPoseEstimation/util.h
+>>>>>>> origin/master
 iostream
 -
 vector
@@ -66,6 +128,7 @@ boost/lexical_cast.hpp
 boost/random.hpp
 -
 
+<<<<<<< HEAD
 /usr/local/include/boost/aligned_storage.hpp
 cstddef
 -
@@ -15204,6 +15267,8 @@ new
 boost/config.hpp
 -
 
+=======
+>>>>>>> origin/master
 /usr/local/include/opencv2/calib3d/calib3d.hpp
 opencv2/core/core.hpp
 /usr/local/include/opencv2/calib3d/opencv2/core/core.hpp

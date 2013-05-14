@@ -26,14 +26,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
+<<<<<<< HEAD
 CMAKE_COMMAND = /usr/local/Cellar/cmake/2.8.10.2/bin/cmake
 
 # The command to remove a file.
 RM = /usr/local/Cellar/cmake/2.8.10.2/bin/cmake -E remove -f
+=======
+CMAKE_COMMAND = /usr/bin/cmake
+
+# The command to remove a file.
+RM = /usr/bin/cmake -E remove -f
+>>>>>>> origin/master
 
 # Escaping for special characters.
 EQUALS = =
 
+<<<<<<< HEAD
 # The program to use to edit the cache.
 CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.10.2/bin/ccmake
 
@@ -42,6 +50,13 @@ CMAKE_SOURCE_DIR = /Users/masahiko/Programs/objectPoseEstimation
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /Users/masahiko/Programs/objectPoseEstimation
+=======
+# The top-level source directory on which CMake was run.
+CMAKE_SOURCE_DIR = /home/masahiko/Program/objectPoseEstimation
+
+# The top-level build directory on which CMake was run.
+CMAKE_BINARY_DIR = /home/masahiko/Program/objectPoseEstimation
+>>>>>>> origin/master
 
 # Include any dependencies generated for this target.
 include CMakeFiles/learning.dir/depend.make
@@ -54,6 +69,7 @@ include CMakeFiles/learning.dir/flags.make
 
 CMakeFiles/learning.dir/learning.cpp.o: CMakeFiles/learning.dir/flags.make
 CMakeFiles/learning.dir/learning.cpp.o: learning.cpp
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/learning.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/learning.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/learning.cpp
@@ -65,6 +81,19 @@ CMakeFiles/learning.dir/learning.cpp.i: cmake_force
 CMakeFiles/learning.dir/learning.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/learning.cpp.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/learning.cpp -o CMakeFiles/learning.dir/learning.cpp.s
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_1)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/learning.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/learning.cpp.o -c /home/masahiko/Program/objectPoseEstimation/learning.cpp
+
+CMakeFiles/learning.dir/learning.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/learning.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/masahiko/Program/objectPoseEstimation/learning.cpp > CMakeFiles/learning.dir/learning.cpp.i
+
+CMakeFiles/learning.dir/learning.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/learning.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/masahiko/Program/objectPoseEstimation/learning.cpp -o CMakeFiles/learning.dir/learning.cpp.s
+>>>>>>> origin/master
 
 CMakeFiles/learning.dir/learning.cpp.o.requires:
 .PHONY : CMakeFiles/learning.dir/learning.cpp.o.requires
@@ -77,6 +106,7 @@ CMakeFiles/learning.dir/learning.cpp.o.provides.build: CMakeFiles/learning.dir/l
 
 CMakeFiles/learning.dir/CRForest.cpp.o: CMakeFiles/learning.dir/flags.make
 CMakeFiles/learning.dir/CRForest.cpp.o: CRForest.cpp
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CRForest.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CRForest.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp
@@ -88,6 +118,19 @@ CMakeFiles/learning.dir/CRForest.cpp.i: cmake_force
 CMakeFiles/learning.dir/CRForest.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CRForest.cpp.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/CRForest.cpp -o CMakeFiles/learning.dir/CRForest.cpp.s
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CRForest.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CRForest.cpp.o -c /home/masahiko/Program/objectPoseEstimation/CRForest.cpp
+
+CMakeFiles/learning.dir/CRForest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/CRForest.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/masahiko/Program/objectPoseEstimation/CRForest.cpp > CMakeFiles/learning.dir/CRForest.cpp.i
+
+CMakeFiles/learning.dir/CRForest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CRForest.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/masahiko/Program/objectPoseEstimation/CRForest.cpp -o CMakeFiles/learning.dir/CRForest.cpp.s
+>>>>>>> origin/master
 
 CMakeFiles/learning.dir/CRForest.cpp.o.requires:
 .PHONY : CMakeFiles/learning.dir/CRForest.cpp.o.requires
@@ -100,6 +143,7 @@ CMakeFiles/learning.dir/CRForest.cpp.o.provides.build: CMakeFiles/learning.dir/C
 
 CMakeFiles/learning.dir/util.cpp.o: CMakeFiles/learning.dir/flags.make
 CMakeFiles/learning.dir/util.cpp.o: util.cpp
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/util.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/util.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/util.cpp
@@ -111,6 +155,19 @@ CMakeFiles/learning.dir/util.cpp.i: cmake_force
 CMakeFiles/learning.dir/util.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/util.cpp.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/util.cpp -o CMakeFiles/learning.dir/util.cpp.s
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/util.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/util.cpp.o -c /home/masahiko/Program/objectPoseEstimation/util.cpp
+
+CMakeFiles/learning.dir/util.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/util.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/masahiko/Program/objectPoseEstimation/util.cpp > CMakeFiles/learning.dir/util.cpp.i
+
+CMakeFiles/learning.dir/util.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/util.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/masahiko/Program/objectPoseEstimation/util.cpp -o CMakeFiles/learning.dir/util.cpp.s
+>>>>>>> origin/master
 
 CMakeFiles/learning.dir/util.cpp.o.requires:
 .PHONY : CMakeFiles/learning.dir/util.cpp.o.requires
@@ -123,6 +180,7 @@ CMakeFiles/learning.dir/util.cpp.o.provides.build: CMakeFiles/learning.dir/util.
 
 CMakeFiles/learning.dir/CRTree.cpp.o: CMakeFiles/learning.dir/flags.make
 CMakeFiles/learning.dir/CRTree.cpp.o: CRTree.cpp
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CRTree.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CRTree.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp
@@ -134,6 +192,19 @@ CMakeFiles/learning.dir/CRTree.cpp.i: cmake_force
 CMakeFiles/learning.dir/CRTree.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CRTree.cpp.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/CRTree.cpp -o CMakeFiles/learning.dir/CRTree.cpp.s
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/CRTree.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/CRTree.cpp.o -c /home/masahiko/Program/objectPoseEstimation/CRTree.cpp
+
+CMakeFiles/learning.dir/CRTree.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/CRTree.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/masahiko/Program/objectPoseEstimation/CRTree.cpp > CMakeFiles/learning.dir/CRTree.cpp.i
+
+CMakeFiles/learning.dir/CRTree.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/CRTree.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/masahiko/Program/objectPoseEstimation/CRTree.cpp -o CMakeFiles/learning.dir/CRTree.cpp.s
+>>>>>>> origin/master
 
 CMakeFiles/learning.dir/CRTree.cpp.o.requires:
 .PHONY : CMakeFiles/learning.dir/CRTree.cpp.o.requires
@@ -146,6 +217,7 @@ CMakeFiles/learning.dir/CRTree.cpp.o.provides.build: CMakeFiles/learning.dir/CRT
 
 CMakeFiles/learning.dir/HoG.cpp.o: CMakeFiles/learning.dir/flags.make
 CMakeFiles/learning.dir/HoG.cpp.o: HoG.cpp
+<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_report /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/HoG.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/HoG.cpp.o -c /Users/masahiko/Programs/objectPoseEstimation/HoG.cpp
@@ -157,6 +229,19 @@ CMakeFiles/learning.dir/HoG.cpp.i: cmake_force
 CMakeFiles/learning.dir/HoG.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/HoG.cpp.s"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /Users/masahiko/Programs/objectPoseEstimation/HoG.cpp -o CMakeFiles/learning.dir/HoG.cpp.s
+=======
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/masahiko/Program/objectPoseEstimation/CMakeFiles $(CMAKE_PROGRESS_5)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/learning.dir/HoG.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/learning.dir/HoG.cpp.o -c /home/masahiko/Program/objectPoseEstimation/HoG.cpp
+
+CMakeFiles/learning.dir/HoG.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/learning.dir/HoG.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/masahiko/Program/objectPoseEstimation/HoG.cpp > CMakeFiles/learning.dir/HoG.cpp.i
+
+CMakeFiles/learning.dir/HoG.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/learning.dir/HoG.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/masahiko/Program/objectPoseEstimation/HoG.cpp -o CMakeFiles/learning.dir/HoG.cpp.s
+>>>>>>> origin/master
 
 CMakeFiles/learning.dir/HoG.cpp.o.requires:
 .PHONY : CMakeFiles/learning.dir/HoG.cpp.o.requires
@@ -184,6 +269,7 @@ learning-1.0.0: CMakeFiles/learning.dir/util.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/CRTree.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/HoG.cpp.o
 learning-1.0.0: CMakeFiles/learning.dir/build.make
+<<<<<<< HEAD
 learning-1.0.0: /usr/local/lib/libopencv_calib3d.dylib
 learning-1.0.0: /usr/local/lib/libopencv_contrib.dylib
 learning-1.0.0: /usr/local/lib/libopencv_core.dylib
@@ -203,6 +289,25 @@ learning-1.0.0: /usr/local/lib/libopencv_superres.dylib
 learning-1.0.0: /usr/local/lib/libopencv_ts.dylib
 learning-1.0.0: /usr/local/lib/libopencv_video.dylib
 learning-1.0.0: /usr/local/lib/libopencv_videostab.dylib
+=======
+learning-1.0.0: /usr/local/lib/libopencv_calib3d.so
+learning-1.0.0: /usr/local/lib/libopencv_contrib.so
+learning-1.0.0: /usr/local/lib/libopencv_core.so
+learning-1.0.0: /usr/local/lib/libopencv_features2d.so
+learning-1.0.0: /usr/local/lib/libopencv_flann.so
+learning-1.0.0: /usr/local/lib/libopencv_gpu.so
+learning-1.0.0: /usr/local/lib/libopencv_highgui.so
+learning-1.0.0: /usr/local/lib/libopencv_imgproc.so
+learning-1.0.0: /usr/local/lib/libopencv_legacy.so
+learning-1.0.0: /usr/local/lib/libopencv_ml.so
+learning-1.0.0: /usr/local/lib/libopencv_nonfree.so
+learning-1.0.0: /usr/local/lib/libopencv_objdetect.so
+learning-1.0.0: /usr/local/lib/libopencv_photo.so
+learning-1.0.0: /usr/local/lib/libopencv_stitching.so
+learning-1.0.0: /usr/local/lib/libopencv_ts.so
+learning-1.0.0: /usr/local/lib/libopencv_video.so
+learning-1.0.0: /usr/local/lib/libopencv_videostab.so
+>>>>>>> origin/master
 learning-1.0.0: CMakeFiles/learning.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable learning"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/learning.dir/link.txt --verbose=$(VERBOSE)
@@ -226,6 +331,10 @@ CMakeFiles/learning.dir/clean:
 .PHONY : CMakeFiles/learning.dir/clean
 
 CMakeFiles/learning.dir/depend:
+<<<<<<< HEAD
 	cd /Users/masahiko/Programs/objectPoseEstimation && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/masahiko/Programs/objectPoseEstimation /Users/masahiko/Programs/objectPoseEstimation /Users/masahiko/Programs/objectPoseEstimation /Users/masahiko/Programs/objectPoseEstimation /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles/learning.dir/DependInfo.cmake --color=$(COLOR)
+=======
+	cd /home/masahiko/Program/objectPoseEstimation && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/masahiko/Program/objectPoseEstimation /home/masahiko/Program/objectPoseEstimation /home/masahiko/Program/objectPoseEstimation /home/masahiko/Program/objectPoseEstimation /home/masahiko/Program/objectPoseEstimation/CMakeFiles/learning.dir/DependInfo.cmake --color=$(COLOR)
+>>>>>>> origin/master
 .PHONY : CMakeFiles/learning.dir/depend
 

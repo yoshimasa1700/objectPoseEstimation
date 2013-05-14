@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- Number of trees -->
-  <ntree>10</ntree>
-  <!-- Patch width -->
-  <pwidth>16</pwidth>
-  <pheight>16</pheight>
-</root>

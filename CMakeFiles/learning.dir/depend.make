@@ -7,6 +7,7 @@ CMakeFiles/learning.dir/CRForest.cpp.o: CRForest.h
 CMakeFiles/learning.dir/CRForest.cpp.o: CRTree.h
 CMakeFiles/learning.dir/CRForest.cpp.o: HoG.h
 CMakeFiles/learning.dir/CRForest.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -1406,6 +1407,8 @@ CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/utility/result_
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/learning.dir/CRForest.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -1438,6 +1441,7 @@ CMakeFiles/learning.dir/CRTree.cpp.o: CPatch.h
 CMakeFiles/learning.dir/CRTree.cpp.o: CRTree.cpp
 CMakeFiles/learning.dir/CRTree.cpp.o: CRTree.h
 CMakeFiles/learning.dir/CRTree.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -2836,6 +2840,8 @@ CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/utility/result_of
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/learning.dir/CRTree.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -2900,6 +2906,7 @@ CMakeFiles/learning.dir/learning.cpp.o: CRTree.h
 CMakeFiles/learning.dir/learning.cpp.o: HoG.h
 CMakeFiles/learning.dir/learning.cpp.o: learning.cpp
 CMakeFiles/learning.dir/learning.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -4298,6 +4305,8 @@ CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/utility/result_
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp
@@ -4328,6 +4337,7 @@ CMakeFiles/learning.dir/learning.cpp.o: /usr/local/include/opencv2/video/video.h
 
 CMakeFiles/learning.dir/util.cpp.o: util.cpp
 CMakeFiles/learning.dir/util.cpp.o: util.h
+<<<<<<< HEAD
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/boost/aligned_storage.hpp
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/boost/any.hpp
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/boost/archive/archive_exception.hpp
@@ -5726,6 +5736,8 @@ CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/boost/utility/result_of.h
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/boost/utility/swap.hpp
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/boost/utility/value_init.hpp
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/boost/visit_each.hpp
+=======
+>>>>>>> origin/master
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp
 CMakeFiles/learning.dir/util.cpp.o: /usr/local/include/opencv2/contrib/openfabmap.hpp

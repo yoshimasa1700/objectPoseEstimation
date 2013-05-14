@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 10
+=======
+13
+bottle/bottle_1
+>>>>>>> origin/master
 bottle/bottle_2
 bottle/bottle_1
 can/can_1
@@ -9,7 +14,13 @@ pack/pack_1
 pack/pack_2
 pakuncho/pakuncho_1
 pakuncho/pakuncho_2
+<<<<<<< HEAD
+ornament/ornament_1
+ornament/ornament_2
+ornament/ornament_3
+=======
 
+>>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
 
 painomi/painomi_1
 painomi/painomi_2

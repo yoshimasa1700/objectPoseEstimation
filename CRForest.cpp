@@ -68,8 +68,9 @@ void CRForest::growATree(const int treeNum){
     // cv::imshow("test",*(images.at(j).at(0)));
     // cv::waitKey(0);
     // cv::destroyWindow("test");
-
-    //extract features
+    //std::cout << "image num is " << j << std::endl;
+    //std::cout << dataSet.at(j).className;
+     //extract features
     extractFeatureChannels(images.at(j).at(0), tempFeature);
     // add depth image to features
     tempFeature.push_back(images.at(j).at(1));
@@ -555,6 +556,12 @@ void CRForest::loadImages(cv::vector<cv::vector<cv::Mat *> > &img, std::vector<C
     // load RGB image
     *rgb = cv::imread(dataSet.at(i).imageFilePath
 		      + dataSet.at(i).rgbImageName,3).clone();
+
+    if(rgb->channels() < 3 ){
+      std::cout << dataSet.at(i).rgbImageName << std::endl;
+      exit(0);
+    }
+
 
     //std::cout << dataSet.at(i).rgbImageName << " " << rgb->channels() << std::endl;
     // load Depth image
