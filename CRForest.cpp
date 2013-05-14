@@ -335,11 +335,8 @@ void CRForest::extractAllPatches(const CDataset &dataSet, const cv::vector<cv::M
 	}
 	
 	tPatch.setPatch(temp, image, dataSet, classNum);
-<<<<<<< HEAD
-=======
 
 	tPatch.setPosition(j,k);
->>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
 	patches.push_back(tPatch);
     }
   }
@@ -356,14 +353,6 @@ void CRForest::loadForest(){
 }
 
 void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &image, std::vector<double> &detectionResult, int &detectClass) const{
-<<<<<<< HEAD
-  
-=======
-
-
-
-
->>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
   //contain class number
   int classNum = classDatabase.vNode.size();
   cv::vector<cv::Mat> scaledImage;
@@ -498,12 +487,6 @@ void CRForest::detection(const CDataset &dataSet, const cv::vector<cv::Mat*> &im
       p[0] = 200;
         }
     }
-
-
-  cv::namedWindow("test");
-  cv::imshow("test",outputImage);
-  cv::waitKey(0);
-  cv::destroyWindow("test");
   
   //for(int i = 0; i < classNum; ++i){
   if(dataSet.className == classDatabase.vNode.at(maxResult).name){

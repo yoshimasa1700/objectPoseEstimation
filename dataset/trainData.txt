@@ -1,6 +1,6 @@
 10
-bottle/bottle_1
 bottle/bottle_2
+bottle/bottle_1
 can/can_1
 can/can_2
 koaramarch/koaramarch_1

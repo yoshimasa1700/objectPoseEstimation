@@ -42,17 +42,10 @@ EQUALS = =
 CMAKE_EDIT_COMMAND = /usr/local/Cellar/cmake/2.8.10.2/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-<<<<<<< HEAD
 CMAKE_SOURCE_DIR = /Users/masahiko/Programs/objectPoseEstimation
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /Users/masahiko/Programs/objectPoseEstimation
-=======
-CMAKE_SOURCE_DIR = /Users/masahiko/Programs/objectPoseEstimation_with_qt
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/masahiko/Programs/objectPoseEstimation_with_qt
->>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -79,15 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-<<<<<<< HEAD
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation/CMakeFiles 0
-=======
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation_with_qt/CMakeFiles /Users/masahiko/Programs/objectPoseEstimation_with_qt/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/masahiko/Programs/objectPoseEstimation_with_qt/CMakeFiles 0
->>>>>>> 5d010d253c6c2d8d89b4eb96bcd37f2a3bac2e0d
 .PHONY : all
 
 # The main clean target
